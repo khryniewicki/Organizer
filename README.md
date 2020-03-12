@@ -10,9 +10,9 @@ Sprawdź : organizer.khryniewicki.com.pl
 
 ______________________________________________________________________________________________________________________________________________________________________________
 
-An organizer is a project management application that allows you to easily create a work schedule and track progress. The application is based on the Jira software.
+Organizer is a project management application that allows you to easily create a work schedule and track progress. The application is based on the Jira software.
 The application uses, among others Java, Spring, Hibernate, SQL, Thymeleaf and JavaScript.
-The organizer has functionalities:
+Organizer has many functionalities, such as:
 - user registration and login
 - adding / modifying projects and sprints
 - delegating tasks, setting task priorities
