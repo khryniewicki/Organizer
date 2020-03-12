@@ -1,0 +1,29 @@
+#projectIMG{
+    /*background-image: url("/img/steam.png");*/
+    background-size: cover;
+    height: 40px!important;
+    width: 40px!important;
+    position: relative;
+    margin: 0!important;
+}
+#ProjectTitle{
+    position: relative;
+    float: left;
+    margin: 0;
+    padding: 0;
+
+}
+#projectDescription{
+    position: relative;
+    float: left;
+}
+#ProjectIcon{
+    position: relative;
+    float: right;
+    right: 0!important;
+}
+#buttonWithProjects{
+    min-width: 150px ;
+    width: 100%;
+    text-align: left;
+}

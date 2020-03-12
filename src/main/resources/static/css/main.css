@@ -1,0 +1,45 @@
+#tablePROGRESS{
+    background-color: #FFFFFF;
+    min-width: 150px;
+    width: 15%;
+    padding: 1px;
+    margin: 2px!important;
+    float: left;
+}
+#board{
+    display: inline;
+}
+.thead-light {
+    text-align: center;
+    background-color: #E4E4E4;
+}
+.card{
+    min-width: 120px;
+    min-height: 80px;
+    height: 80px;
+    width: 100%;
+    margin: 0;
+    padding: 1px;
+}
+tr{
+    margin: 0 0 0 0;
+   }
+td{
+    margin: 2px 0 2px 0 ;
+}
+table{
+    margin: 0 0 0 0!important;
+}
+.empty_card{
+    position: relative;
+    background-color: #F4F4F4;
+    border-style: dotted;
+    height: 95px;
+    visibility:hidden;
+}
+#showWindowAddingCard{
+    height: 500px;
+    width: 500px;
+    background-color: #fcf8e3;
+    color: black;
+}

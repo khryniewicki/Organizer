@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+
+<body>
+
+<div th:fragment="projectbar(projectList)">
+    <button id="buttonWithProjects" class="btn btn-primary ">
+
+            <img src="img/steam.png" id="projectIMG" class="d-inline">
+            <b>
+                <p th:id="projectTitle" th:text="${projectList.get(0).name} " class="d-inline"></p>
+            </b>
+
+        <div>
+            <h7 th:id="projectDescription"  th:text="${projectList.get(0).description}" class="d-inline"></h7>
+            <i th:id="projectIcon" class="fas fa-arrow-down d-inline" data-toggle="tooltip" title="Wybierz inny projekt" ></i>
+        </div>
+
+    </button>
+
+
+</div>
+<script src="webjars/jquery/3.4.1/jquery.min.js"></script>
+
+</body>
+</html>

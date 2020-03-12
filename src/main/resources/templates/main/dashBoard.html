@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+        <html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+              layout:decorate="~{layout.html}">
+
+        <th:block layout:fragment="content">
+            <div class="container-fluid">
+
+        <div id="board" >
+            <div id="tablePROGRESS" th:each="step:${progress_steps}">
+                <div class="d-inline table-responsive">
+                    <div class="thead-light">
+                        <p th:text="${step.name}"></p>
+                    </div>
+                    <div th:id="${'container_'+step.name}">
+                        <div th:id="${step.name}" class="card" draggable="true" ondragstart="drag(event)" ondragend="hideAll()" >
+                            <div class="card-body">
+                                <h6 class="card-title">Dashboard</h6>
+                                <div class="card-text"></div>
+                                <div href="#" class="badge badge-success"><i class="fas fa-steam-symbol"
+                                                                             data-toggle="tooltip"
+                                                                             title="story"></i></div>
+                                <div href="#" class="badge badge-light"><i class="fas fa-arrow-up"
+                                                                           data-toggle="tooltip"
+                                                                           title="priorytet"></i></div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div th:id="${'empty_'+step.name}" th:class="empty_card" ondrop="drop(event)" ondragover="allowDrop(event)"  >
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+</th:block>
+<th:block layout:fragment="scripts">
+    <script src="js/dragAndDrop.js"></script>
+</th:block>

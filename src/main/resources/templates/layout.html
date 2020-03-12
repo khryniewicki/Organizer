@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE"></title>
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/layout.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/projectBar.css}"/>
+
+    <script src="https://kit.fontawesome.com/714c995d82.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div id="tools">
+        <div th:replace="fragments/tools :: tools">...</div>
+    </div>
+
+    <div id="project_menu">
+        <div th:replace="fragments/project_menu :: projectbar(${projectList})">...</div>
+    </div>
+    <div id="main">
+        <section layout:fragment="content">
+            <p>This is filled by the content template.</p>
+        </section>
+    </div>
+
+</div>
+</body>
+<script src="webjars/jquery/3.4.1/jquery.min.js"></script>
+<section layout:fragment="scripts">
+    <p>This is filled by the content template.</p>
+</section>
+
+</html>

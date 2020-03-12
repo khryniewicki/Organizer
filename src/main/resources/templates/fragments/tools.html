@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+<body>
+
+<div th:fragment="tools">
+    <button type="button" id="addCard" class="btn btn-info  btn-circle  form-control" data-toggle="tooltip"
+            title="Utwórz"><i class="fas fa-plus-square"></i></button>
+    <button type="button" class="btn btn-info  btn-circle  form-control">
+        <i class="fas fa-search" data-toggle="tooltip" title="Wyszukaj"></i></button>
+
+</div>
+
+<script src="webjars/jquery/3.4.1/jquery.min.js"></script>
+
+</body>
+</html>
