@@ -4,4 +4,4 @@ Organizer posiada funckjonalności:
 - rejestracji i logowania użytkownika
 - dodawania/modyfikacji projektów  oraz sprintów
 - delegowania zadań, ustawiania priorytetów zadań
-- zmianę postępoów zadań
+- zmianę postępów zadań
