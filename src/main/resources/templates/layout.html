@@ -15,7 +15,7 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div id="tools">
+    <div id="tools" class="bg-info">
         <div th:replace="fragments/tools :: tools">...</div>
     </div>
 
@@ -23,6 +23,10 @@
         <div th:replace="fragments/project_menu :: projectbar(${projectList})">...</div>
     </div>
     <div id="main">
+        <div id="add_card">
+            <div th:replace="fragments/add_card :: addCard(${newTask},${projectList},${progress_steps},${sprintList})">...</div>
+        </div>
+        <section layout:fragment="edit_card"></section>
         <section layout:fragment="content">
             <p>This is filled by the content template.</p>
         </section>
@@ -31,6 +35,7 @@
 </div>
 </body>
 <script src="webjars/jquery/3.4.1/jquery.min.js"></script>
+<script src="webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <section layout:fragment="scripts">
     <p>This is filled by the content template.</p>
 </section>

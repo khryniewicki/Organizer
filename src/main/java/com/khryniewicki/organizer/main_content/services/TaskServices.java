@@ -5,13 +5,17 @@ import com.khryniewicki.organizer.main_content.model.repositories.TaskRepository
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @RequiredArgsConstructor
 @Service
 public class TaskServices {
-
+    private final SprintService sprintService;
     private final TaskRepository taskRepository;
-
+    private final ProgressServices progressServices;
     public void saveTask(Task task) {
+        task.setProgress(progressServices.findAllProgress().get(0).getName());
+
         taskRepository.save(task);
     }
 
@@ -22,15 +26,20 @@ public class TaskServices {
     public void updateTask(Task updatedTask, Long id) {
         Task task = findTask(id);
         task.setDescription(updatedTask.getDescription());
-        task.setName(task.getName());
+        task.setName(updatedTask.getName());
+        if (updatedTask.getProgress()!=null) task.setProgress(updatedTask.getProgress());
         task.setPriority(updatedTask.getPriority());
-        task.setProgress(updatedTask.getProgress());
+
         task.setSprint(updatedTask.getSprint());
         task.setStoryPoints(updatedTask.getStoryPoints());
         task.setUsers(updatedTask.getUsers());
         taskRepository.save(task);
     }
 
+
+    public List<Task> taskListBySprintId (Long id){
+       return taskRepository.findAllBySprint(sprintService.findById(id));
+    }
     public void deleteTask(Long id) {
        taskRepository.deleteById(id);
     }

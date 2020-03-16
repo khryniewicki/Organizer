@@ -2,10 +2,8 @@ package com.khryniewicki.organizer.main_content.model;
 
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -16,4 +14,5 @@ public class Project {
     private String name;
     private String description;
     private String admin;
+
 }

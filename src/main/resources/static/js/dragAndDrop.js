@@ -6,23 +6,35 @@ function allowDrop(ev) {
 
 function drag(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
+
     [].forEach.call(empty_card_class, function (el) {
-        if (el.id.slice(6) !== ev.target.id) {
-            el.style.visibility = 'visible';
+        console.log('slice: '+el.id.slice(6)+ ' target.id: '+ev.target.id);
+        if (!(ev.target.id).includes(el.id.slice(6))) {
+            el.style.display = 'block';
+
         }
     });}
 
 function drop(ev) {
     ev.preventDefault();
     let data = ev.dataTransfer.getData("text");
-    let container = document.getElementById('container' + (ev.target.id.slice(5)));
-    container.appendChild(document.getElementById(data));
+    let newContainerName=ev.target.id.slice(6);
+    let container = document.getElementById('container_' + newContainerName);
+    container.append(document.getElementById(data));
+    let el_id = data.replace(/(.*)_/,'');
+    document.getElementById(data).setAttribute('id',newContainerName+'_'+el_id);
+    $.get({
+        url: "/task/"+el_id+"/" + newContainerName,
+            success: function (data) {
+                console.log("update task status: success")
+        }
+    });
     [].forEach.call(empty_card_class, function (el) {
-        el.style.visibility = 'hidden'
+        el.style.display = 'none'
     });
 }
 
 function hideAll() {
         [].forEach.call(empty_card_class, function (el) {
-            el.style.visibility = 'hidden'
+            el.style.display = 'none'
         });}

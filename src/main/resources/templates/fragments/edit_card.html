@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+
+<th:block layout:fragment="edit_card">
+    <div class="modal fade" id="myEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edytuj zgłoszenie</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form th:action="@{${#request.getRequestURI()}(id=${#request.getParameter('id')})}" th:object="${oldTask}" method="post">
+                    <div class="modal-body">
+                        <div class='form-group'>
+                            <label for='project'> Projekt*</label>
+                            <select id='project' th:field="${newTask.project_name}">
+                                <option th:each="project:${projectList}"
+                                        th:value="${project.name}"
+                                        th:text="${project.name}"
+                                ></option>
+                            </select></div>
+                        <br>
+
+                        <div class='form-group'><label for='NotificationType'> Typ zgłoszenia*</label>
+                            <select id='NotificationType' th:field="${oldTask.typeOfStory}">
+                                <option th:each="type:${T(com.khryniewicki.organizer.main_content.model.TypeOfStory).values()}"
+                                        th:value="${type}"
+                                        th:text="${type}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class='form-group'>
+                            <label for='sprint'> Sprint*</label>
+                            <select id='sprint' th:field="${oldTask.sprint}">
+                                <option th:each="sprint:${sprintList}"
+                                        th:value="${sprint.idSprint}"
+                                        th:text="${sprint.name}"
+                                ></option>
+                            </select></div>
+                        <br>
+                        <div class='form-group'>
+                            <label for='inputName'> Podsumowanie*</label>
+                            <input id='inputName' class='form-control' type='text' th:field="${oldTask.name}">
+                        </div>
+
+                        <div class='form-group'><label for='inputDescription'> Opis</label>
+                            <input id='inputDescription' class='form-control' type='text'
+                                   th:field="${oldTask.description}"></div>
+
+                        <div class='form-group'><label for='Priority'> Priorytet</label>
+                            <select id='Priority' th:field="${oldTask.priority}">
+                                <option th:each="priority:${T(com.khryniewicki.organizer.main_content.model.Priority).values()}"
+                                        th:value="${priority}"
+                                        th:text="${priority}"
+                                ></option>
+                            </select>
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Edytuj</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Zakończ</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</th:block>
+<th:block layout:fragment="content">
+    <div class="container-fluid" id="dashBoard">
+        <br>
+
+        <div id="dashBoardRef"><h6
+                th:text="${'Projekty/'+taskList.get(0).project_name+'/'+taskList.get(0).sprint.name}"></h6></div>
+
+        <div><h4>Tablica Kanban</h4></div>
+        <br>
+        <div id="board">
+            <div id="tablePROGRESS" th:each="step:${progress_steps}">
+                <div class="d-inline table-responsive">
+
+                    <div class="thead-light" th:text="${step.name}">
+                    </div>
+                    <div th:id="${'container_'+step.name}" class="cardBox">
+                        <div th:each="task:${taskList}">
+                            <div th:if="${task.progress==step.name}">
+                                <div th:id="${task.progress+'_'+ task.idTask}" class="" draggable="true"
+                                     ondragstart="drag(event)"
+                                     ondragend="hideAll()"
+                                     th:classappend="${
+                                  (task.priority==T(com.khryniewicki.organizer.main_content.model.Priority).LOW ? 'card  bg-light': '')
+                                 +(task.priority==T(com.khryniewicki.organizer.main_content.model.Priority).MEDIUM ? 'card text-white bg-primary': '')
+                                 +(task.priority==T(com.khryniewicki.organizer.main_content.model.Priority).HIGH  ? 'card text-white bg-warning': '')
+                                 +(task.priority==T(com.khryniewicki.organizer.main_content.model.Priority).URGENT  ? 'card text-white bg-danger': '')} ">
+
+                                    <div class="card-body ">
+                                        <h6 class="card-title" th:text="${task.name}"></h6>
+                                        <div class="card-text"></div>
+                                        <div id="icons" class="d-inline">
+                                            <div href="#"
+                                                 th:classappend="${
+                                             (task.typeOfStory==T(com.khryniewicki.organizer.main_content.model.TypeOfStory).STORY ?'badge badge-success': '' )
+                                            +(task.typeOfStory==T(com.khryniewicki.organizer.main_content.model.TypeOfStory).BUG ?'badge badge-danger': '' )}">
+
+                                                <i class="" data-toggle="tooltip"
+                                                   th:title="${task.typeOfStory.toString().toLowerCase()}"
+                                                   th:classappend="${(task.typeOfStory==T(com.khryniewicki.organizer.main_content.model.TypeOfStory).STORY ?'fas fa-steam-symbol': '' )+
+                                                                   (task.typeOfStory==T(com.khryniewicki.organizer.main_content.model.TypeOfStory).BUG ?'fas fa-bug': '' )}"></i>
+                                            </div>
+
+                                            <div href="#" class="badge badge-light ">
+                                                <i class="fas fa-arrow-up" data-toggle="tooltip"
+                                                   th:title="${task.priority}"></i></div>
+
+
+                                            <a th:href="@{/edittask(id=${task.idTask})}"
+                                               class="badge badge-secondary ">
+                                                <i class="fas fa-cog" data-toggle="modal" data-target="#myEdit" th:title="edit"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div th:id="${'empty_'+step.name}" th:class="empty_card" ondrop="drop(event)"
+                         ondragover="allowDrop(event)">
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+</th:block>
+<th:block layout:fragment="scripts">
+    <script src="js/editNewTask.js"></script>
+</th:block>
