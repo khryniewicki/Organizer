@@ -13,6 +13,7 @@ public class AddCard {
 
     @GetMapping("/addcard")
     public String addCard(Model model) {
+        System.out.println("fetch check");
         return "main/addCard";
     }
     @PostMapping ("/addcard")
