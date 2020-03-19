@@ -8,7 +8,9 @@ import com.khryniewicki.organizer.main_content.model.repositories.UserRepository
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.stream.IntStream;
 
 @RequiredArgsConstructor
 @Service
@@ -26,5 +28,9 @@ public class HrefService {
     public Project getLastProject(){
         List<Href> all = hrefRepository.findAll();
         return projectService.findProject(all.get(all.size() - 1).getName());
+
     }
+
 }
+
+

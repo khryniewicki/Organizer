@@ -34,7 +34,8 @@
 .card {
     min-width: 12vh;
     min-height: 80px;
-    height: 80px;
+    height: auto;
+    max-height: 120px;
     width: 100%;
     margin: 0 0 3px 0!important;
     padding: 1px;
@@ -55,8 +56,6 @@ table {
 .empty_card {
     position: relative;
     background-color: #F2F2F2;
-    /*border-style: dotted;*/
-
 
     background-image: linear-gradient(to right, darkgray 20%, #F4F4F4 80%);
     background-position: top;
@@ -66,6 +65,7 @@ table {
     border-width: 2px;
     border-style: dashed;
     height: 80px;
+    max-height: 120px;
     display: none;
     margin: 0;
     padding: 1px;
