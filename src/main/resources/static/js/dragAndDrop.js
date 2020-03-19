@@ -38,3 +38,5 @@ function hideAll() {
         [].forEach.call(empty_card_class, function (el) {
             el.style.display = 'none'
         });}
+////
+$('.dropdown-toggle').dropdown();

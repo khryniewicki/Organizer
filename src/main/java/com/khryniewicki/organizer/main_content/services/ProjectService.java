@@ -1,7 +1,7 @@
 package com.khryniewicki.organizer.main_content.services;
 
 import com.khryniewicki.organizer.main_content.model.Project;
-import com.khryniewicki.organizer.main_content.model.repositories.ProjektRepository;
+import com.khryniewicki.organizer.main_content.model.repositories.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +10,9 @@ import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
-public class ProjectBarServices {
+public class ProjectService {
 
-    private final ProjektRepository projektRepository;
+    private final ProjectRepository projektRepository;
 
     public void saveProject (Project project){
         projektRepository.save(project);

@@ -26,10 +26,12 @@
                     <div class="modal-body">
                         <div class='form-group'>
                             <label for='project'> Projekt*</label>
-                            <select id='project' th:field="${newTask.project_name}">
+                            <select id='project' th:field="${newTask.project}">
                                 <option th:each="project:${projectList}"
                                         th:value="${project.name}"
                                         th:text="${project.name}"
+                                        th:selected="${project.name==newTask.project}"
+
                                 ></option>
                             </select></div>
                         <br>
@@ -79,7 +81,5 @@
                 </form>
             </div>
         </div>
-
-
     </div>
 </div>

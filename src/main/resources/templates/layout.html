@@ -15,12 +15,12 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div id="tools" class="bg-info">
+    <div id="tools" class="bg-primary justify-content-center">
         <div th:replace="fragments/tools :: tools">...</div>
     </div>
 
     <div id="project_menu">
-        <div th:replace="fragments/project_menu :: projectbar(${projectList})">...</div>
+        <div th:replace="fragments/project_menu :: projectbar(${projectList},${ActualDashBoard})">...</div>
     </div>
     <div id="main">
         <div id="add_card">
@@ -35,7 +35,8 @@
 </div>
 </body>
 <script src="webjars/jquery/3.4.1/jquery.min.js"></script>
-<script src="webjars/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script src="webjars/bootstrap/4.4.1/js/bootstrap.bundle.js"></script>
+
 <section layout:fragment="scripts">
     <p>This is filled by the content template.</p>
 </section>

@@ -20,7 +20,9 @@ public class Task {
     @ManyToOne
     @JsonIgnore
     private Sprint sprint;
-    private String project_name;
+    @ManyToOne
+    @JsonIgnore
+    private Project project;
     @Enumerated
     private Priority priority;
     private Long storyPoints;
@@ -37,13 +39,11 @@ public class Task {
                 "idTask=" + idTask +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
-
-                ", project_name='" + project_name + '\'' +
                 ", priority=" + priority +
                 ", storyPoints=" + storyPoints +
                 ", typeOfStory=" + typeOfStory +
                 ", progress='" + progress + '\'' +
-
+                ", users=" + users +
                 '}';
     }
 }

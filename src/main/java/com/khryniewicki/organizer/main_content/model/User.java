@@ -27,4 +27,9 @@ public class User {
     private String nick;
     @ManyToMany (mappedBy = "users",cascade = CascadeType.ALL)
     private List<Task> tasks;
+    private String href;
+
+    public User(String href) {
+        this.href=href;
+    }
 }

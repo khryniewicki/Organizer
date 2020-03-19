@@ -4,75 +4,81 @@
       layout:decorate="~{layout.html}">
 
 <th:block layout:fragment="content">
-    <div class="container-fluid" id="dashBoard">
-        <br>
+    <div th:switch="${taskList}" class="container-fluid">
+        <h2 th:case="null">Brak zadań</h2>
+        <div th:case="*">
+            <div class="container-fluid" id="dashBoard">
+                <br>
 
-        <div id="dashBoardRef"><h6
-                th:text="${'Projekty/'+taskList.get(0).project_name+'/'+taskList.get(0).sprint.name}"></h6></div>
+                <div id="dashBoardRef"><h6
+                        th:text="${'Projekty/'+ActualDashBoard.name+'/'}"></h6>
+                </div>
 
-        <div><h4>Tablica Kanban</h4></div>
-        <br>
-        <div id="board">
-            <div id="tablePROGRESS" th:each="step:${progress_steps}">
-                <div class="d-inline table-responsive">
+                <div><h4>Tablica Kanban</h4></div>
+                <br>
+                <div id="board">
+                    <div id="tablePROGRESS" th:each="step:${progress_steps}">
+                        <div class="d-inline table-responsive">
 
-                    <div class="thead-light" th:text="${step.name}">
-                    </div>
-                    <div th:id="${'container_'+step.name}" class="cardBox">
-                        <div th:each="task:${taskList}">
-                            <div th:if="${task.progress==step.name}">
-                                <div th:id="${task.progress+'_'+ task.idTask}" class="" draggable="true"
-                                     ondragstart="drag(event)"
-                                     ondragend="hideAll()"
-                                     th:classappend="${
+                            <div class="thead-light" th:text="${step.name}">
+                            </div>
+                            <div th:id="${'container_'+step.name}" class="cardBox">
+                                <div th:each="task:${taskList}">
+                                    <div th:if="${task.progress==step.name}">
+                                        <div th:id="${task.progress+'_'+ task.idTask}" class="" draggable="true"
+                                             ondragstart="drag(event)"
+                                             ondragend="hideAll()"
+                                             th:classappend="${
                                   (task.priority==T(com.khryniewicki.organizer.main_content.model.Priority).LOW ? 'card  bg-light': '')
                                  +(task.priority==T(com.khryniewicki.organizer.main_content.model.Priority).MEDIUM ? 'card text-white bg-primary': '')
                                  +(task.priority==T(com.khryniewicki.organizer.main_content.model.Priority).HIGH  ? 'card text-white bg-warning': '')
                                  +(task.priority==T(com.khryniewicki.organizer.main_content.model.Priority).URGENT  ? 'card text-white bg-danger': '')} ">
 
-                                    <div class="card-body ">
-                                        <h6 class="card-title" th:text="${task.name}"></h6>
-                                        <div class="card-text"></div>
-                                        <div id="icons" class="d-inline">
-                                            <div href="#"
-                                                 th:classappend="${
+                                            <div class="card-body ">
+                                                <h6 class="card-title" th:text="${task.name}"></h6>
+                                                <div class="card-text"></div>
+                                                <div id="icons" class="d-inline">
+                                                    <div href="#"
+                                                         th:classappend="${
                                              (task.typeOfStory==T(com.khryniewicki.organizer.main_content.model.TypeOfStory).STORY ?'badge badge-success': '' )
                                             +(task.typeOfStory==T(com.khryniewicki.organizer.main_content.model.TypeOfStory).BUG ?'badge badge-danger': '' )}">
 
-                                                <i class="" data-toggle="tooltip"
-                                                   th:title="${task.typeOfStory.toString().toLowerCase()}"
-                                                   th:classappend="${(task.typeOfStory==T(com.khryniewicki.organizer.main_content.model.TypeOfStory).STORY ?'fas fa-steam-symbol': '' )+
+                                                        <i class="" data-toggle="tooltip"
+                                                           th:title="${task.typeOfStory.toString().toLowerCase()}"
+                                                           th:classappend="${(task.typeOfStory==T(com.khryniewicki.organizer.main_content.model.TypeOfStory).STORY ?'fas fa-steam-symbol': '' )+
                                                                    (task.typeOfStory==T(com.khryniewicki.organizer.main_content.model.TypeOfStory).BUG ?'fas fa-bug': '' )}"></i>
+                                                    </div>
+
+                                                    <div href="#" class="badge badge-light ">
+                                                        <i class="fas fa-arrow-up" data-toggle="tooltip"
+                                                           th:title="${task.priority}"></i></div>
+
+
+                                                    <a th:href="@{/edittask(id=${task.idTask})}"
+                                                       class="badge badge-secondary " draggable="false">
+                                                        <i class="fas fa-cog" data-toggle="modal" data-target="#myEdit"
+                                                           th:title="edit"></i>
+                                                    </a>
+                                                </div>
                                             </div>
-
-                                            <div href="#" class="badge badge-light " >
-                                                <i class="fas fa-arrow-up" data-toggle="tooltip"
-                                                   th:title="${task.priority}"></i></div>
-
-
-                                        <a th:href="@{/edittask(id=${task.idTask})}"
-                                           class="badge badge-secondary " draggable="false">
-                                            <i class="fas fa-cog" data-toggle="modal" data-target="#myEdit" th:title="edit"></i>
-                                        </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div th:id="${'empty_'+step.name}" th:class="empty_card" ondrop="drop(event)"
-                     ondragover="allowDrop(event)">
+                            <div th:id="${'empty_'+step.name}" th:class="empty_card" ondrop="drop(event)"
+                                 ondragover="allowDrop(event)">
 
+                            </div>
+
+                        </div>
+
+                    </div>
                 </div>
 
             </div>
 
         </div>
     </div>
-
-    </div>
-
-
 </th:block>
 <th:block layout:fragment="scripts">
     <script src="js/dragAndDrop.js"></script>

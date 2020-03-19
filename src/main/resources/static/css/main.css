@@ -1,7 +1,7 @@
 #tablePROGRESS {
     background-color: #E4E4E4;
-    width: 260px;
-    min-width: 200px;
+    width: 30vh;
+    min-width: 12vh;
     padding: 2px;
     margin: 2px 2px 0 2px !important;
     float: left;
@@ -32,7 +32,7 @@
 }
 
 .card {
-    min-width: 250px;
+    min-width: 12vh;
     min-height: 80px;
     height: 80px;
     width: 100%;
@@ -54,8 +54,17 @@ table {
 
 .empty_card {
     position: relative;
-    background-color: #F4F4F4;
-    border-style: dotted;
+    background-color: #F2F2F2;
+    /*border-style: dotted;*/
+
+
+    background-image: linear-gradient(to right, darkgray 20%, #F4F4F4 80%);
+    background-position: top;
+    background-size: 10px 1px;
+    background-repeat: repeat-x;
+    border-color: gray;
+    border-width: 2px;
+    border-style: dashed;
     height: 80px;
     display: none;
     margin: 0;

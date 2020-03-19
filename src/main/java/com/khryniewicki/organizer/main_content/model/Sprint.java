@@ -1,5 +1,6 @@
 package com.khryniewicki.organizer.main_content.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -20,6 +21,7 @@ public class Sprint {
     private Date end;
     private Long storyPointsGranted;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "sprint")
+    @JsonIgnore
     private List<Task> tasks;
 
 }
