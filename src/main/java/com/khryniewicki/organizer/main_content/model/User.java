@@ -25,6 +25,11 @@ public class User {
     private String confirm_password;
     @NotNull
     private String nick;
-    @ManyToMany (mappedBy = "users")
+    @ManyToMany (mappedBy = "users",cascade = CascadeType.ALL)
     private List<Task> tasks;
+    private String href;
+
+    public User(String href) {
+        this.href=href;
+    }
 }

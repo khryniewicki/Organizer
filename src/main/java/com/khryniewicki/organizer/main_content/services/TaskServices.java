@@ -1,17 +1,26 @@
 package com.khryniewicki.organizer.main_content.services;
 
+import com.khryniewicki.organizer.main_content.model.Href;
 import com.khryniewicki.organizer.main_content.model.Task;
 import com.khryniewicki.organizer.main_content.model.repositories.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class TaskServices {
-
+    private final SprintService sprintService;
     private final TaskRepository taskRepository;
+    private final ProgressServices progressServices;
+    private final ProjectService projectService;
+    private final HrefService hrefService;
 
     public void saveTask(Task task) {
+        task.setProgress(progressServices.findAllProgress().get(0).getName());
         taskRepository.save(task);
     }
 
@@ -22,16 +31,36 @@ public class TaskServices {
     public void updateTask(Task updatedTask, Long id) {
         Task task = findTask(id);
         task.setDescription(updatedTask.getDescription());
-        task.setName(task.getName());
+        task.setName(updatedTask.getName());
+        if (updatedTask.getProgress() != null) task.setProgress(updatedTask.getProgress());
         task.setPriority(updatedTask.getPriority());
-        task.setProgress(updatedTask.getProgress());
+        task.setTypeOfStory(updatedTask.getTypeOfStory());
+        task.setProject(updatedTask.getProject());
         task.setSprint(updatedTask.getSprint());
         task.setStoryPoints(updatedTask.getStoryPoints());
         task.setUsers(updatedTask.getUsers());
         taskRepository.save(task);
     }
 
+
+    public List<Task> taskListBySprintId(Long id) {
+        return taskRepository.findAllBySprint(sprintService.findById(id)).orElseThrow(() -> new IllegalArgumentException("brak zadan"));
+    }
+
+    public List<Task> taskListByProjectName() {
+        String last = hrefService.getLast();
+        if (!last.equals("undefined")){
+        Optional<List<Task>> AllTasksByProjectName = taskRepository.findAllByProjectName(last);
+        return AllTasksByProjectName.orElse(new ArrayList<Task>());}
+        else return new ArrayList<Task>();
+    }
+    public List<Task> taskListByProjectName(String name) {
+
+            Optional<List<Task>> AllTasksByProjectName = taskRepository.findAllByProjectName(name);
+            return AllTasksByProjectName.orElse(new ArrayList<Task>());
+
+    }
     public void deleteTask(Long id) {
-       taskRepository.deleteById(id);
+        taskRepository.deleteById(id);
     }
 }

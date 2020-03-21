@@ -9,23 +9,36 @@
 
 <body>
 
-<div th:fragment="projectbar(projectList)">
-    <button id="buttonWithProjects" class="btn btn-primary ">
+<div th:fragment="projectbar(projectList,ActualDashBoard)">
+    <div class="dropdown px-2 py-2">
+        <button id="buttonWithProjects " class="btn btn-light dropdown-toggle dropdown-toggle-split w-100 px-0 "
+                data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false">
+            <span class="sr-only">Toggle Dropdown</span>
 
-            <img src="img/steam.png" id="projectIMG" class="d-inline">
+            <img src="img/steam.png" id="projectIMG" class="float-left mx-2">
+
             <b>
-                <p th:id="projectTitle" th:text="${projectList.get(0).name} " class="d-inline"></p>
+                <p th:id="projectTitle" th:text="${ActualDashBoard.name} " class="text-left my-0 mx-2"></p>
             </b>
 
-        <div>
-            <h7 th:id="projectDescription"  th:text="${projectList.get(0).description}" class="d-inline"></h7>
-            <i th:id="projectIcon" class="fas fa-arrow-down d-inline" data-toggle="tooltip" title="Wybierz inny projekt" ></i>
+            <div>
+                <h7 th:id="projectDescription" th:text="${ActualDashBoard.description}"
+                    class="text-left my-0 mx-1"></h7>
+            </div>
+        </button>
+        <div class="dropdown-menu w-100" id="dropdown_arrow" aria-labelledby="buttonWithProjects"
+        >
+            <div th:each="project:${projectList}">
+                <button class="dropdown-item" th:href="${project.name}" th:text="${project.name}" onclick="passHref(this.textContent)"></button>
+            </div>
+            <div class="dropdown-divider"></div>
+            <a class="dropdown-item" href="#" > + Utwórz projekt</a>
         </div>
-
-    </button>
-
+    </div>
 
 </div>
+
 <script src="webjars/jquery/3.4.1/jquery.min.js"></script>
 
 </body>

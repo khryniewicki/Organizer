@@ -1,43 +1,77 @@
-#tablePROGRESS{
-    background-color: #FFFFFF;
-    min-width: 150px;
-    width: 15%;
-    padding: 1px;
-    margin: 2px!important;
+#tablePROGRESS {
+    background-color: #E4E4E4;
+    width: 30vh;
+    min-width: 12vh;
+    padding: 2px;
+    margin: 2px 2px 0 2px !important;
     float: left;
+
 }
-#board{
+
+#dashBoardRef{
+
+    color: #95999c;
+}
+#board {
     display: inline;
 }
-.thead-light {
-    text-align: center;
-    background-color: #E4E4E4;
+
+.cardBox {
+    padding: 1px;
+    margin-bottom: 1px;
+
 }
-.card{
-    min-width: 120px;
+.card-body{
+    padding: 10px 10px 0 10px!important;
+}
+.thead-light {
+    padding: 2px;
+    font-size: small;
+    text-align: left;
+    margin-bottom: 8px !important;
+}
+
+.card {
+    min-width: 12vh;
     min-height: 80px;
-    height: 80px;
+    height: auto;
+    max-height: 120px;
     width: 100%;
+    margin: 0 0 3px 0!important;
+    padding: 1px;
+}
+
+tr {
+    margin: 0 0 0 0;
+}
+
+td {
+    margin: 2px 0 2px 0;
+}
+
+table {
+    margin: 0 0 0 0 !important;
+}
+
+.empty_card {
+    position: relative;
+    background-color: #F2F2F2;
+
+    background-image: linear-gradient(to right, darkgray 20%, #F4F4F4 80%);
+    background-position: top;
+    background-size: 10px 1px;
+    background-repeat: repeat-x;
+    border-color: gray;
+    border-width: 2px;
+    border-style: dashed;
+    height: 80px;
+    max-height: 120px;
+    display: none;
     margin: 0;
     padding: 1px;
 }
-tr{
-    margin: 0 0 0 0;
-   }
-td{
-    margin: 2px 0 2px 0 ;
-}
-table{
-    margin: 0 0 0 0!important;
-}
-.empty_card{
-    position: relative;
-    background-color: #F4F4F4;
-    border-style: dotted;
-    height: 95px;
-    visibility:hidden;
-}
-#showWindowAddingCard{
+
+#showWindowAddingCard {
     height: 500px;
     width: 500px;
     background-color: #fcf8e3;

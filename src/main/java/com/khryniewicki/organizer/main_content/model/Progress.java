@@ -12,7 +12,6 @@ import javax.persistence.*;
 public class Progress {
     @Id
     private String name;
-
     public Progress() {
     }
 

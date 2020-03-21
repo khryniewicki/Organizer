@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <title>ADD</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}"/>
+<body>
+
+
+<div th:fragment="addCard(newTask,projectList,progress_steps,sprintList)">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Utwórz zgłoszenie</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form th:action="@{/addcard}" th:object="${newTask}" method="post">
+                    <div class="modal-body">
+                        <div class='form-group'>
+                            <label for='project'> Projekt*</label>
+                            <select id='project' th:field="${newTask.project}">
+                                <option th:each="project:${projectList}"
+                                        th:value="${project.name}"
+                                        th:text="${project.name}"
+                                        th:selected="${project.name==newTask.project}"
+
+                                ></option>
+                            </select></div>
+                        <br>
+
+                        <div class='form-group'><label for='NotificationType'> Typ zgłoszenia*</label>
+                            <select id='NotificationType' th:field="${newTask.typeOfStory}">
+                                <option th:each="type:${T(com.khryniewicki.organizer.main_content.model.TypeOfStory).values()}"
+                                        th:value="${type}"
+                                        th:text="${type}">
+                                </option>
+                            </select>
+                        </div>
+                        <div class='form-group'>
+                            <label for='sprint'> Sprint*</label>
+                            <select id='sprint' th:field="${newTask.sprint}">
+                                <option th:each="sprint:${sprintList}"
+                                        th:value="${sprint.idSprint}"
+                                        th:text="${sprint.name}"
+                                ></option>
+                            </select></div>
+                        <br>
+                        <div class='form-group'>
+                            <label for='inputName'> Podsumowanie*</label>
+                            <input id='inputName' class='form-control' type='text' th:field="${newTask.name}">
+                        </div>
+
+                        <div class='form-group'><label for='inputDescription'> Opis</label>
+                            <input id='inputDescription' class='form-control' type='text'
+                                   th:field="${newTask.description}"></div>
+
+                        <div class='form-group'><label for='Priority'> Priorytet</label>
+                            <select id='Priority' th:field="${newTask.priority}">
+                                <option th:each="priority:${T(com.khryniewicki.organizer.main_content.model.Priority).values()}"
+                                        th:value="${priority}"
+                                        th:text="${priority}"
+                                ></option>
+                            </select>
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Utwórz</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Zakończ</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
