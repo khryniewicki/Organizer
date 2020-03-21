@@ -31,6 +31,7 @@ public class DashBoardController {
 
 
 
+
     @ModelAttribute
     public void AddAttributes(Model model, HttpServletRequest request) {
         model.addAttribute("progress_steps", progressServices.findAllProgress());
