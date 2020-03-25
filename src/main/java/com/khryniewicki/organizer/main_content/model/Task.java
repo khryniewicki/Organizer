@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Objects;
 
@@ -16,6 +18,7 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTask;
+    @Size(max=50)
     private String name;
     private String description;
 
