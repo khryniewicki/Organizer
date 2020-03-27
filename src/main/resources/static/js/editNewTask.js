@@ -4,12 +4,15 @@ $('#myModal'),$('#myEdit').modal({
     keyboard: false
 });
 
-function passHref(text) {
-
+function passHref(href) {
+    let url= document.createElement('a');
+    url.setAttribute('href', href);
+    console.log(href);
+    let param = url.search.substr(1);
+    console.log(param);
     $.get({
-        url: "/dashboardview/" + text,
+        url: "/dashboardview/" + param,
         success: function (data) {
-            window.location.href = "/dashboard?name=" + text;
         }
     });
 }

@@ -20,7 +20,7 @@ public class UpdateCard {
         return "Challange accepted";
     }
     @GetMapping("/dashboardview/{href}")
-    public String updateDashboard(@PathVariable("href") String href){
+    public String updateDashboard(@PathVariable("href") Long href){
             hrefService.saveHref(href);
         return "Challange accepted";
     }

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:action="@{/register}" th:object="${newUser}" method="post">
+    <div class="form-group">
+        <label for="name_input">Name</label>
+        <input type="text" class="form-control" id="name_input" aria-describedby="nameHelp"
+               placeholder="Enter name" th:field="*{firstName}">
+        <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"
+              class="login-info-message">Name Error</span>
+
+    </div>
+
+    <div class="form-group">
+        <label for="surname_input">Surname</label>
+        <input type="text" class="form-control" id="surname_input" aria-describedby="surnameHelp"
+               placeholder="Enter surname" th:field="*{secondName}">
+        <div class="row">
+            <span th:if="${#fields.hasErrors('secondName')}" th:errors="*{secondName}" class="login-info-message">Surname Error</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="nick_input">Nick</label>
+        <input type="text" class="form-control" id="nick_input" aria-describedby="nick_inputHelp"
+               placeholder="Enter nick" th:field="*{nick}">
+        <div class="row">
+            <span th:if="${#fields.hasErrors('nick')}" th:errors="*{nick}" class="login-info-message">Nick Error</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+               placeholder="Enter email" th:field="*{email}">
+        <div class="row">
+            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
+                  class="login-info-message">Email Error</span>
+        </div>
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputPassword1">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password"
+               th:field="*{password}">
+        <div class="row">
+            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="login-info-message">Password Error</span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="matchingPassword">Password</label>
+        <input type="password" class="form-control" id="matchingPassword" placeholder="Confirm password"
+               th:field="*{matchingPassword}">
+        <div class="row">
+            <span th:if="${#fields.hasErrors('matchingPassword')}" th:errors="*{matchingPassword}"
+                  class="login-info-message">Password Error</span>
+        </div>
+    </div>
+
+    <div>
+        <select th:field="*{roles}">
+            <option th:each="role:${T(com.khryniewicki.organizer.registration_login_logout.DTO.Roles).values()}"
+                    th:value="${role}" th:text="${role}"></option>
+        </select>
+        <div class="row">
+            <span th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}"
+                  class="login-info-message">Password Error</span>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+</body>
+</html>

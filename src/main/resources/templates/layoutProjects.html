@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title layout:title-pattern="$CONTENT_TITLE - $LAYOUT_TITLE"></title>
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/BrowseProjects.css}"/>
+
+    <script src="https://kit.fontawesome.com/714c995d82.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="add_project">
+    <div th:replace="/fragmentsProjects/addProject :: addProjekt(${newProject})"></div>
+</div>
+<div class="container-fluid">
+    <section layout:fragment="projects_panel"></section>
+</div>
+</div>
+
+</body>
+<script src="webjars/jquery/3.4.1/jquery.min.js"></script>
+<script src="webjars/bootstrap/4.4.1/js/bootstrap.bundle.js"></script>
+<script src="/static/js/browserProject.js"></script>
+<section layout:fragment="scripts">
+</section>
+
+</html>

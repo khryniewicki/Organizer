@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout.html}">
+<head>
+    <title>Edycja Zadania -Organizer</title>
+</head>
+<th:block layout:fragment="edit_card">
+    <div class="modal fade" id="myEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Edytuj zgłoszenie</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form th:action="@{${#request.getRequestURI()}(id=${#request.getParameter('id')})}"
+                      th:object="${oldTask}" method="post">
+                    <div class="modal-body">
+                        <div class='form-group'>
+                            <label for='project'> Projekt*</label>
+                            <select id='project' th:field="${oldTask.project.name}">
+                                <option th:each="project:${projectList}"
+                                        th:value="${project.name}"
+                                        th:text="${project.name}"
+                                        th:selected="${project.name==oldTask.project.name}">
+                                </option>
+                            </select></div>
+                        <br>
+
+                        <div class='form-group'><label for='NotificationType'> Typ zgłoszenia*</label>
+                            <select id='NotificationType' th:field="${oldTask.typeOfStory}">
+                                <option th:each="type:${T(com.khryniewicki.organizer.main_content.model.TypeOfStory).values()}"
+                                        th:value="${type}"
+                                        th:text="${type}"
+                                        th:selected="${type==oldTask.typeOfStory}">
+
+                                </option>
+                            </select>
+                        </div>
+                        <div class='form-group'>
+                            <label for='sprint'> Sprint*</label>
+                            <select id='sprint' th:field="${oldTask.sprint}">
+                                <option th:each="sprint:${sprintList}"
+                                        th:value="${sprint.idSprint}"
+                                        th:text="${sprint.name}"
+                                        th:selected="${sprint.name==oldTask.sprint.name}"
+                                ></option>
+                            </select></div>
+                        <br>
+                        <div class='form-group'>
+                            <label for='inputName'> Podsumowanie*</label>
+                            <input id='inputName' class='form-control' type='text' th:field="${oldTask.name}">
+                        </div>
+
+                        <div class='form-group'><label for='inputDescription'> Opis</label>
+                            <input id='inputDescription' class='form-control' type='text'
+                                   th:field="${oldTask.description}"></div>
+
+                        <div class='form-group'><label for='Priority'> Priorytet</label>
+                            <select id='Priority' th:field="${oldTask.priority}">
+                                <option th:each="priority:${T(com.khryniewicki.organizer.main_content.model.Priority).values()}"
+                                        th:value="${priority}"
+                                        th:text="${priority}"
+                                        th:selected="${priority==oldTask.priority}"
+                                ></option>
+                            </select>
+                        </div>
+
+
+                        <div class="modal-footer">
+                            <a type="button" th:href="@{/deletetask(id=${oldTask.idTask})}"
+                               class="btn btn-warning">Usuń</a>
+                            <button type="submit" class="btn btn-primary">Edytuj</button>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Zakończ</button>
+
+                        </div>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</th:block>
+
+<th:block layout:fragment="scripts">
+    <script src="js/editNewTask.js"></script>
+</th:block>

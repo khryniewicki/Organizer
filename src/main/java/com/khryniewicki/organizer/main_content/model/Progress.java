@@ -11,8 +11,12 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Progress {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String name;
     public Progress() {
     }
-
+    public Progress(String name){
+        this.name=name;
+    }
 }

@@ -28,9 +28,9 @@
                             <label for='project'> Projekt*</label>
                             <select id='project' th:field="${newTask.project}">
                                 <option th:each="project:${projectList}"
-                                        th:value="${project.name}"
+                                        th:value="${project.id}"
                                         th:text="${project.name}"
-                                        th:selected="${project.name==newTask.project}"
+                                        th:selected="${project.id==newTask.project}"
 
                                 ></option>
                             </select></div>

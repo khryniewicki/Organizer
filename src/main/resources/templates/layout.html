@@ -10,35 +10,38 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/layout.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/projectBar.css}"/>
-
     <script src="https://kit.fontawesome.com/714c995d82.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <div class="container-fluid">
     <div id="tools" class="bg-primary justify-content-center">
-        <div th:replace="fragments/tools :: tools">...</div>
+        <div th:replace="fragments_dashboard/tools :: tools">...</div>
     </div>
 
     <div id="project_menu">
-        <div th:replace="fragments/project_menu :: projectbar(${projectList},${ActualDashBoard})">...</div>
+        <div th:replace="fragments_dashboard/project_menu :: projectbar(${projectList},${ActualDashBoard})">...</div>
     </div>
     <div id="main">
-        <div id="add_card">
-            <div th:replace="fragments/add_card :: addCard(${newTask},${projectList},${progress_steps},${sprintList})">...</div>
-        </div>
-        <section layout:fragment="edit_card"></section>
-        <section layout:fragment="content">
-            <p>This is filled by the content template.</p>
-        </section>
-    </div>
 
+        <div id="add_card">
+            <div th:replace="fragments_dashboard/add_card :: addCard(${newTask},${projectList},${progress_steps},${sprintList})"></div>
+        </div>
+
+        <div id="dashboard">
+            <div th:replace="fragments_dashboard/dashBoardFragment :: dashBoard(${taskList},${progress_steps},${ActualDashBoard},${ActualUser},${ActualUserInitialLetters})"></div>
+        </div>
+
+        <section layout:fragment="edit_card"> </section>
+
+    </div>
 </div>
+
 </body>
 <script src="webjars/jquery/3.4.1/jquery.min.js"></script>
 <script src="webjars/bootstrap/4.4.1/js/bootstrap.bundle.js"></script>
 
 <section layout:fragment="scripts">
-    <p>This is filled by the content template.</p>
+    <p>This is filled by the content scripts</p>
 </section>
 
 </html>

@@ -1,0 +1,58 @@
+#projectIMG{
+    /*background-image: url("/img/steam.png");*/
+    background-size: cover;
+    height: 40px!important;
+    width: 40px!important;
+    position: relative;
+
+    float: left;
+}
+#projectTitle{
+    position: relative;
+    text-align: left!important;
+}
+#projectDescription{
+    position: relative;
+    float: left;
+}
+
+#buttonWithProjects{
+    min-width: 150px ;
+    width: 150px!important;
+    padding-right: 0!important;
+}
+.btn {
+    text-align: left!important;
+}
+
+#dropdown_arrow{float: right;text-align: center}
+
+#project_browser{
+    float: left;
+}
+
+#projects_container{
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+#viewThisResult{
+    text-align: right;
+}
+#resultContainer #viewThisResult {
+    visibility: hidden;
+}
+#resultContainer:hover #viewThisResult {
+    visibility: visible;
+
+}
+#icon_star{
+    text-align: right!important;
+    display:inline-block!important;
+    background: white!important;
+}
+
+.btn#viewThisResult {
+    text-align: right !important;
+
+}

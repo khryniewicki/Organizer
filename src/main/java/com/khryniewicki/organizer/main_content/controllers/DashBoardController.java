@@ -1,7 +1,10 @@
 package com.khryniewicki.organizer.main_content.controllers;
 
+import com.khryniewicki.organizer.main_content.model.Project;
 import com.khryniewicki.organizer.main_content.model.Sprint;
+import com.khryniewicki.organizer.main_content.model.User;
 import com.khryniewicki.organizer.main_content.services.*;
+import com.khryniewicki.organizer.registration_login_logout.DTO.ProjectDTO;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -9,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @ControllerAdvice
 @Data
@@ -20,26 +24,40 @@ public class DashBoardController {
     private final TaskServices taskServices;
     private final SprintService sprintService;
     private final HrefService hrefService;
+    private final UserService userService;
 
     @GetMapping("/dashboard")
-    public String showDashBoard(@RequestParam ("name") String name, Model model) {
-            hrefService.saveHref(name);
-        model.addAttribute("taskList",taskServices.taskListByProjectName(name));
-        model.addAttribute("ActualDashBoard",projectService.findProject(name));
+    public String showDashBoard(@RequestParam("id") Long id, Model model, HttpServletRequest request) {
+
+        HttpSession session = request.getSession(false);
+        if (session.getAttribute("appUser") == null) return "redirect:/logout";
+        hrefService.saveHref(id);
+        model.addAttribute("taskList", taskServices.taskListByProjectId(id));
+        model.addAttribute("ActualDashBoard", projectService.findProject(id));
         return "main/dashBoard";
     }
 
 
-
-
     @ModelAttribute
     public void AddAttributes(Model model, HttpServletRequest request) {
-        model.addAttribute("progress_steps", progressServices.findAllProgress());
-        model.addAttribute("projectList", projectService.getAllProjekts());
-        model.addAttribute("sprintList",sprintService.findAll());
-        model.addAttribute("sprint",new Sprint());
-        model.addAttribute("taskList",taskServices.taskListByProjectName());
-        model.addAttribute("ActualDashBoard",hrefService.getLastProject());
+        HttpSession session = request.getSession(false);
+        User appUser = null;
+        if (session != null) appUser = (User) session.getAttribute("appUser");
 
+        if (appUser != null) {
+
+            model.addAttribute("ActualUser", appUser);
+            model.addAttribute("ActualUserInitialLetters", userService.getInitialLetters(appUser));
+            model.addAttribute("ActualDashBoard", hrefService.getLastProject());
+
+            model.addAttribute("progress_steps", progressServices.findAllProgress());
+            model.addAttribute("projectList", projectService.getAllProjekts());
+            model.addAttribute("newProject", new ProjectDTO());
+
+            model.addAttribute("sprintList", sprintService.findAll());
+            model.addAttribute("sprint", new Sprint());
+
+            model.addAttribute("taskList", taskServices.taskListByProjectId());
+        }
     }
 }

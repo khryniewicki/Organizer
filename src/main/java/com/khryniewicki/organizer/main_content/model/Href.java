@@ -16,10 +16,10 @@ import javax.persistence.Id;
 public class Href {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
-    String name;
+    private Long id;
+    private Long id_href;
 
-    public Href(String name) {
-        this.name=name;
+    public Href(Long id_href) {
+        this.id_href=id_href;
     }
 }

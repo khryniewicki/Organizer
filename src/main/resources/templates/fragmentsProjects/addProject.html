@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <title>Nowy Projekt</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}"/>
+<body>
+
+
+<div th:fragment="addProjekt(newProject)">
+    <div class="modal fade" id="myProjects" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel2">Utwórz zgłoszenie</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form th:action="@{/createProject}" th:object="${newProject}" method="post">
+                    <div class="modal-body">
+                        <div class='form-group'>
+                            <label for='project.name'> Nazwa projektu</label>
+                            <input type="text" id="project.name" name="project.name" th:field="*{name}">
+                            <br>
+
+                            <div class='form-group'>
+                                <label for='project.description'> Opis projektu</label>
+                                <input type="text" id="project.description" name="project.description"
+                                       th:field="*{description}">
+                            </div>
+                            <br>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Utwórz</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Zakończ</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="webjars/jquery/3.4.1/jquery.min.js"></script>
+
+</body>
+</html>

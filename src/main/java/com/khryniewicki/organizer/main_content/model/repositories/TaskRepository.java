@@ -12,5 +12,5 @@ import java.util.Optional;
 @Repository
 public interface TaskRepository extends JpaRepository<Task,Long> {
     Optional<List<Task>> findAllBySprint(Sprint sprint);
-    Optional<List<Task>> findAllByProjectName(String name);
+    Optional<List<Task>> findAllByProjectId(Long id);
 }

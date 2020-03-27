@@ -1,6 +1,7 @@
 package com.khryniewicki.organizer.main_content.services;
 
 import com.khryniewicki.organizer.main_content.model.Href;
+import com.khryniewicki.organizer.main_content.model.Project;
 import com.khryniewicki.organizer.main_content.model.Task;
 import com.khryniewicki.organizer.main_content.model.repositories.TaskRepository;
 import lombok.RequiredArgsConstructor;
@@ -38,7 +39,7 @@ public class TaskServices {
         task.setProject(updatedTask.getProject());
         task.setSprint(updatedTask.getSprint());
         task.setStoryPoints(updatedTask.getStoryPoints());
-        task.setUsers(updatedTask.getUsers());
+        task.setUser(updatedTask.getUser());
         taskRepository.save(task);
     }
 
@@ -47,16 +48,15 @@ public class TaskServices {
         return taskRepository.findAllBySprint(sprintService.findById(id)).orElseThrow(() -> new IllegalArgumentException("brak zadan"));
     }
 
-    public List<Task> taskListByProjectName() {
-        String last = hrefService.getLast();
-        if (!last.equals("undefined")){
-        Optional<List<Task>> AllTasksByProjectName = taskRepository.findAllByProjectName(last);
+    public List<Task> taskListByProjectId() {
+        Long last = hrefService.getLast();
+        if (last!=null){
+        Optional<List<Task>> AllTasksByProjectName = taskRepository.findAllByProjectId(last);
         return AllTasksByProjectName.orElse(new ArrayList<Task>());}
         else return new ArrayList<Task>();
     }
-    public List<Task> taskListByProjectName(String name) {
-
-            Optional<List<Task>> AllTasksByProjectName = taskRepository.findAllByProjectName(name);
+    public List<Task> taskListByProjectId(Long id) {
+        Optional<List<Task>> AllTasksByProjectName = taskRepository.findAllByProjectId(id);
             return AllTasksByProjectName.orElse(new ArrayList<Task>());
 
     }

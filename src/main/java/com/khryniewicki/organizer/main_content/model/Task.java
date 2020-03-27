@@ -3,6 +3,7 @@ package com.khryniewicki.organizer.main_content.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -25,7 +26,7 @@ public class Task {
     @ManyToOne
     @JsonIgnore
     private Sprint sprint;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JsonIgnore
     private Project project;
     @Enumerated
@@ -34,23 +35,9 @@ public class Task {
     @Enumerated
     private TypeOfStory typeOfStory;
     private String progress;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<User> users;
-
-    @Override
-    public String toString() {
-        return "Task{" +
-                "idTask=" + idTask +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", priority=" + priority +
-                ", storyPoints=" + storyPoints +
-                ", typeOfStory=" + typeOfStory +
-                ", progress='" + progress + '\'' +
-                ", users=" + users +
-                '}';
-    }
+    private User user;
 
 
 }

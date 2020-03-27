@@ -30,7 +30,13 @@
     text-align: left;
     margin-bottom: 8px !important;
 }
-
+.card-title{
+    font-size: 95%;
+}
+#icons{
+    position: absolute!important;
+    bottom: 3px!important;
+}
 .card {
     min-width: 12vh;
     min-height: 80px;
@@ -76,4 +82,19 @@ table {
     width: 500px;
     background-color: #fcf8e3;
     color: black;
+}
+#ButtonWithInitials{
+    border-radius: 50%;
+    height: 38px!important;
+    width: 38px!important;
+    text-align: center!important;
+    font-size: 100%;
+    vertical-align: middle!important;
+    overflow: hidden;
+    padding : 6px 2px 4px 2px ;
+}
+#ButtonWithInitials:hover{
+    background: #668ad8!important;
+}
+#inputbox{
 }

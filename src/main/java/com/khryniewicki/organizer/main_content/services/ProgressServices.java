@@ -5,9 +5,7 @@ import com.khryniewicki.organizer.main_content.model.repositories.ProgressReposi
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Service
@@ -16,16 +14,16 @@ public class ProgressServices {
 
     public List<Progress> findAllProgress(){
         boolean empty = progressRepository.findAll().isEmpty();
+        LinkedHashMap<Integer,Progress> linkedMap=new LinkedHashMap<>();
         if (empty){
-            List<Progress> progresses1 = Arrays.asList(
-                    new Progress("Backlog"),
-                    new Progress("Gotowe do pracy"),
-                    new Progress("W toku"),
-                    new Progress("Testowanie"),
-                    new Progress("Zakończone"));
-            for (Progress progress : progresses1) {
-                progressRepository.save(progress);
-            }
+             linkedMap.put(1,new Progress("Backlog"));
+             linkedMap.put(2, new Progress("Gotowe do pracy"));
+             linkedMap.put(3,new Progress( "W toku"));
+             linkedMap.put(4,new Progress("Testowanie"));
+             linkedMap.put(5,new Progress("Zakończone"));
+            for (Map.Entry<Integer, Progress> integerProgressEntry : linkedMap.entrySet()) {
+                System.out.println(integerProgressEntry.getValue());
+                progressRepository.save(integerProgressEntry.getValue()); };
         }
         return progressRepository.findAll();
     }

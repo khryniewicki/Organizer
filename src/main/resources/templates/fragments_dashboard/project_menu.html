@@ -16,7 +16,7 @@
                 aria-haspopup="true" aria-expanded="false">
             <span class="sr-only">Toggle Dropdown</span>
 
-            <img src="img/steam.png" id="projectIMG" class="float-left mx-2">
+            <img th:src="'img/'+${ActualDashBoard.avatar}" id="projectIMG" class="float-left mx-2">
 
             <b>
                 <p th:id="projectTitle" th:text="${ActualDashBoard.name} " class="text-left my-0 mx-2"></p>
@@ -30,7 +30,7 @@
         <div class="dropdown-menu w-100" id="dropdown_arrow" aria-labelledby="buttonWithProjects"
         >
             <div th:each="project:${projectList}">
-                <button class="dropdown-item" th:href="${project.name}" th:text="${project.name}" onclick="passHref(this.textContent)"></button>
+                <a class="btn dropdown-item" th:href="'/dashboard?id='+${project.id}" th:text="${project.name}" onclick="passHref(this.href)"></a>
             </div>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" > + Utwórz projekt</a>

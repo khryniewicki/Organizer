@@ -1,12 +1,16 @@
 package com.khryniewicki.organizer;
 
+import com.khryniewicki.organizer.main_content.model.Project;
+import com.khryniewicki.organizer.main_content.services.ProjectService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
-public class OrganizerApplication {
+import java.io.IOException;
 
-    public static void main(String[] args) {
+@SpringBootApplication
+public class OrganizerApplication  {
+
+    public static void main(String[] args)  {
         SpringApplication.run(OrganizerApplication.class, args);
     }
 }
