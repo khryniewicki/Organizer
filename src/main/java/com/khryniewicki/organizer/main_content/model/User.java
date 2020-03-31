@@ -31,10 +31,10 @@ public class User {
     @NotNull
     private String password;
 
-    @ManyToMany (mappedBy = "users",cascade = CascadeType.ALL)
+    @ManyToMany (mappedBy = "users")
     private List<Project> projects;
 
-    @OneToOne (mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne (mappedBy = "user")
     private Task task;
 
     private String href;

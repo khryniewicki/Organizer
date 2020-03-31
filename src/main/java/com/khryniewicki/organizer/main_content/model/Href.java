@@ -17,9 +17,10 @@ public class Href {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long id_href;
-
-    public Href(Long id_href) {
-        this.id_href=id_href;
+    private Long idProject;
+    private String username;
+    public Href(Long idProject, String username) {
+        this.idProject = idProject;
+        this.username=username;
     }
 }

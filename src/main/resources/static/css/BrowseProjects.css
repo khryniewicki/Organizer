@@ -15,7 +15,9 @@
     position: relative;
     float: left;
 }
-
+.card{
+    height: 126px;
+}
 #buttonWithProjects{
     min-width: 150px ;
     width: 150px!important;
@@ -56,3 +58,54 @@
     text-align: right !important;
 
 }
+.table-compacted{
+    font-size: 15px;
+}
+
+tr.noBorder td {
+    border: 0;
+}
+tr.noBorder:hover
+{
+    background: #F2F2F2;
+    border: 0;
+}
+#table_project_name{
+    color: #005cbf;
+
+}
+#avatarIMG{
+    /*background-image: url("/img/steam.png");*/
+    background-size: cover;
+    height: 30px!important;
+    width: 30px!important;
+    position: relative;
+    float: left;
+    margin-right: 2px;
+    margin-top: -4px!important;
+}
+
+.avatarIMGdrop{
+    width: 60%!important;
+}
+#cogs{
+    float: right;
+    margin-right: 10px;
+}
+
+select.icon-menu option {
+    background-repeat:no-repeat;
+    background-position:bottom left;
+}
+#avatar_box{
+    float: left!important;
+}
+.btn_avatar{
+    padding: 2px!important;
+}
+.avatar_edit{
+    width: 40px;
+    height: 40px;
+}
+.img_edit_menu{float: left}
+

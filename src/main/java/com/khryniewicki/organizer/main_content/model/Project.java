@@ -25,16 +25,20 @@ public class Project {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
     @JsonIgnore
     private List<Task> tasks;
-    @ManyToMany(cascade = CascadeType.ALL)
+    @ManyToMany()
     @JsonIgnore
     private List<User> users;
     private String avatar;
 
-    public Project(String name, String description) {
+    public Project(String name, String description,String avatar) {
         this.name=name;
         this.description=description;
         this.admin= UtillClass.getLoggedInUser().getEmail();
-        this.avatar= ProjectService.CreateiconRandomViewer();
+        this.avatar= avatar;
+    }
+
+    public Project(List<User> users) {
+        this.users = users;
     }
 
     @Override

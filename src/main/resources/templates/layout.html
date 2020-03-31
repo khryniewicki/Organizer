@@ -14,22 +14,19 @@
 </head>
 <body>
 <div class="container-fluid">
-    <div id="tools" class="bg-primary justify-content-center">
-        <div th:replace="fragments_dashboard/tools :: tools">...</div>
-    </div>
+<!--    <div id="tools" class="bg-primary justify-content-center">-->
+<!--        <div th:replace="fragments_dashboard/tools :: tools(${ActualDashBoard})">...</div>-->
+<!--    </div>-->
 
-    <div id="project_menu">
-        <div th:replace="fragments_dashboard/project_menu :: projectbar(${projectList},${ActualDashBoard})">...</div>
-    </div>
-    <div id="main">
-
-        <div id="add_card">
-            <div th:replace="fragments_dashboard/add_card :: addCard(${newTask},${projectList},${progress_steps},${sprintList})"></div>
-        </div>
+<!--    <div id="project_menu">-->
+<!--        <div th:replace="fragments_dashboard/project_menu :: projectbar(${projectList},${ActualDashBoard})">...</div>-->
+<!--    </div>-->
 
         <div id="dashboard">
             <div th:replace="fragments_dashboard/dashBoardFragment :: dashBoard(${taskList},${progress_steps},${ActualDashBoard},${ActualUser},${ActualUserInitialLetters})"></div>
-        </div>
+
+
+        <section layout:fragment="add_card"> </section>
 
         <section layout:fragment="edit_card"> </section>
 

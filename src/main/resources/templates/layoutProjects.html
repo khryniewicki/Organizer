@@ -13,17 +13,23 @@
 </head>
 <body>
 <div id="add_project">
-    <div th:replace="/fragmentsProjects/addProject :: addProjekt(${newProject})"></div>
+    <div th:replace="/fragmentsProjects/proj_panel :: project_panel(${projectList})"></div>
 </div>
 <div class="container-fluid">
-    <section layout:fragment="projects_panel"></section>
+<!--    <section layout:fragment="projects_panel"></section>-->
 </div>
+<section layout:fragment="editProject"> </section>
+
+<section layout:fragment="addProject"> </section>
+
 </div>
 
 </body>
+
 <script src="webjars/jquery/3.4.1/jquery.min.js"></script>
 <script src="webjars/bootstrap/4.4.1/js/bootstrap.bundle.js"></script>
-<script src="/static/js/browserProject.js"></script>
+<script src="js/browserProject.js"></script>
+
 <section layout:fragment="scripts">
 </section>
 

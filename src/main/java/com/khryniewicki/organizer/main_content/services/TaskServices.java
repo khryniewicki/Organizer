@@ -36,7 +36,7 @@ public class TaskServices {
         if (updatedTask.getProgress() != null) task.setProgress(updatedTask.getProgress());
         task.setPriority(updatedTask.getPriority());
         task.setTypeOfStory(updatedTask.getTypeOfStory());
-        task.setProject(updatedTask.getProject());
+        task.setProject(projectService.findProject(updatedTask.getProject().getId()));
         task.setSprint(updatedTask.getSprint());
         task.setStoryPoints(updatedTask.getStoryPoints());
         task.setUser(updatedTask.getUser());

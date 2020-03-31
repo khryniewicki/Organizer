@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}"/>
 
 <body>
 
@@ -27,10 +27,9 @@
                     class="text-left my-0 mx-1"></h7>
             </div>
         </button>
-        <div class="dropdown-menu w-100" id="dropdown_arrow" aria-labelledby="buttonWithProjects"
-        >
+        <div class="dropdown-menu w-100" id="dropdown_arrow" aria-labelledby="buttonWithProjects">
             <div th:each="project:${projectList}">
-                <a class="btn dropdown-item" th:href="'/dashboard?id='+${project.id}" th:text="${project.name}" onclick="passHref(this.href)"></a>
+                <a class="btn dropdown-item" th:href="'/dashboard?id='+${project.id}" th:text="${project.name}" ></a>
             </div>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="#" > + Utwórz projekt</a>

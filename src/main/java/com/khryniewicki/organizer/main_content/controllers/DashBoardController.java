@@ -1,7 +1,8 @@
 package com.khryniewicki.organizer.main_content.controllers;
 
-import com.khryniewicki.organizer.main_content.model.Project;
+import com.khryniewicki.organizer.main_content.Utills.UtillClass;
 import com.khryniewicki.organizer.main_content.model.Sprint;
+import com.khryniewicki.organizer.main_content.model.Task;
 import com.khryniewicki.organizer.main_content.model.User;
 import com.khryniewicki.organizer.main_content.services.*;
 import com.khryniewicki.organizer.registration_login_logout.DTO.ProjectDTO;
@@ -31,7 +32,8 @@ public class DashBoardController {
 
         HttpSession session = request.getSession(false);
         if (session.getAttribute("appUser") == null) return "redirect:/logout";
-        hrefService.saveHref(id);
+        hrefService.saveOrUpdate(id);
+
         model.addAttribute("taskList", taskServices.taskListByProjectId(id));
         model.addAttribute("ActualDashBoard", projectService.findProject(id));
         return "main/dashBoard";
@@ -52,12 +54,14 @@ public class DashBoardController {
 
             model.addAttribute("progress_steps", progressServices.findAllProgress());
             model.addAttribute("projectList", projectService.getAllProjekts());
-            model.addAttribute("newProject", new ProjectDTO());
 
             model.addAttribute("sprintList", sprintService.findAll());
             model.addAttribute("sprint", new Sprint());
 
             model.addAttribute("taskList", taskServices.taskListByProjectId());
+
         }
+
     }
+
 }
