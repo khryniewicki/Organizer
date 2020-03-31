@@ -83,7 +83,7 @@ table {
     background-color: #fcf8e3;
     color: black;
 }
-#ButtonWithInitials{
+.ButtonWithInitials{
     border-radius: 50%;
     height: 38px!important;
     width: 38px!important;

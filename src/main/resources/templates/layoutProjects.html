@@ -8,19 +8,26 @@
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{/css/BrowseProjects.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/layout_project.css}"/>
 
     <script src="https://kit.fontawesome.com/714c995d82.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div id="add_project">
-    <div th:replace="/fragmentsProjects/proj_panel :: project_panel(${projectList})"></div>
-</div>
-<div class="container-fluid">
-<!--    <section layout:fragment="projects_panel"></section>-->
-</div>
-<section layout:fragment="editProject"> </section>
 
-<section layout:fragment="addProject"> </section>
+<div class="container-fluid">
+
+    <div id="navbar">
+        <div th:replace="fragment_navbar/navbar :: navbar(${ActualUser})">...</div>
+    </div>
+
+
+
+        <div th:replace="fragmentsProjects/proj_panel::proj_panel(${projectList},${ActualUser})"></div>
+
+        <section layout:fragment="editProject"></section>
+
+        <section layout:fragment="addProject"></section>
+
 
 </div>
 
@@ -28,9 +35,9 @@
 
 <script src="webjars/jquery/3.4.1/jquery.min.js"></script>
 <script src="webjars/bootstrap/4.4.1/js/bootstrap.bundle.js"></script>
-<script src="js/browserProject.js"></script>
 
 <section layout:fragment="scripts">
+
 </section>
 
 </html>

@@ -31,6 +31,7 @@
 
 #project_browser{
     float: left;
+
 }
 
 #projects_container{
@@ -89,10 +90,15 @@ tr.noBorder:hover
     width: 60%!important;
 }
 #cogs{
-    float: right;
+    vertical-align: middle!important;
+    float: right!important;
     margin-right: 10px;
 }
-
+.btn.disabled{
+    float: right!important;
+    margin: 0!important;
+    padding: 0!important;
+}
 select.icon-menu option {
     background-repeat:no-repeat;
     background-position:bottom left;
@@ -109,3 +115,16 @@ select.icon-menu option {
 }
 .img_edit_menu{float: left}
 
+#btndisplaynone{
+    display: none;
+}
+.ButtonWithInitials{
+    border-radius: 50%;
+    height: 35px!important;
+    width: 35px!important;
+    text-align: center!important;
+    font-size: 100%;
+    vertical-align: middle!important;
+    overflow: hidden;
+    padding : 6px 2px 4px 2px ;
+}

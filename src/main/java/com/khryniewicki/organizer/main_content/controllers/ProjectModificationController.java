@@ -2,7 +2,6 @@ package com.khryniewicki.organizer.main_content.controllers;
 
 import com.khryniewicki.organizer.main_content.Utills.UtillClass;
 import com.khryniewicki.organizer.main_content.model.Project;
-import com.khryniewicki.organizer.main_content.model.Task;
 import com.khryniewicki.organizer.main_content.model.User;
 import com.khryniewicki.organizer.main_content.services.HrefService;
 import com.khryniewicki.organizer.main_content.services.ProjectService;
@@ -26,14 +25,12 @@ public class ProjectModificationController {
 
     private final ProjectService projectService;
     private final HrefService hrefService;
-
     @GetMapping("/projects")
     public String showProjects (Model model, HttpServletRequest request)  {
 
-        model.addAttribute("projects", projectService.getAllProjekts() );
-        return "fragmentsProjects/projects_panel";
+        return "fragmentsProjects/proj";
     }
-
+//    fragmentsProjects/proj_panel
     @GetMapping("/createProject")
     public String createProject(Model model) {
         model.addAttribute("newProject", new ProjectDTO());
@@ -42,6 +39,7 @@ public class ProjectModificationController {
 
     @PostMapping("/createProject")
     public String createProject (@ModelAttribute ("newProject") @Valid ProjectDTO projectDTO, BindingResult bindingResult){
+
         projectService.createProject(projectDTO);
         return "redirect:/projects";
     }
@@ -72,6 +70,9 @@ public class ProjectModificationController {
 
         if (appUser != null) {
             model.addAttribute("avatar_list", UtillClass.getListOfIconTitles());
+            model.addAttribute("projectList", projectService.getAllProjectsForUser(appUser));
+            model.addAttribute("ProjectAdminsInitials",projectService.getAdminNameAndSurname(UtillClass.getLoggedInUser()));
+            model.addAttribute("projects", projectService.getAllProjectsForUser(UtillClass.getLoggedInUser()) );
         }
     }
 }

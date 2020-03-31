@@ -14,21 +14,23 @@
 </head>
 <body>
 <div class="container-fluid">
-<!--    <div id="tools" class="bg-primary justify-content-center">-->
-<!--        <div th:replace="fragments_dashboard/tools :: tools(${ActualDashBoard})">...</div>-->
-<!--    </div>-->
+    <div id="navbar">
+        <div th:replace="fragment_navbar/navbar :: navbar(${ActualUser})">...</div>
+    </div>
 
-<!--    <div id="project_menu">-->
-<!--        <div th:replace="fragments_dashboard/project_menu :: projectbar(${projectList},${ActualDashBoard})">...</div>-->
-<!--    </div>-->
+    <!--    <div id="tools" class="bg-primary justify-content-center">-->
+    <!--        <div th:replace="fragments_dashboard/tools :: tools(${ActualDashBoard})">...</div>-->
+    <!--    </div>-->
 
-        <div id="dashboard">
-            <div th:replace="fragments_dashboard/dashBoardFragment :: dashBoard(${taskList},${progress_steps},${ActualDashBoard},${ActualUser},${ActualUserInitialLetters})"></div>
+    <!--    <div id="project_menu">-->
+    <!--        <div th:replace="fragments_dashboard/project_menu :: projectbar(${projectList},${ActualDashBoard})">...</div>-->
+    <!--    </div>-->
 
+    <div id="dashboard">
+        <div th:replace="fragments_dashboard/dashBoardFragment :: dashBoard(${taskList},${progress_steps},${ActualDashBoard},${ActualUser},${ActualUserInitialLetters},${userList})"></div>
 
-        <section layout:fragment="add_card"> </section>
-
-        <section layout:fragment="edit_card"> </section>
+        <section layout:fragment="add_card"></section>
+        <section layout:fragment="edit_card"></section>
 
     </div>
 </div>
@@ -38,7 +40,7 @@
 <script src="webjars/bootstrap/4.4.1/js/bootstrap.bundle.js"></script>
 
 <section layout:fragment="scripts">
-    <p>This is filled by the content scripts</p>
+    <p></p>
 </section>
 
 </html>

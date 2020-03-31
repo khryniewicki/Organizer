@@ -3,34 +3,36 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 
 <head>
-    <title>DashBoard</title>
+    <title>Projects</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}"/>
-    <link rel="stylesheet" type="text/css" th:href="@{/static/css/BrowseProjects.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/BrowseProjects.css}"/>
     <script src="https://kit.fontawesome.com/714c995d82.js" crossorigin="anonymous"></script>
 
 <body>
-<div th:fragment="project_panel(projectList)">
-
-    <br>
-    <div class="row">
-        <div class="col-2">
-            <h4>Projekty</h4>
+<div th:fragment="proj_panel(projectList,ActualUser)">
+    <div class="container-fluid px-3">
+        <br>
+        <div class="row">
+            <div class="col-2">
+                <h4 class="px-3">Projekty</h4>
+            </div>
+            <div class="offset-8 col-2">
+                <a th:href="@{/createProject}" id="addProject" class="btn btn-primary" data-toggle="tooltip"
+                   title="Utwórz">Utwórz projekt
+                </a>
+            </div>
         </div>
-        <div class="offset-8 col-2">
-            <a th:href="@{/createProject}" id="addProject" class="btn btn-primary" data-toggle="tooltip"
-               title="Utwórz">Utwórz projekt
-            </a>
-        </div>
+        <br>
+        <h7 class="px-3">Ostatnie</h7>
     </div>
-    <br>
-    <h7 class="mx-2">Ostatnie</h7>
     <div class="container-fluid my-2" id="project_browser">
+
         <div id="projects_container" class="scroll-bar">
 
-            <div th:each="project:${projectList}" class="d-inline-block ">
+            <div th:each="project:${projectList}" class="d-inline-block mx-2">
 
                 <div class="card mx-1" style="width: 18rem;display: inline-block">
                     <a th:href="@{/dashboard(id=${project.id})}">
@@ -85,9 +87,20 @@
                 <td th:text="${project.id}"></td>
                 <td th:text="'Klasyczne oprogramowanie'"></td>
                 <td>
+
+                    <div th:each="adminNameAndSurname:${ProjectAdminsInitials}"
+                         th:id="${adminNameAndSurname.email==project.admin}?'goodbutton':'btndisplaynone'"
+                         th:classappend="${adminNameAndSurname.email==ActualUser.email}? 'btn mx-1 ButtonWithInitials btn-danger ' : 'btn mx-1 ButtonWithInitials btn-secondary'"
+                         th:text="${adminNameAndSurname.email==project.admin} ? ${adminNameAndSurname.name.substring(0,1)+adminNameAndSurname.surname.substring(0,1)}:'' "
+                         data-toggle="tooltip"
+                         th:title="${adminNameAndSurname.email==project.admin} ? ${adminNameAndSurname.name+' '+adminNameAndSurname.surname} :''">
+                        >
+
+                    </div>
+
                     <a th:text="${project.admin}">
                     </a>
-                    <a th:href="@{/editproject(id=${project.id})}"><i class="fas fa-cogs" id="cogs" data-toggle="modal"
+                    <a th:href="@{/editproject(id=${project.id})}" th:classappend="${ActualUser.email==project.admin} ? '':'btn disabled cog'"><i class="fas fa-cogs" id="cogs" data-toggle="modal"
                                                                       data-target="#myEditProject" th:title="Edytuj">
                     </i></a>
                 </td>

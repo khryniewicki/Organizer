@@ -30,11 +30,12 @@ public class Project {
     private List<User> users;
     private String avatar;
 
-    public Project(String name, String description,String avatar) {
+    public Project(String name, String description,String avatar,List<User> users) {
         this.name=name;
         this.description=description;
         this.admin= UtillClass.getLoggedInUser().getEmail();
         this.avatar= avatar;
+        this.users=users;
     }
 
     public Project(List<User> users) {
