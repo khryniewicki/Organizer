@@ -19,7 +19,6 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idTask;
-    @Size(max=50)
     private String name;
     private String description;
 
@@ -39,5 +38,30 @@ public class Task {
     @JsonIgnore
     private User user;
 
+    @Override
+    public String toString() {
+        return "Task{" +
+                "idTask=" + idTask +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", sprint=" + sprint +
+                ", priority=" + priority +
+                ", storyPoints=" + storyPoints +
+                ", typeOfStory=" + typeOfStory +
+                ", progress='" + progress + '\'' +
+                '}';
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Task task = (Task) o;
+        return Objects.equals(idTask, task.idTask);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idTask);
+    }
 }

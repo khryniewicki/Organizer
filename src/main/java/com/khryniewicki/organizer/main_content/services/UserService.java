@@ -21,6 +21,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final ProjectRepository projectRepository;
 
+
     public String getInitialLetters(User user) {
         String initials = user.getName().toUpperCase().substring(0, 1) + user.getSurname().toUpperCase().substring(0, 1);
         return initials;

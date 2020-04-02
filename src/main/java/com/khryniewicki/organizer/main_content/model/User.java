@@ -1,5 +1,6 @@
 package com.khryniewicki.organizer.main_content.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.khryniewicki.organizer.registration_login_logout.DTO.Roles;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.Objects;
 
 @NoArgsConstructor
 @Data
@@ -17,24 +19,21 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUser;
 
-    @NotNull
     private String name;
 
-    @NotNull
     private String surname;
 
-    @NotNull
     private String nick;
 
-    @NotNull
     private String email;
-    @NotNull
     private String password;
 
     @ManyToMany (mappedBy = "users")
+    @JsonIgnore
     private List<Project> projects;
 
     @OneToOne (mappedBy = "user")
+    @JsonIgnore
     private Task task;
 
     private String href;
@@ -63,4 +62,28 @@ public class User {
         this.href=href;
     }
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "idUser=" + idUser +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", nick='" + nick + '\'' +
+                ", email='" + email + '\'' +
+                ", role=" + role +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(idUser, user.idUser);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(idUser);
+    }
 }

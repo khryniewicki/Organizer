@@ -5,11 +5,12 @@
 <head>
     <title>Edycja Zadania -Organizer</title>
 </head>
-<th:block layout:fragment="edit_card">
+
+<th:block layout:fragment="content">
     <div class="modal fade" id="myEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content">
+            <div class="modal-content modaledit">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Edytuj zgłoszenie</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -20,7 +21,7 @@
                       th:object="${oldTask}" method="post">
                     <div class="modal-body">
                         <div class='form-group'>
-                            <label for='project'> Projekt*</label>
+                            <label for='project'> Projekt</label><span class="required">*</span>
                             <select id='project' th:field="${oldTask.project}">
                                 <option th:each="project:${projectList}"
                                         th:value="${project.id}"
@@ -30,7 +31,7 @@
                             </select></div>
                         <br>
 
-                        <div class='form-group'><label for='NotificationType'> Typ zgłoszenia*</label>
+                        <div class='form-group'><label for='NotificationType'> Typ zgłoszenia</label><span class="required">*</span>
                             <select id='NotificationType' th:field="${oldTask.typeOfStory}">
                                 <option th:each="type:${T(com.khryniewicki.organizer.main_content.model.TypeOfStory).values()}"
                                         th:value="${type}"
@@ -40,26 +41,28 @@
                                 </option>
                             </select>
                         </div>
-                        <div class='form-group'>
-                            <label for='sprint'> Sprint*</label>
-                            <select id='sprint' th:field="${oldTask.sprint}">
-                                <option th:each="sprint:${sprintList}"
-                                        th:value="${sprint.idSprint}"
-                                        th:text="${sprint.name}"
-                                        th:selected="${sprint.name==oldTask.sprint.name}"
-                                ></option>
-                            </select></div>
+                        <!--                        <div class='form-group'>-->
+                        <!--                            <label for='sprint'> Sprint*</label>-->
+                        <!--                            <select id='sprint' th:field="${oldTask.sprint}">-->
+                        <!--                                <option th:each="sprint:${sprintList}"-->
+                        <!--                                        th:value="${sprint.idSprint}"-->
+                        <!--                                        th:text="${sprint.name}"-->
+                        <!--                                        th:selected="${sprint.name==oldTask.sprint.name}"-->
+                        <!--                                ></option>-->
+                        <!--                            </select>-->
+                        <!--                        </div>-->
                         <br>
                         <div class='form-group'>
-                            <label for='inputName'> Podsumowanie*</label>
-                            <input id='inputName' class='form-control' type='text' th:field="${oldTask.name}">
+                            <label for='inputName'> Podsumowanie</label><span class="required">*</span>
+                            <input id='inputName' class='form-control w-50' type='text' th:field="${oldTask.name}">
                         </div>
 
                         <div class='form-group'><label for='inputDescription'> Opis</label>
-                            <input id='inputDescription' class='form-control' type='text'
-                                   th:field="${oldTask.description}"></div>
+                            <textarea id='inputDescription' class='form-control' type='text'
+                                      th:field="${oldTask.description}" rows="5"></textarea></div>
 
-                        <div class='form-group'><label for='Priority'> Priorytet</label>
+                        <div class='form-group'>
+                            <label for='Priority' > Priorytet</label><span class="required">*</span>
                             <select id='Priority' th:field="${oldTask.priority}">
                                 <option th:each="priority:${T(com.khryniewicki.organizer.main_content.model.Priority).values()}"
                                         th:value="${priority}"
@@ -68,12 +71,41 @@
                                 ></option>
                             </select>
                         </div>
+                        <div class='form-group'>
+                            <div class="row">
+                                <div class="col-2">
+                                    <label for='AttachedUser'> Osoba przypisana: </label>
+                                </div>
+
+                                <div class="col-2">
+                                    <p id='AttachedUser'
+                                       th:text="${oldTask.user==null}? 'Brak osoby przypisanej': ${oldTask.user.name+' '+oldTask.user.surname}"></p>
+                                </div>
 
 
+                                <div class="offset-2 col-2">
+                                    <label for='User'> Przypisz użytkownika:</label>
+                                </div>
+
+                                <div class="col-2">
+
+                                    <select id='User' th:field="${oldTask.user}">
+                                        <option th:value="null"></option>
+                                        <option th:each="user:${usersToProject}"
+                                                th:value="${user.idUser}"
+                                                th:text="${user.name+' '+user.surname}"
+                                                th:selected="${user==oldTask.user}"
+                                        ></option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
                         <div class="modal-footer">
                             <a type="button" th:href="@{/deletetask(id=${oldTask.idTask})}"
                                class="btn btn-warning">Usuń</a>
-                            <button type="submit"  class="btn btn-primary">Edytuj</button>
+                            <button type="submit" class="btn btn-primary">Edytuj</button>
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Zamknij</button>
 
                         </div>
@@ -83,7 +115,7 @@
             </div>
         </div>
     </div>
-</th:block >
+</th:block>
 
 <th:block layout:fragment="scripts">
     <script src="js/editTask.js"></script>

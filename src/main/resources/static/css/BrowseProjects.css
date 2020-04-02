@@ -128,3 +128,7 @@ select.icon-menu option {
     overflow: hidden;
     padding : 6px 2px 4px 2px ;
 }
+.required
+{
+    color: red;
+}

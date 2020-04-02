@@ -20,18 +20,27 @@
                 <form th:action="@{/createProject}" th:object="${newProject}" method="post">
                     <div class="modal-body">
                         <div class='form-group'>
-                            <label for='project.name'> Nazwa projektu</label>
-                            <input type="text" id="project.name" name="project.name" th:field="*{name}">
-                            <br>
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for='project.name'> Nazwa projektu</label><span class="required">*</span>
+                                </div>
+                                <div class="offset-1 col-7">
+                                    <input type="text" id="project.name" name="project.name" th:field="*{name}">
 
-                            <div class='form-group'>
-                                <label for='project.description'> Opis projektu</label>
-                                <input type="text" id="project.description" name="project.description"
-                                       th:field="*{description}">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-4">
+                                    <label for='project.description'> Opis projektu</label>
+                                </div>
+                                <div class="offset-1 col-7">
+                                    <input type="text" id="project.description" name="project.description"
+                                           th:field="*{description}">
+                                </div>
                             </div>
 
                             <br>
-                            <label> Avatar*</label>
+                            <label> Avatar</label><span class="required">*</span>
                             <br>
 
                             <div class="dropdown ">

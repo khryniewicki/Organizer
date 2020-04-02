@@ -44,17 +44,48 @@ function hideAll() {
 ////
 $('.dropdown-toggle').dropdown();
 
-let addUserToProject = document.getElementById('addUserToProject');
-addUserToProject.addEventListener("change", (event)=> {
+let myInput=document.getElementById('myInput');
+let submitUser = document.getElementById('submitUser');
+
+submitUser.addEventListener("click", (event)=> {
     let url = document.createElement('a');
     url.setAttribute('href', window.location);
     let param = url.search.substr(4);
-    let user =addUserToProject.options[addUserToProject.selectedIndex].value;
-
+    let userX =myInput.value;
     $.get({
-        url: "/project" + '/' + param + '/' + user,
+        url: "/dashboard/allusers",
         success: function (data) {
+
+            for (let i = 0; i < data.length; i++) {
+                if (userX===data[i].email){
+                id_user=data[i].idUser;
+                break;}
+            }
+            $.get({
+                url: "/project" + '/' + param + '/' + id_user,
+                success: function (x) {
+                }
+            });
         }
     });
-
+    myInput.value="";
 });
+var listWithUsers=[];
+
+myInput.addEventListener("input",()=>{
+
+    $.get({
+        url: "/dashboard/allusers",
+        success: function (data) {
+            listWithUsers=[];
+            for (let i = 0; i < data.length; i++) {
+                listWithUsers.push(data[i].email);
+            }
+            autocomplete(document.getElementById("myInput"), listWithUsers);
+
+        }
+    });
+});
+
+
+

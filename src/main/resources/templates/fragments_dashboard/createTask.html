@@ -6,7 +6,7 @@
     <title>Nowe Zadanie -Organizer</title>
 </head>
 
-<th:block layout:fragment="add_card">
+<th:block layout:fragment="content">
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -21,7 +21,7 @@
                       th:object="${newTask}" method="post">
                     <div class="modal-body">
                         <div class='form-group'>
-                            <label for='project'> Projekt*</label>
+                            <label for='project'> Projekt</label><span class="required">*</span>
                             <select id='project' th:field="${newTask.project}">
                                 <option th:each="project:${projectList}"
                                         th:value="${project.id}"
@@ -29,42 +29,55 @@
                                         th:selected="${project.id==ActualDashBoard.id}"
 
                                 ></option>
-                            </select></div>
+                            </select>
+                            <div th:if="${#fields.hasErrors('project')}" th:errors="*{project}">Wybierz projekt </div>
+
+                        </div>
                         <br>
 
-                        <div class='form-group'><label for='NotificationType'> Typ zgłoszenia*</label>
-                            <select id='NotificationType' th:field="${newTask.typeOfStory}">
+                        <div class='form-group'><label for='typeOfStory'> Typ zgłoszenia</label><span class="required">*</span>
+                            <select id='typeOfStory' th:field="${newTask.typeOfStory}">
                                 <option th:each="type:${T(com.khryniewicki.organizer.main_content.model.TypeOfStory).values()}"
                                         th:value="${type}"
                                         th:text="${type}">
                                 </option>
                             </select>
+                            <div th:if="${#fields.hasErrors('typeOfStory')}" th:errors="*{typeOfStory}">Wybierz typ zgłoszenia </div>
+
                         </div>
+<!--                        <div class='form-group'>-->
+<!--                            <label for='sprint'> Sprint*</label>-->
+<!--                            <select id='sprint' th:field="${newTask.sprint}">-->
+<!--                                <option th:each="sprint:${sprintList}"-->
+<!--                                        th:value="${sprint.idSprint}"-->
+<!--                                        th:text="${sprint.name}"-->
+<!--                                ></option>-->
+<!--                            </select>-->
+<!--                        </div>-->
                         <div class='form-group'>
-                            <label for='sprint'> Sprint*</label>
-                            <select id='sprint' th:field="${newTask.sprint}">
-                                <option th:each="sprint:${sprintList}"
-                                        th:value="${sprint.idSprint}"
-                                        th:text="${sprint.name}"
-                                ></option>
-                            </select></div>
+
+
+                        </div>
                         <br>
                         <div class='form-group'>
-                            <label for='inputName'> Podsumowanie*</label>
-                            <input id='inputName' class='form-control' type='text' th:field="${newTask.name}">
+                            <label for='name'> Podsumowanie</label><span class="required">*</span>
+                            <input id='name' class='form-control' type='text' th:field="${newTask.name}">
+                            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Popraw nazwę podsumowania </div>
+
                         </div>
 
                         <div class='form-group'><label for='inputDescription'> Opis</label>
                             <input id='inputDescription' class='form-control' type='text'
                                    th:field="${newTask.description}"></div>
 
-                        <div class='form-group'><label for='Priority'> Priorytet</label>
+                        <div class='form-group'><label for='Priority'> Priorytet</label><span class="required">*</span>
                             <select id='Priority' th:field="${newTask.priority}">
                                 <option th:each="priority:${T(com.khryniewicki.organizer.main_content.model.Priority).values()}"
                                         th:value="${priority}"
                                         th:text="${priority}"
                                 ></option>
                             </select>
+                            <div th:if="${#fields.hasErrors('Priority')}" th:errors="*{priority}">Wybierz priorytet </div>
                         </div>
 
                         <div class="modal-footer">
