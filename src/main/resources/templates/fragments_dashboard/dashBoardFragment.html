@@ -94,7 +94,7 @@
                                      th:title="${ActualUser.name+' '+ActualUser.surname}">
                                 </div>
 
-                                <div th:each="user:${usersAssignedToProject}"
+                                <div th:each="user:${usersAssignedToProjectApartActiveUser}"
                                      class="btn btn-light  mx-n1 ButtonWithInitials "
                                      th:text="${user.name.substring(0,1)+user.surname.substring(0,1)}"
                                      data-toggle="tooltip"

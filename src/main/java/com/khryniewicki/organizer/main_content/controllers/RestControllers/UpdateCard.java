@@ -14,8 +14,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class UpdateCard {
         private final TaskServices taskServices;
         private final HrefService hrefService;
+
     @GetMapping("/task/{id}/{progress}")
-    public void updateCard(@PathVariable("id") Long id,@PathVariable("progress") String progress){
+    public void updateCardProgress(@PathVariable("id") Long id, @PathVariable("progress") String progress){
         Task task = taskServices.findTask(id);
         task.setProgress(progress);
         taskServices.saveTask(task); }

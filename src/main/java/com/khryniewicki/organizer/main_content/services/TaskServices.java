@@ -29,7 +29,7 @@ public class TaskServices {
     }
 
     public void createTaskUsingTaskDTO(TaskDTO taskDTO) {
-        Task task=new Task();
+        Task task = new Task();
         getTaskFromTaskDTO(taskDTO, task);
         task.setProgress(progressServices.findAllProgress().get(0).getName());
         saveTask(task);
@@ -52,7 +52,6 @@ public class TaskServices {
     }
 
 
-
     public void updateTaskUsingDTO(TaskDTO taskDto, Long id) {
         Task task = findTask(id);
         getTaskFromTaskDTO(taskDto, task);
@@ -64,6 +63,7 @@ public class TaskServices {
     public TaskDTO getTaskDtoFromTask(Long id) {
         Task oldTask = findTask(id);
         TaskDTO taskDTO = new TaskDTO();
+        taskDTO.setIdTask(oldTask.getIdTask());
         taskDTO.setDescription(oldTask.getDescription());
         taskDTO.setName(oldTask.getName());
         if (oldTask.getProgress() != null) taskDTO.setProgress(oldTask.getProgress());
@@ -95,7 +95,8 @@ public class TaskServices {
     }
 
     public void deleteTask(Long id) {
-        taskRepository.deleteById(id);
+        Task task = findTask(id);
+        taskRepository.delete(task);
     }
 
     public TaskDTO newTaskDtoWithAssignedProjectId(Long projectId) {
@@ -107,4 +108,10 @@ public class TaskServices {
     public Long getProjectIdFromTaskDTO(TaskDTO taskDTO) {
         return taskDTO.getProject().getId();
     }
+
+    public Long getProjectIdFromTask(Long id) {
+        Task task = findTask(id);
+        return task.getProject().getId();
+    }
+
 }

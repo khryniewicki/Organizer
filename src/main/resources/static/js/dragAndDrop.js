@@ -44,48 +44,73 @@ function hideAll() {
 ////
 $('.dropdown-toggle').dropdown();
 
-let myInput=document.getElementById('myInput');
+let myInput = document.getElementById('myInput');
 let submitUser = document.getElementById('submitUser');
 
-submitUser.addEventListener("click", (event)=> {
+submitUser.addEventListener("click", (event) => {
     let url = document.createElement('a');
     url.setAttribute('href', window.location);
-    let param = url.search.substr(4);
-    let userX =myInput.value;
+    let projectId = url.search.substr(4);
+    let selectedUser = myInput.value;
+    let userId;
     $.get({
         url: "/dashboard/allusers",
-        success: function (data) {
+        success: function (users) {
 
-            for (let i = 0; i < data.length; i++) {
-                if (userX===data[i].email){
-                id_user=data[i].idUser;
-                break;}
+            for (let i = 0; i < users.length; i++) {
+
+                if (selectedUser === users[i].email) {
+                    userId = users[i].idUser;
+                    break;
+                }
             }
+
             $.get({
-                url: "/project" + '/' + param + '/' + id_user,
-                success: function (x) {
+                url: "/project" + '/' + projectId + '/' + userId,
+                success: function (result) {
+                    console.log(result);
                 }
             });
         }
     });
-    myInput.value="";
+    myInput.value = "";
 });
-var listWithUsers=[];
 
-myInput.addEventListener("input",()=>{
+var listWithUsers;
+let usersCounter;
+let isUsersCounterChanged;
+
+myInput.addEventListener("input", () => {
 
     $.get({
         url: "/dashboard/allusers",
-        success: function (data) {
-            listWithUsers=[];
-            for (let i = 0; i < data.length; i++) {
-                listWithUsers.push(data[i].email);
+        success: function (users) {
+
+            isUsersCounterChanged = CheckIsUsersCounterChanged(usersCounter, users.length);
+
+            if (isUsersCounterChanged) {
+                usersCounter = users.length;
+                listWithUsers=findAllUsers(users);
             }
             autocomplete(document.getElementById("myInput"), listWithUsers);
-
         }
     });
+
 });
 
+function CheckIsUsersCounterChanged(usersCounter, dataLength) {
+    if (usersCounter == null){ return true;}
+    else if (usersCounter === dataLength){ return false;}
+    else {return true;}
+}
+
+
+function findAllUsers(users) {
+    listWithUsers=[];
+    for (let i = 0; i < usersCounter; i++) {
+        listWithUsers.push(users[i].email);
+    }
+    return listWithUsers;
+}
 
 

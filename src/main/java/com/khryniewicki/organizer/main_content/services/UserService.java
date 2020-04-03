@@ -48,12 +48,10 @@ public class UserService {
     public List<User> getAllUsersAssignedToProject(Long projectId) {
         List<User> all = getAllUsers();
         Optional<Project> ProjectById = projectRepository.findById(projectId);
-        Long activeUserId = getActiveUserId();
 
         List<User> collect = new ArrayList<>();
         if (ProjectById.isPresent()) {
             collect = all.stream()
-                    .filter(user -> !user.getIdUser().equals(activeUserId))
                     .filter(user -> user.getProjects().stream().
                             anyMatch(project -> project.getId() == projectId))
                     .distinct()
@@ -61,6 +59,12 @@ public class UserService {
         }
         return collect;
     }
+   public List<User> getAllUsersAssignedToProjectApartActiveUser(Long projectId){
+       List<User> allUsersAssignedToProject = getAllUsersAssignedToProject(projectId);
+       allUsersAssignedToProject.remove(UtillClass.getLoggedInUser());
+       return allUsersAssignedToProject;
+   }
+
 
     private Long getActiveUserId() {
         return UtillClass.getLoggedInUser().getIdUser();

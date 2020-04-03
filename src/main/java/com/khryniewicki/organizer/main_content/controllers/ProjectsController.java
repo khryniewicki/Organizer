@@ -3,9 +3,7 @@ package com.khryniewicki.organizer.main_content.controllers;
 import com.khryniewicki.organizer.main_content.Utills.UtillClass;
 import com.khryniewicki.organizer.main_content.model.Project;
 import com.khryniewicki.organizer.main_content.model.User;
-import com.khryniewicki.organizer.main_content.services.HrefService;
 import com.khryniewicki.organizer.main_content.services.ProjectService;
-import com.khryniewicki.organizer.main_content.services.UserService;
 import com.khryniewicki.organizer.registration_login_logout.DTO.ProjectDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -25,11 +23,10 @@ import javax.validation.Valid;
 public class ProjectsController {
 
     private final ProjectService projectService;
-    private final HrefService hrefService;
-    private final UserService userService;
+
     @GetMapping("/projects")
     public String showProjects(Model model, HttpServletRequest request) {
-        return "fragmentsProjects/proj";
+        return "fragmentsProjects/browserProject";
     }
 
     @GetMapping("/createProject")
@@ -70,11 +67,7 @@ public class ProjectsController {
         if (session != null) appUser = (User) session.getAttribute("appUser");
 
         if (appUser != null) {
-//            model.addAttribute("ActualUser", appUser);
-//            model.addAttribute("ActualUserInitialLetters", userService.getInitialLetters(appUser));
-//            model.addAttribute("actualDashBoard", hrefService.getLastProject());
             model.addAttribute("avatarList", UtillClass.getListOfIconTitles());
-            model.addAttribute("projectList", projectService.getAllProjectsForUser());
             model.addAttribute("allAdminsInitialsList", projectService.getProjectAdminNameAndSurname());
         }
     }
