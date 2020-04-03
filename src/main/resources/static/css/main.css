@@ -174,7 +174,8 @@ input[type=submit] {
 .spacer{
     height: 40px;
 }
-.required
+.required,.errorRED
 {
     color: red;
 }
+

@@ -38,7 +38,13 @@ public class Project {
         this.avatar= avatar;
         this.users=users;
     }
-
+    public Project(String name, String description,String admin, String avatar,List<User> users) {
+        this.name=name;
+        this.description=description;
+        this.admin= admin;
+        this.avatar= avatar;
+        this.users=users;
+    }
     public Project(List<User> users) {
         this.users = users;
     }

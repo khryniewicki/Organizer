@@ -64,4 +64,13 @@ public class Task {
     public int hashCode() {
         return Objects.hash(idTask);
     }
+
+    public Task(String name,String description, Project project,Priority priority,TypeOfStory typeOfStory,String progress){
+        this.name=name;
+        this.description=description;
+        this.project=project;
+        this.priority=priority;
+        this.typeOfStory=typeOfStory;
+        this.progress=progress;
+    }
 }

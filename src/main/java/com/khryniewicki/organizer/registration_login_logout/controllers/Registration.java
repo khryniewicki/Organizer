@@ -46,7 +46,7 @@ public class Registration {
         if (registered == null) {
             result.rejectValue("email", "message.regError");
         }
-        return "redirect:/projects";
+        return "redirect:/login";
     }
 
     private User createUserAccount(UserDTO userDTO) {

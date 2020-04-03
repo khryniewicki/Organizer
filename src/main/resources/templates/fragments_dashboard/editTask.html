@@ -91,7 +91,7 @@
 
                                     <select id='User' th:field="${oldTask.user}">
                                         <option th:value="null"></option>
-                                        <option th:each="user:${usersToProject}"
+                                        <option th:each="user:${usersAssignedToProject}"
                                                 th:value="${user.idUser}"
                                                 th:text="${user.name+' '+user.surname}"
                                                 th:selected="${user==oldTask.user}"

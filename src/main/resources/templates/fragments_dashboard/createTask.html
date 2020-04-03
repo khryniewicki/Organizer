@@ -26,11 +26,11 @@
                                 <option th:each="project:${projectList}"
                                         th:value="${project.id}"
                                         th:text="${project.name}"
-                                        th:selected="${project.id==ActualDashBoard.id}"
+                                        th:selected="${project.id==actualDashBoard.id}"
 
                                 ></option>
                             </select>
-                            <div th:if="${#fields.hasErrors('project')}" th:errors="*{project}">Wybierz projekt </div>
+                            <div th:if="${#fields.hasErrors('project')}" class="errorRED" th:errors="*{project}">Wybierz projekt </div>
 
                         </div>
                         <br>
@@ -42,18 +42,10 @@
                                         th:text="${type}">
                                 </option>
                             </select>
-                            <div th:if="${#fields.hasErrors('typeOfStory')}" th:errors="*{typeOfStory}">Wybierz typ zgłoszenia </div>
+                            <div th:if="${#fields.hasErrors('typeOfStory')}" class="errorRED" th:errors="*{typeOfStory}">Wybierz typ zgłoszenia </div>
 
                         </div>
-<!--                        <div class='form-group'>-->
-<!--                            <label for='sprint'> Sprint*</label>-->
-<!--                            <select id='sprint' th:field="${newTask.sprint}">-->
-<!--                                <option th:each="sprint:${sprintList}"-->
-<!--                                        th:value="${sprint.idSprint}"-->
-<!--                                        th:text="${sprint.name}"-->
-<!--                                ></option>-->
-<!--                            </select>-->
-<!--                        </div>-->
+
                         <div class='form-group'>
 
 
@@ -62,13 +54,16 @@
                         <div class='form-group'>
                             <label for='name'> Podsumowanie</label><span class="required">*</span>
                             <input id='name' class='form-control' type='text' th:field="${newTask.name}">
-                            <div th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Popraw nazwę podsumowania </div>
+                            <div th:if="${#fields.hasErrors('name')}" class="errorRED" th:errors="*{name}">Popraw nazwę podsumowania </div>
 
                         </div>
 
-                        <div class='form-group'><label for='inputDescription'> Opis</label>
-                            <input id='inputDescription' class='form-control' type='text'
-                                   th:field="${newTask.description}"></div>
+                        <div class='form-group'><label for='description'> Opis</label>
+                            <input id='description' class='form-control' type='text'
+                                   th:field="${newTask.description}">
+                            <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="errorRED">Popraw nazwę opisu </div>
+
+                        </div>
 
                         <div class='form-group'><label for='Priority'> Priorytet</label><span class="required">*</span>
                             <select id='Priority' th:field="${newTask.priority}">

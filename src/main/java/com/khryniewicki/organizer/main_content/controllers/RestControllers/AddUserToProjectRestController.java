@@ -18,8 +18,8 @@ public class AddUserToProjectRestController {
     private final ProjectService projectService;
 
     @GetMapping("/project/{idproject}/{user}")
-    public void addUserToProject(@PathVariable("idproject") Long idproject, @PathVariable("user") Long iduser) {
-        projectService.addUserToProject(idproject, iduser);
+    public void addUserToProject(@PathVariable("idproject") Long projectId, @PathVariable("user") Long userId) {
+        projectService.addUserToProject(projectId, userId);
     }
 
     @GetMapping("/dashboard/allusers")

@@ -7,7 +7,10 @@ import com.khryniewicki.organizer.main_content.model.repositories.TaskRepository
 import com.khryniewicki.organizer.registration_login_logout.DTO.TaskDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -21,10 +24,23 @@ public class TaskServices {
     private final ProjectService projectService;
     private final HrefService hrefService;
 
-    public void saveTask(TaskDTO taskDTO) {
+    public void saveTask(Task task) {
+        taskRepository.save(task);
+    }
+
+    public void createTaskUsingTaskDTO(TaskDTO taskDTO) {
         Task task=new Task();
-        task.setProject(projectService.findProject(taskDTO.getProject().getId()));
+        getTaskFromTaskDTO(taskDTO, task);
         task.setProgress(progressServices.findAllProgress().get(0).getName());
+        saveTask(task);
+    }
+
+    public Task findTask(Long id) {
+        return taskRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Brak takiego zadania"));
+    }
+
+    private Task getTaskFromTaskDTO(TaskDTO taskDTO, Task task) {
+        task.setProject(projectService.findProject(taskDTO.getProject().getId()));
         task.setDescription(taskDTO.getDescription());
         task.setName(taskDTO.getName());
         task.setPriority(taskDTO.getPriority());
@@ -32,44 +48,22 @@ public class TaskServices {
         task.setSprint(taskDTO.getSprint());
         task.setStoryPoints(taskDTO.getStoryPoints());
         task.setUser(taskDTO.getUser());
-        taskRepository.save(task);
+        return task;
     }
 
-    public Task findTask(Long id) {
-        return taskRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Brak takiego zadania"));
+
+
+    public void updateTaskUsingDTO(TaskDTO taskDto, Long id) {
+        Task task = findTask(id);
+        getTaskFromTaskDTO(taskDto, task);
+        if (taskDto.getProgress() != null) task.setProgress(taskDto.getProgress());
+        saveTask(task);
     }
 
-    public void updateTask(Task updatedTask, Long id) {
-        Task task = findTask(id);
-        task.setDescription(updatedTask.getDescription());
-        task.setName(updatedTask.getName());
-        if (updatedTask.getProgress() != null) task.setProgress(updatedTask.getProgress());
-        task.setPriority(updatedTask.getPriority());
-        task.setTypeOfStory(updatedTask.getTypeOfStory());
-        task.setProject(projectService.findProject(updatedTask.getProject().getId()));
-        task.setSprint(updatedTask.getSprint());
-        task.setStoryPoints(updatedTask.getStoryPoints());
-        task.setUser(updatedTask.getUser());
-        taskRepository.save(task);
-    }
-    public void updateTaskUsingDTO(TaskDTO updatedTask, Long id) {
-        Task task = findTask(id);
-        task.setDescription(updatedTask.getDescription());
-        task.setName(updatedTask.getName());
-        if (updatedTask.getProgress() != null) task.setProgress(updatedTask.getProgress());
-        task.setPriority(updatedTask.getPriority());
-        task.setTypeOfStory(updatedTask.getTypeOfStory());
-        task.setProject(projectService.findProject(updatedTask.getProject().getId()));
-        task.setSprint(updatedTask.getSprint());
-        task.setStoryPoints(updatedTask.getStoryPoints());
-        task.setUser(updatedTask.getUser());
-        taskRepository.save(task);
-    }
-    public TaskDTO TaskTransformToTaskDTO(Long id) {
+
+    public TaskDTO getTaskDtoFromTask(Long id) {
         Task oldTask = findTask(id);
-
         TaskDTO taskDTO = new TaskDTO();
-
         taskDTO.setDescription(oldTask.getDescription());
         taskDTO.setName(oldTask.getName());
         if (oldTask.getProgress() != null) taskDTO.setProgress(oldTask.getProgress());
@@ -102,5 +96,15 @@ public class TaskServices {
 
     public void deleteTask(Long id) {
         taskRepository.deleteById(id);
+    }
+
+    public TaskDTO newTaskDtoWithAssignedProjectId(Long projectId) {
+        TaskDTO taskDTO = new TaskDTO();
+        taskDTO.setProject(projectService.findProject(projectId));
+        return taskDTO;
+    }
+
+    public Long getProjectIdFromTaskDTO(TaskDTO taskDTO) {
+        return taskDTO.getProject().getId();
     }
 }

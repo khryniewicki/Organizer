@@ -13,7 +13,8 @@ public class ProgressServices {
     private final ProgressRepository progressRepository;
 
     public List<Progress> findAllProgress(){
-        boolean empty = progressRepository.findAll().isEmpty();
+        List<Progress> allProjectProgress = progressRepository.findAll();
+        boolean empty = allProjectProgress.isEmpty();
         LinkedHashMap<Integer,Progress> linkedMap=new LinkedHashMap<>();
         if (empty){
              linkedMap.put(1,new Progress("Backlog"));
@@ -22,10 +23,9 @@ public class ProgressServices {
              linkedMap.put(4,new Progress("Testowanie"));
              linkedMap.put(5,new Progress("Zakończone"));
             for (Map.Entry<Integer, Progress> integerProgressEntry : linkedMap.entrySet()) {
-                System.out.println(integerProgressEntry.getValue());
                 progressRepository.save(integerProgressEntry.getValue()); };
         }
-        return progressRepository.findAll();
+        return allProjectProgress;
     }
 
 

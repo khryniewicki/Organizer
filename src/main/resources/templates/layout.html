@@ -21,7 +21,7 @@
     </div>
 
     <div id="dashboard">
-        <div th:replace="fragments_dashboard/dashBoardFragment :: dashBoard(${taskList},${progress_steps},${ActualDashBoard},${ActualUser},${ActualUserInitialLetters},${userList})"></div>
+        <div th:replace="fragments_dashboard/dashBoardFragment :: dashBoard(${taskList},${progress_steps},${actualDashBoard},${ActualUser},${ActualUserInitialLetters},${userList})"></div>
 
         <section layout:fragment="content"></section>
 

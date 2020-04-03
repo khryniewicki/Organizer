@@ -48,7 +48,7 @@
                                 <div class="avatar_box" role="group">
 
                                     <button th:id="${avatar}" type="button" class="btn btn_avatar"
-                                            th:each="avatar:${avatar_list}" onclick="getIMG(this.id)">
+                                            th:each="avatar:${avatarList}" onclick="getIMG(this.id)">
                                     <span>
                                    <img class="avatar_edit" th:src="'img/icons/'+${avatar}">
                                     </span>

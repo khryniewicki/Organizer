@@ -21,37 +21,6 @@ public class UserService {
     private final UserRepository userRepository;
     private final ProjectRepository projectRepository;
 
-
-    public String getInitialLetters(User user) {
-        String initials = user.getName().toUpperCase().substring(0, 1) + user.getSurname().toUpperCase().substring(0, 1);
-        return initials;
-    }
-
-    public List<User> getAllUsersApartActiveUser() {
-        List<User> all = userRepository.findAll();
-        return all.stream()
-                .filter(user -> !user.getIdUser().equals(UtillClass.getLoggedInUser().getIdUser()))
-                .collect(Collectors.toList());
-
-    }
-
-
-    public List<User> getAllUsersToProject(Long id) {
-        List<User> all = userRepository.findAll();
-        Optional<Project> byId = projectRepository.findById(id);
-        List<User> collect = new ArrayList<>();
-        if (byId.isPresent()) {
-            collect = all.stream()
-                    .filter(user -> !user.getIdUser().equals(UtillClass.getLoggedInUser().getIdUser()))
-                    .filter(user -> user.getProjects().stream().
-                            anyMatch(e -> e.getId() == id))
-                    .distinct()
-                    .collect(Collectors.toList());
-
-        }
-        return collect;
-    }
-
     public User findUserById(Long id) {
         Optional<User> UserbyId = userRepository.findById(id);
         if (UserbyId.isPresent()) {
@@ -62,4 +31,46 @@ public class UserService {
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }
+
+    public List<User> getAllUsers() {
+        return userRepository.findAll();
+    }
+
+    public List<User> getAllUsersApartActiveUser() {
+        List<User> all = getAllUsers();
+        Long activeUserId = getActiveUserId();
+        return all.stream()
+                .filter(user -> !user.getIdUser().equals(activeUserId))
+                .collect(Collectors.toList());
+    }
+
+
+    public List<User> getAllUsersAssignedToProject(Long projectId) {
+        List<User> all = getAllUsers();
+        Optional<Project> ProjectById = projectRepository.findById(projectId);
+        Long activeUserId = getActiveUserId();
+
+        List<User> collect = new ArrayList<>();
+        if (ProjectById.isPresent()) {
+            collect = all.stream()
+                    .filter(user -> !user.getIdUser().equals(activeUserId))
+                    .filter(user -> user.getProjects().stream().
+                            anyMatch(project -> project.getId() == projectId))
+                    .distinct()
+                    .collect(Collectors.toList());
+        }
+        return collect;
+    }
+
+    private Long getActiveUserId() {
+        return UtillClass.getLoggedInUser().getIdUser();
+    }
+
+
+    public String getInitialLetters(User user) {
+        String initials = user.getName().toUpperCase().substring(0, 1) + user.getSurname().toUpperCase().substring(0, 1);
+        return initials;
+    }
+
 }
+

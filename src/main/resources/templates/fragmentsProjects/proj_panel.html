@@ -88,7 +88,7 @@
                 <td th:text="'Klasyczne oprogramowanie'"></td>
                 <td>
 
-                    <div th:each="adminNameAndSurname:${ProjectAdminsInitials}"
+                    <div th:each="adminNameAndSurname:${allAdminsInitialsList}"
                          th:id="${adminNameAndSurname.email==project.admin}?'goodbutton':'btndisplaynone'"
                          th:classappend="${adminNameAndSurname.email==ActualUser.email}? 'btn mx-1 ButtonWithInitials btn-danger ' : 'btn mx-1 ButtonWithInitials btn-secondary '"
                          th:text="${adminNameAndSurname.email==project.admin} ? ${adminNameAndSurname.name.substring(0,1)+adminNameAndSurname.surname.substring(0,1)}:'' "

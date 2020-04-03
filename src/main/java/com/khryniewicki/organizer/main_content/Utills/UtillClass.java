@@ -24,7 +24,6 @@ import java.util.stream.Stream;
 @Service
 @RequiredArgsConstructor
 public class UtillClass {
-    private final ProjectService projectService;
 
     public static User getLoggedInUser() {
         HttpSession session = getCurrentHttpRequest().getSession(false);

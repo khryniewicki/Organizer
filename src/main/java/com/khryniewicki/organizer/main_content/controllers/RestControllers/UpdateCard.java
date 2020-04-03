@@ -15,14 +15,13 @@ public class UpdateCard {
         private final TaskServices taskServices;
         private final HrefService hrefService;
     @GetMapping("/task/{id}/{progress}")
-    public String updateCard(@PathVariable("id") Long id,@PathVariable("progress") String progress){
-        Task tmptask = taskServices.findTask(id);
-        tmptask.setProgress(progress);
-        taskServices.updateTask(tmptask,id);
-        return "Challange accepted";
-    }
+    public void updateCard(@PathVariable("id") Long id,@PathVariable("progress") String progress){
+        Task task = taskServices.findTask(id);
+        task.setProgress(progress);
+        taskServices.saveTask(task); }
+
     @GetMapping(value = "/dashboardview/{href}" )
-    public void updateDashboard(@PathVariable("href") Long href){
+    public void updateLinkToDashboard(@PathVariable("href") Long href){
             hrefService.saveOrUpdate(href); }
 
 }

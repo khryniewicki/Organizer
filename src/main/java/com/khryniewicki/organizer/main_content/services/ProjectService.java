@@ -1,11 +1,9 @@
 package com.khryniewicki.organizer.main_content.services;
 
 import com.khryniewicki.organizer.main_content.Utills.UtillClass;
-import com.khryniewicki.organizer.main_content.model.Project;
-import com.khryniewicki.organizer.main_content.model.User;
+import com.khryniewicki.organizer.main_content.model.*;
 import com.khryniewicki.organizer.main_content.model.repositories.ProjectRepository;
 import com.khryniewicki.organizer.registration_login_logout.DTO.ProjectDTO;
-import com.khryniewicki.organizer.registration_login_logout.DTO.UserDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -13,7 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 
@@ -25,8 +22,8 @@ public class ProjectService {
     private final ProjectRepository projektRepository;
     private final UserService userService;
 
-    public Project findProject(Long id_project) {
-        Optional<Project> projekt = projektRepository.findById(id_project);
+    public Project findProject(Long projectId) {
+        Optional<Project> projekt = projektRepository.findById(projectId);
         Project project1 = new Project();
         if (projekt.isPresent()) {
             project1 = projekt.get();
@@ -34,39 +31,28 @@ public class ProjectService {
         return project1;
     }
 
-    public Project findProjectByName(String name) {
-        Optional<Project> projekt = projektRepository.findByName(name);
-        Project project1 = new Project();
-        if (projekt.isPresent()) {
-            project1 = projekt.get();
-        }
-        return project1;
-    }
-
-    public List<Project> getAllProjectsForUser(User user) {
+    public List<Project> getAllProjectsForUser() {
+        User activeUser = UtillClass.getLoggedInUser();
         return projektRepository.findAll().stream()
                 .filter(project -> project.getUsers().stream().
-                        anyMatch(userx -> userx.getIdUser() == user.getIdUser()))
+                        anyMatch(userx -> userx.getIdUser() == activeUser.getIdUser()))
                 .collect(Collectors.toList());
-
     }
-    public List<User> getAdminNameAndSurname(User user){
-        return getAllProjectsForUser(user).stream()
+
+    public List<User> getProjectAdminNameAndSurname() {
+        return getAllProjectsForUser().stream()
                 .map(admin -> (userService.findUserByEmail(admin.getAdmin())))
                 .distinct()
                 .collect(Collectors.toList());
     }
 
 
-    public void createProject(ProjectDTO projectDTO) {
-        ArrayList<User> users = new ArrayList<>();
-        users.add(UtillClass.getLoggedInUser());
-        Project project = new Project(projectDTO.getName(), projectDTO.getDescription(), projectDTO.getAvatar(), users);
-        projektRepository.save(project);
-    }
-
     public ProjectDTO findProjectAndTransferToDTO(Long id) {
         Project project = findProject(id);
+        return transformProjectToProjectDTO(project);
+    }
+
+    private ProjectDTO transformProjectToProjectDTO(Project project) {
         ProjectDTO projectDTO = new ProjectDTO();
         projectDTO.setId(project.getId());
         projectDTO.setName(project.getName());
@@ -76,29 +62,29 @@ public class ProjectService {
         return projectDTO;
     }
 
-
-    public static String CreateIconRandomViewer() {
-        String icontitle = "steam.png";
-        List<String> result = UtillClass.getListOfIconTitles();
-        int size = result.size();
-        if (size != 0) {
-            Random random_generator = new Random();
-            int number = random_generator.nextInt(size);
-            icontitle = "icons/" + result.get(number);
-        }
-
-        return icontitle;
-    }
-
-    public void updateProject(ProjectDTO projectDTO, Long id) {
-        Project project = findProject(id);
+    private Project transformProjectDtoToProject(Project project, ProjectDTO projectDTO) {
         project.setName(projectDTO.getName());
         project.setDescription(projectDTO.getDescription());
         project.setAdmin(projectDTO.getAdmin());
         project.setAvatar(projectDTO.getAvatar());
+        return project;
+    }
+
+    public void createProject(ProjectDTO projectDTO) {
+        ArrayList<User> users = new ArrayList<>();
+        users.add(UtillClass.getLoggedInUser());
+        Project project = new Project(projectDTO.getName(), projectDTO.getDescription(), projectDTO.getAvatar(), users);
         projektRepository.save(project);
+    }
+
+    public void updateProject(ProjectDTO projectDTO) {
+        Long projectId = projectDTO.getId();
+        Project project = findProject(projectId);
+        Project updatedProject = transformProjectDtoToProject(project, projectDTO);
+        projektRepository.save(updatedProject);
 
     }
+
 
     public void deleteProject(Long id) {
         Project project = findProject(id);
@@ -115,5 +101,15 @@ public class ProjectService {
             project.setUsers(users);
             projektRepository.save(project);
         }
+    }
+
+    public Project addInitialProject(User user) {
+        List<User> users = new ArrayList<>();
+        users.add(user);
+        Project initialProject = new Project("Przykładowy projekt", "Opis projektu",user.getEmail(), "icons/015.png", users);
+
+        projektRepository.save(initialProject);
+
+        return initialProject;
     }
 }

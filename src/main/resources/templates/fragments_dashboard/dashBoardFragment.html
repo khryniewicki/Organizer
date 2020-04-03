@@ -14,10 +14,10 @@
 <body>
 
 
-<div th:fragment="dashBoard(taskList,progress_steps,ActualDashBoard,ActualUser,ActualUserInitialLetters,userList)">
+<div th:fragment="dashBoard(taskList,progress_steps,actualDashBoard,ActualUser,ActualUserInitialLetters,userList)">
 
     <div id="tools" class="bg-primary ">
-        <a th:href="@{/createTask(id=${ActualDashBoard.id})}" id="addCard"
+        <a th:href="@{/createTask(id=${actualDashBoard.id})}" id="addCard"
            class="btn btn-primary btn-circle mx-2">
             <i class="fas fa-plus-square " data-toggle="modal"
                data-target="#myModal" th:title="Utwórz"></i></a>
@@ -33,14 +33,14 @@
                     aria-haspopup="true" aria-expanded="false">
                 <span class="sr-only">Toggle Dropdown</span>
 
-                <img th:src="'img/'+${ActualDashBoard.avatar}" id="projectIMG" class="float-left mx-2">
+                <img th:src="'img/'+${actualDashBoard.avatar}" id="projectIMG" class="float-left mx-2">
 
                 <b>
-                    <p th:id="projectTitle" th:text="${ActualDashBoard.name} " class="text-left my-0 mx-2"></p>
+                    <p th:id="projectTitle" th:text="${actualDashBoard.name} " class="text-left my-0 mx-2"></p>
                 </b>
 
                 <div>
-                    <h7 th:id="projectDescription" th:text="${ActualDashBoard.description}"
+                    <h7 th:id="projectDescription" th:text="${actualDashBoard.description}"
                         class="text-left my-0 mx-1"></h7>
                 </div>
             </button>
@@ -66,7 +66,7 @@
                             <a href="/projects" th:text="Projekty"></a>
                             <a th:text="'/'"></a>
                             <a href="#"
-                               th:text="${ActualDashBoard.name}"></a>
+                               th:text="${actualDashBoard.name}"></a>
                             <a th:text="'/'"></a>
                         </h5>
                     </div>
@@ -94,7 +94,7 @@
                                      th:title="${ActualUser.name+' '+ActualUser.surname}">
                                 </div>
 
-                                <div th:each="user:${usersToProject}"
+                                <div th:each="user:${usersAssignedToProject}"
                                      class="btn btn-light  mx-n1 ButtonWithInitials "
                                      th:text="${user.name.substring(0,1)+user.surname.substring(0,1)}"
                                      data-toggle="tooltip"

@@ -8,9 +8,9 @@
     <link rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}"/>
 <body>
 
-<div th:fragment="tools(ActualDashBoard)">
+<div th:fragment="tools(actualDashBoard)">
 
-    <a th:href="@{/createTask(id=${ActualDashBoard.id})}" id="addCard" class="btn btn-primary btn-circle align-content-center">
+    <a th:href="@{/createTask(id=${actualDashBoard.id})}" id="addCard" class="btn btn-primary btn-circle align-content-center">
         <i class="fas fa-plus-square "data-toggle="modal"
                          data-target="#myModal" th:title="Utwórz"></i></a>
     <button type="button" class="btn btn-primary btn-circle align-content- ">

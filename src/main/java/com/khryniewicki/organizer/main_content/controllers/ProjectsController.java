@@ -5,6 +5,7 @@ import com.khryniewicki.organizer.main_content.model.Project;
 import com.khryniewicki.organizer.main_content.model.User;
 import com.khryniewicki.organizer.main_content.services.HrefService;
 import com.khryniewicki.organizer.main_content.services.ProjectService;
+import com.khryniewicki.organizer.main_content.services.UserService;
 import com.khryniewicki.organizer.registration_login_logout.DTO.ProjectDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -21,16 +22,16 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @Controller
-public class ProjectModificationController {
+public class ProjectsController {
 
     private final ProjectService projectService;
     private final HrefService hrefService;
+    private final UserService userService;
     @GetMapping("/projects")
-    public String showProjects (Model model, HttpServletRequest request)  {
-
+    public String showProjects(Model model, HttpServletRequest request) {
         return "fragmentsProjects/proj";
     }
-//    fragmentsProjects/proj_panel
+
     @GetMapping("/createProject")
     public String createProject(Model model) {
         model.addAttribute("newProject", new ProjectDTO());
@@ -38,7 +39,7 @@ public class ProjectModificationController {
     }
 
     @PostMapping("/createProject")
-    public String createProject (@ModelAttribute ("newProject") @Valid ProjectDTO projectDTO, BindingResult bindingResult){
+    public String createProject(@ModelAttribute("newProject") @Valid ProjectDTO projectDTO, BindingResult bindingResult) {
 
         projectService.createProject(projectDTO);
         return "redirect:/projects";
@@ -51,8 +52,8 @@ public class ProjectModificationController {
     }
 
     @PostMapping("/editproject")
-    public String editProject(Model model, @ModelAttribute("oldProject") ProjectDTO projectDTO, @RequestParam("id") Long id) {
-        projectService.updateProject(projectDTO, id);
+    public String editProject(Model model, @ModelAttribute("oldProject") ProjectDTO projectDTO) {
+        projectService.updateProject(projectDTO);
         return "redirect:/projects";
     }
 
@@ -69,10 +70,12 @@ public class ProjectModificationController {
         if (session != null) appUser = (User) session.getAttribute("appUser");
 
         if (appUser != null) {
-            model.addAttribute("avatar_list", UtillClass.getListOfIconTitles());
-            model.addAttribute("projectList", projectService.getAllProjectsForUser(appUser));
-            model.addAttribute("ProjectAdminsInitials",projectService.getAdminNameAndSurname(UtillClass.getLoggedInUser()));
-            model.addAttribute("projects", projectService.getAllProjectsForUser(UtillClass.getLoggedInUser()) );
+//            model.addAttribute("ActualUser", appUser);
+//            model.addAttribute("ActualUserInitialLetters", userService.getInitialLetters(appUser));
+//            model.addAttribute("actualDashBoard", hrefService.getLastProject());
+            model.addAttribute("avatarList", UtillClass.getListOfIconTitles());
+            model.addAttribute("projectList", projectService.getAllProjectsForUser());
+            model.addAttribute("allAdminsInitialsList", projectService.getProjectAdminNameAndSurname());
         }
     }
 }
