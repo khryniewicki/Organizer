@@ -24,29 +24,10 @@ public class Login {
 
 
 
-
-    @RequestMapping(value = "/user-redirect")
-    public String redirectHomePage(HttpServletRequest request, Authentication authentication){
-
-        String userName = authentication.getName();
-        User user = loggingUserService.findByEmail(userName);
-        HttpSession session = request.getSession(false);
-        session.setAttribute("appUser", user);
-        String roleUrl = "projects";
-        return String.format("redirect:/%s",roleUrl);
-
-
-    }
-
     @GetMapping("/login-error")
     public String login_error(Model model) {
         return "login/loginErrorPage";
     }
 
-    @RequestMapping(value = "/logout")
-    public String logOut(HttpServletRequest request){
-        HttpSession session = request.getSession(false);
-        User user = (User)session.getAttribute("appUser");
-        return "redirect:/login";
-    }
+
 }

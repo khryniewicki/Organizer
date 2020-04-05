@@ -4,8 +4,9 @@ import com.khryniewicki.organizer.main_content.Utills.UtillClass;
 import com.khryniewicki.organizer.main_content.model.User;
 import com.khryniewicki.organizer.main_content.services.ProjectService;
 import com.khryniewicki.organizer.main_content.services.UserService;
-import com.khryniewicki.organizer.registration_login_logout.DTO.ProjectDTO;
+import com.khryniewicki.organizer.main_content.DTO.ProjectDTO;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
+@Slf4j
 @RequiredArgsConstructor
 @Controller
 public class ProjectsController {
@@ -37,6 +38,7 @@ public class ProjectsController {
 
     @PostMapping("/createProject")
     public String createProject(@ModelAttribute("newProject") @Valid ProjectDTO projectDTO, BindingResult bindingResult) {
+        System.out.println(projectDTO);
         if (bindingResult.hasErrors()) {
             bindingResult.rejectValue("avatar","error.newProject","Select avatar");
             return "fragments_projects/addProject";
@@ -47,8 +49,8 @@ public class ProjectsController {
 
     @GetMapping("/editproject")
     public String editProject(@RequestParam("id") Long projectId, Model model) {
-        model.addAttribute("oldProject", projectService.findProjectAndTransferToDTO(projectId));
 
+        model.addAttribute("oldProject", projectService.findProjectAndTransferToDTO(projectId));
         model.addAttribute("usersAssignedToProject", userService.getAllUsersAssignedToProject(projectId));
 
         return "fragments_projects/editProject";

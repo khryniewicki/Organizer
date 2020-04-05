@@ -34,12 +34,11 @@ public class Registration {
         User registered = new User();
 
         if (result.hasErrors()) {
-            log.error("errors");
+            log.error(result.getAllErrors().toString());
             return "login/registrationPage";
         }
 
         if (!result.hasErrors()) {
-        log.info("addUser");
             registered = createUserAccount(userDTO);
         }
 
@@ -52,9 +51,9 @@ public class Registration {
     private User createUserAccount(UserDTO userDTO) {
         User registered = null;
         try {
-            log.info("createUser");
             registered = loggingUserService.registerNewUserAccount(userDTO);
         } catch (IOException e) {
+            log.error(e.getMessage());
             return null;
         }
         return registered;

@@ -1,16 +1,11 @@
 package com.khryniewicki.organizer.main_content.services;
 
-import com.khryniewicki.organizer.main_content.model.Href;
-import com.khryniewicki.organizer.main_content.model.Project;
 import com.khryniewicki.organizer.main_content.model.Task;
 import com.khryniewicki.organizer.main_content.model.repositories.TaskRepository;
-import com.khryniewicki.organizer.registration_login_logout.DTO.TaskDTO;
+import com.khryniewicki.organizer.main_content.DTO.TaskDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;

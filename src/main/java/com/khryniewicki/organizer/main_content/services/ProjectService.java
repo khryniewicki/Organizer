@@ -3,7 +3,7 @@ package com.khryniewicki.organizer.main_content.services;
 import com.khryniewicki.organizer.main_content.Utills.UtillClass;
 import com.khryniewicki.organizer.main_content.model.*;
 import com.khryniewicki.organizer.main_content.model.repositories.ProjectRepository;
-import com.khryniewicki.organizer.registration_login_logout.DTO.ProjectDTO;
+import com.khryniewicki.organizer.main_content.DTO.ProjectDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

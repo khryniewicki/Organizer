@@ -1,4 +1,4 @@
-package com.khryniewicki.organizer.registration_login_logout.DTO;
+package com.khryniewicki.organizer.main_content.DTO;
 
 import com.khryniewicki.organizer.main_content.model.*;
 import lombok.Data;

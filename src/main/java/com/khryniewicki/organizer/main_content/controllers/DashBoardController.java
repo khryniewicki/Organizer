@@ -3,7 +3,7 @@ package com.khryniewicki.organizer.main_content.controllers;
 import com.khryniewicki.organizer.main_content.model.Sprint;
 import com.khryniewicki.organizer.main_content.model.User;
 import com.khryniewicki.organizer.main_content.services.*;
-import com.khryniewicki.organizer.registration_login_logout.DTO.TaskDTO;
+import com.khryniewicki.organizer.main_content.DTO.TaskDTO;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -95,7 +95,8 @@ public class DashBoardController {
     public void AddAttributes(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession(false);
         User appUser = null;
-        if (session != null) appUser = (User) session.getAttribute("appUser");
+        if (session != null)
+            appUser = (User) session.getAttribute("appUser");
 
         if (appUser != null) {
 

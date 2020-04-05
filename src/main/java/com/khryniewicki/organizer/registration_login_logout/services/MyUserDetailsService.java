@@ -2,6 +2,7 @@ package com.khryniewicki.organizer.registration_login_logout.services;
 
 import com.khryniewicki.organizer.main_content.model.User;
 import com.khryniewicki.organizer.main_content.model.repositories.UserRepository;
+import com.khryniewicki.organizer.main_content.services.UserService;
 import com.khryniewicki.organizer.registration_login_logout.DTO.Roles;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,8 +15,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -24,28 +25,30 @@ import java.util.List;
 public class MyUserDetailsService implements UserDetailsService {
 
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     //
     public UserDetails loadUserByUsername(String email)
             throws UsernameNotFoundException {
-        org.springframework.security.core.userdetails.User.UserBuilder builder = null;
 
-        User user = userRepository.findByEmail(email);
+        User user = userService.findUserByEmail(email);
         if (user == null) {
             throw new UsernameNotFoundException(
                     "No user found with username: " + email);
         }
-        else {
-            builder = org.springframework.security.core.userdetails.User.withUsername(email);
-            builder.password(new BCryptPasswordEncoder().encode(user.getPassword()));
-            builder.roles("EMPLOYEE");
-
-        return builder.build();
-    }
+        return toUserDetails(user);
     }
 
+    private UserDetails toUserDetails(User user) {
+        return org.springframework.security.core.userdetails.User.withUsername(user.getEmail())
+                .password(user.getPassword())
+                .roles(user.getRole().toString())
+                .build();
+    }
+
+    }
 
 
 
-}
+
+

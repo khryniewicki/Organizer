@@ -3,9 +3,18 @@ package com.khryniewicki.organizer.registration_login_logout.config;
 
 import com.khryniewicki.organizer.registration_login_logout.services.LoggingUserService;
 import lombok.RequiredArgsConstructor;
+import org.apache.catalina.Context;
+import org.apache.catalina.connector.Connector;
+import org.apache.tomcat.util.descriptor.web.SecurityCollection;
+import org.apache.tomcat.util.descriptor.web.SecurityConstraint;
+import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
+import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,6 +25,7 @@ import org.springframework.security.web.context.HttpSessionSecurityContextReposi
 import org.springframework.security.web.session.SessionManagementFilter;
 import org.springframework.security.web.session.SimpleRedirectInvalidSessionStrategy;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.client.RestTemplate;
 
 @Configuration
 @ComponentScan("com.khryniewicki.organizer")
@@ -25,7 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     private final LoggingUserService loggingUserService;
-
+    private final EncoderConfig encoderConfig;
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -35,12 +45,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
+        auth.authenticationProvider(encoderConfig.authProvider());
+    }
+
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
                 .antMatchers("/css/**", "/js/**", "/register", "/", "/login**").permitAll()
                 .anyRequest().authenticated()
                 .and()
+
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
@@ -58,6 +75,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .and()
                 .sessionManagement().maximumSessions(1).and().invalidSessionUrl("/login");
+
+
     }
 
     @Bean
@@ -88,4 +107,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         HttpSessionSecurityContextRepository httpSessionSecurityContextRepository = new HttpSessionSecurityContextRepository();
         return httpSessionSecurityContextRepository;
     }
+
+
 }

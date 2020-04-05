@@ -1,7 +1,6 @@
 package com.khryniewicki.organizer.registration_login_logout.services;
 
 import com.khryniewicki.organizer.main_content.model.*;
-import com.khryniewicki.organizer.main_content.model.repositories.TaskRepository;
 import com.khryniewicki.organizer.main_content.model.repositories.UserRepository;
 import com.khryniewicki.organizer.main_content.services.ProjectService;
 import com.khryniewicki.organizer.main_content.services.TaskServices;
@@ -9,6 +8,7 @@ import com.khryniewicki.organizer.registration_login_logout.DTO.UserDTO;
 import com.khryniewicki.organizer.registration_login_logout.validator.IUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,12 +22,12 @@ public class LoggingUserService implements IUserService {
     private final UserRepository userRepository;
     private final ProjectService projectService;
     private final TaskServices taskServices;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     @Override
     public User registerNewUserAccount(UserDTO accountDto)
             throws IOException {
-        log.info("registerNewUserAccount");
 
         if (emailExist(accountDto.getEmail())) {
             throw new IOException(
@@ -49,17 +49,16 @@ public class LoggingUserService implements IUserService {
     private User saveUser(UserDTO userDTO) {
 
         User newUser = new User();
-
         newUser.setName(userDTO.getFirstName());
         newUser.setSurname(userDTO.getSecondName());
         newUser.setEmail(userDTO.getEmail());
-        newUser.setPassword(userDTO.getPassword());
+        newUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         newUser.setRole(userDTO.getRoles());
         newUser.setNick(userDTO.getNick());
 
         userRepository.save(newUser);
 
-        log.info("User : " + newUser.getEmail() + " added.");
+        log.info("User: " + newUser.getEmail() + " added.");
         addInitialProjectAndTask(newUser);
         return newUser;
     }
