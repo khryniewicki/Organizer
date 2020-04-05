@@ -32,10 +32,10 @@ public class Login {
         User user = loggingUserService.findByEmail(userName);
         HttpSession session = request.getSession(false);
         session.setAttribute("appUser", user);
-
-
         String roleUrl = "projects";
         return String.format("redirect:/%s",roleUrl);
+
+
     }
 
     @GetMapping("/login-error")

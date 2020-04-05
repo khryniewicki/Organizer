@@ -22,20 +22,22 @@
                         <div class='form-group'>
                             <div class="row">
                                 <div class="col-4">
-                                    <label for='project.name'> Nazwa projektu</label><span class="required">*</span>
+                                    <label for='name'> Nazwa projektu</label><span class="required">*</span>
                                 </div>
                                 <div class="offset-1 col-7">
-                                    <input type="text" id="project.name" name="project.name" th:field="*{name}">
-
+                                    <input type="text" id="name" name="name" th:field="*{name}">
+                                    <div th:if="${#fields.hasErrors('name')}" class="errorRED" th:errors="*{name}">Nazwij projekt </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-4">
-                                    <label for='project.description'> Opis projektu</label>
+                                    <label for='description'> Opis projektu</label>
                                 </div>
                                 <div class="offset-1 col-7">
-                                    <input type="text" id="project.description" name="project.description"
-                                           th:field="*{description}">
+                                    <input type="text" id="description" name="description"
+                                              th:field="*{description}">
+                                    <div th:if="${#fields.hasErrors('description')}" class="errorRED" th:errors="*{description}">Dodaj opis </div>
+
                                 </div>
                             </div>
 
@@ -67,8 +69,10 @@
                             </div>
 
                             <br>
-                            <input type="text" id="avatar2" th:name="avatar2" th:field="${newProject.avatar}"
+                            <input type="text" id="avatar" th:name="avatar" th:field="*{avatar}"
                                    style="display: none">
+                            <div th:if="${#fields.hasErrors('avatar')}" class="errorRED" th:errors="*{avatar}"> </div>
+
                             <br>
 
                             <div class="modal-footer">

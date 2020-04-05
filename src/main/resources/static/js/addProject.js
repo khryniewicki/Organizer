@@ -6,7 +6,7 @@ $('#myProjects2').modal({
 $('.dropdown-toggle').dropdown();
 
 function addIMG(avatar) {
-    $('#avatar2').val('icons/' + avatar);
+    $('#avatar').val('icons/' + avatar);
 
     $('#img_edit_menu2').attr('src', 'img/icons/' + avatar);
     changestyle();

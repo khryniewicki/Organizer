@@ -149,9 +149,8 @@
 
 
                                                         <a th:href="@{/edittask(id=${task.idTask})}"
-                                                           class="badge badge-secondary  " draggable="false">
-                                                            <i class="fas fa-cog" data-toggle="modal"
-                                                               data-target="#myEdit"
+                                                           class="badge badge-secondary clsmodal " draggable="false">
+                                                            <i class="fas fa-cog" data-toggle="tooltip"
                                                                th:title="edit"></i>
                                                         </a>
                                                         <div th:switch="${task.user}" class="d-inline  userBox">

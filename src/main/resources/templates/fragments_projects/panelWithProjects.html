@@ -100,8 +100,8 @@
 
                     <a th:text="${project.admin}">
                     </a>
-                    <a th:href="@{/editproject(id=${project.id})}" th:classappend="${ActualUser.email==project.admin} ? '':'btn disabled cog'"><i class="fas fa-cogs" id="cogs" data-toggle="modal"
-                                                                      data-target="#myEditProject" th:title="Edytuj">
+                    <a th:href="@{/editproject(id=${project.id})}" th:classappend="${ActualUser.email==project.admin} ? '':'btn disabled cog'"><i class="fas fa-cogs" id="cogs" data-toggle="tooltip"
+                                                                       th:title="Edytuj">
                     </i></a>
                 </td>
             </tr>
