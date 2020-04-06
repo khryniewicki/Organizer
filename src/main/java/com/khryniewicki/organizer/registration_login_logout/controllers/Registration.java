@@ -1,6 +1,7 @@
 package com.khryniewicki.organizer.registration_login_logout.controllers;
 
 import com.khryniewicki.organizer.main_content.model.User;
+import com.khryniewicki.organizer.main_content.services.UserService;
 import com.khryniewicki.organizer.registration_login_logout.DTO.UserDTO;
 import com.khryniewicki.organizer.registration_login_logout.services.LoggingUserService;
 import lombok.RequiredArgsConstructor;
@@ -15,11 +16,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
 import java.io.IOException;
+
 @Slf4j
 @RequiredArgsConstructor
 @Controller
 public class Registration {
-
+    private final UserService userService;
     private final LoggingUserService loggingUserService;
 
     @GetMapping("/register")
@@ -30,11 +32,17 @@ public class Registration {
     }
 
     @PostMapping("/register")
-    public String addUser(@ModelAttribute("newUser") @Valid UserDTO userDTO, BindingResult result, Errors errors) {
+    public String addUser(@ModelAttribute("newUser") @Valid UserDTO userDTO, BindingResult result, Errors errors, Model model) {
         User registered = new User();
 
         if (result.hasErrors()) {
             log.error(result.getAllErrors().toString());
+            result.rejectValue("matchingPassword", "error.newUser", "Passwords don't match");
+
+            return "login/registrationPage";
+        }
+        if (!userDTO.getEmail().isEmpty() && userService.exists(userDTO.getEmail())) {
+            result.rejectValue("email", "error.newUser", "Username exists!");
             return "login/registrationPage";
         }
 
@@ -45,7 +53,8 @@ public class Registration {
         if (registered == null) {
             result.rejectValue("email", "message.regError");
         }
-        return "redirect:/login";
+        model.addAttribute("registrationSuccess",true);
+        return "login/loginPage";
     }
 
     private User createUserAccount(UserDTO userDTO) {

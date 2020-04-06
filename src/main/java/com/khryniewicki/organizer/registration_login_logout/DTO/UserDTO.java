@@ -1,43 +1,47 @@
 package com.khryniewicki.organizer.registration_login_logout.DTO;
 
+import com.khryniewicki.organizer.registration_login_logout.validator.PasswordMatches;
+import com.khryniewicki.organizer.registration_login_logout.validator.ValidPassword;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.checkerframework.common.aliasing.qual.Unique;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Column;
+import javax.validation.constraints.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@PasswordMatches
 public class UserDTO {
     @NotBlank
     @NotNull
-    @NotEmpty
+    @Size( max=30)
     private String firstName;
-    @NotBlank
 
+    @NotBlank
     @NotNull
-    @NotEmpty
+    @Size( max=30)
     private String secondName;
 
     @NotBlank
     @NotNull
-    @NotEmpty
+    @Size( max=30)
     private String nick;
-    @NotBlank
+
+    @ValidPassword
     @NotNull
-    @NotEmpty
     private String password;
+
     @NotNull
     private String matchingPassword;
 
     @NotBlank
     @NotNull
-    @NotEmpty
     @Email
+    @Size(max=50)
+    @Column(unique = true)
     private String email;
 
     private Roles roles;

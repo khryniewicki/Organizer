@@ -58,7 +58,7 @@ public class LoggingUserService implements IUserService {
 
         userRepository.save(newUser);
 
-        log.info("User: " + newUser.getEmail() + " added.");
+        log.info("User " + newUser.getEmail() + " added.");
         addInitialProjectAndTask(newUser);
         return newUser;
     }
