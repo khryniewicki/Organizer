@@ -1,4 +1,4 @@
-package com.khryniewicki.organizer.registration_login_logout.DTO;
+package com.khryniewicki.organizer.main_content.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,7 +21,5 @@ public class ProjectDTO {
     @NotNull
     @NotBlank
     private String avatar;
-    @NotBlank
-    @NotNull
     private String admin;
 }

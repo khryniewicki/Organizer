@@ -27,7 +27,12 @@ public class UserService {
             return UserbyId.get();
         } else return new User();
     }
-
+    public boolean exists(String email) {
+        User userByEmail = userRepository.findByEmail(email);
+        if (userByEmail!=null) {
+            return true;
+        } else return false;
+    }
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
     }

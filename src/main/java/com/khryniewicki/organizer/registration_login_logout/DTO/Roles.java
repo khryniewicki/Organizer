@@ -1,5 +1,9 @@
 package com.khryniewicki.organizer.registration_login_logout.DTO;
 
-public enum Roles {
-    ADMIN, EMPLOYEE
+import org.springframework.security.core.GrantedAuthority;
+
+import java.util.Collection;
+
+public enum Roles  {
+    EMPLOYEE,ADMIN
 }
