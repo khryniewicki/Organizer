@@ -26,7 +26,11 @@
             <div class="card-header">
                 <h3>Sign In</h3>
             </div>
+
+            <div th:if="${loginError}" class="error login-info-message">Błędne dane logowania</div>
+            <div th:if="${param.logout}" class="login-info-message">Zostałeś wylogowany</div>
             <div class="card-body">
+
                 <form th:action="@{/login}" class="form-signin" method="post">
 
                     <div class="input-group form-group">

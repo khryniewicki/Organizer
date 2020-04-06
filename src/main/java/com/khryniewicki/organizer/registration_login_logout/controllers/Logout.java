@@ -14,7 +14,6 @@ public class Logout {
     public String logOut(HttpServletRequest request){
         HttpSession session = request.getSession(false);
         User user = (User)session.getAttribute("appUser");
-        log.info(user.getEmail()+"was logged out.");
-        return "redirect:/login";
+        return "login/loginPage";
     }
 }

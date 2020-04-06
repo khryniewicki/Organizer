@@ -49,9 +49,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         String targetUrl = determineTargetUrl(request, authentication);
 
         if (response.isCommitted()) {
-            CustomAuthenticationSuccessHandler.log.debug(
-                    "Response has already been committed. Unable to redirect to "
-                            + targetUrl);
+            CustomAuthenticationSuccessHandler.
+                    log.debug("Response has already been committed. Unable to redirect to " + targetUrl);
             return;
         }
 
@@ -78,7 +77,9 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         User user = loggingUserService.findByEmail(userName);
         HttpSession session = request.getSession(false);
         session.setAttribute("appUser", user);
-        log.info("User " + user.getEmail()+" zalogowany.");
+
+        log.info("User " + user.getEmail()+" was logged in.");
+
         return "/projects";
 
     }

@@ -85,3 +85,10 @@ input:focus{
 .links a{
     margin-left: 4px;
 }
+
+
+.login-info-message{
+    text-align: center;
+    color: red;
+    font-size: small;
+}

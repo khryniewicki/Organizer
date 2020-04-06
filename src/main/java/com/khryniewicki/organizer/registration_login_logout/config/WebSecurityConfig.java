@@ -54,7 +54,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/css/**", "/js/**", "/register", "/", "/login**").permitAll()
+                .antMatchers("/css/**", "/js/**", "/register", "/", "/login**","/login-error","/logout").permitAll()
                 .anyRequest().authenticated()
                 .and()
 
@@ -64,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/projects", true)
-                .failureForwardUrl("/login-error")
+                .failureUrl("/login-error")
                 .successHandler(successHandler())
                 .permitAll()
                 .and()
@@ -74,9 +74,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login?logout=true")
                 .permitAll()
                 .and()
-                .sessionManagement().maximumSessions(1).and().invalidSessionUrl("/login");
+                .sessionManagement().maximumSessions(1);
 
-
+//                .and().invalidSessionUrl("/login");
     }
 
     @Bean
