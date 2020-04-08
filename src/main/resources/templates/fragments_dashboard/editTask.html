@@ -73,21 +73,21 @@
                         </div>
                         <div class='form-group'>
                             <div class="row">
-                                <div class="col-2">
+                                <div class="col-lg-2 col-md-2 col-sm-2 col-2">
                                     <label for='AttachedUser'> Osoba przypisana: </label>
                                 </div>
 
-                                <div class="col-2">
+                                <div class="col-lg-2 col-md-2  col-sm-2 col-2">
                                     <p id='AttachedUser'
                                        th:text="${oldTask.user==null}? 'Brak osoby przypisanej': ${oldTask.user.name+' '+oldTask.user.surname}"></p>
                                 </div>
 
 
-                                <div class="offset-2 col-2">
+                                <div class="offset-lg-2 offset-md-1 offset-sm-1 offset-1 col-lg-2 col-md-2  col-sm-2   col-2">
                                     <label for='User'> Przypisz użytkownika:</label>
                                 </div>
 
-                                <div class="col-2">
+                                <div class="col-lg-2 col-md-2  col-sm-2  col-2">
 
                                     <select id='User' th:field="${oldTask.user}">
                                         <option th:value="null"></option>
