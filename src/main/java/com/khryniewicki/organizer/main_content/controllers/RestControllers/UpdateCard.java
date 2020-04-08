@@ -9,20 +9,25 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
 @RequiredArgsConstructor
 @RestController
 public class UpdateCard {
-        private final TaskServices taskServices;
-        private final HrefService hrefService;
+    private final TaskServices taskServices;
+    private final HrefService hrefService;
 
     @GetMapping("/task/{id}/{progress}")
-    public void updateCardProgress(@PathVariable("id") Long id, @PathVariable("progress") String progress){
+    public void updateCardProgress(@PathVariable("id") Long id, @PathVariable("progress") String progress) {
         Task task = taskServices.findTask(id);
         task.setProgress(progress);
-        taskServices.saveTask(task); }
+        taskServices.saveTask(task);
+    }
 
-    @GetMapping(value = "/dashboardview/{href}" )
-    public void updateLinkToDashboard(@PathVariable("href") Long href){
-            hrefService.saveOrUpdate(href); }
+    @GetMapping(value = "/dashboardview/{href}")
+    public String updateLinkToDashboard(@PathVariable("href") String href) {
+        Long aLong = Long.valueOf(href);
+        hrefService.saveOrUpdate(aLong);
+        return "Ok";
+    }
 
 }

@@ -7,6 +7,8 @@ import com.khryniewicki.organizer.main_content.services.UserService;
 import com.khryniewicki.organizer.main_content.DTO.ProjectDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
+
 @Slf4j
 @RequiredArgsConstructor
 @Controller
@@ -74,13 +78,13 @@ public class ProjectsController {
     }
 
     @ModelAttribute
-    public void AddAttributes(Model model, HttpServletRequest request) {
+    public void AddAttributes(Model model, HttpServletRequest request) throws IOException {
         HttpSession session = request.getSession(false);
         User appUser = null;
         if (session != null) appUser = (User) session.getAttribute("appUser");
 
         if (appUser != null) {
-            model.addAttribute("avatarList", UtillClass.getListOfIconTitles());
+            model.addAttribute("avatarList", UtillClass.getListOfIconsTitlesWrittenManually());
             model.addAttribute("allAdminsInitialsList", projectService.getProjectAdminNameAndSurname());
         }
     }

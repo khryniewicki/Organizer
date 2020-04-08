@@ -1,11 +1,7 @@
 $('#myEdit').modal({
     keyboard: false
 });
-
-jQuery(document).ready(function(e) {
-    $(".clsmodal").on("click", setTimeout(function() {
-
-        $('#myEdit').modal('show');
-
-    },1000))
-});
+function openModal() {
+    $('#myEdit').modal('show');
+}
+setTimeout(openModal, 2000);

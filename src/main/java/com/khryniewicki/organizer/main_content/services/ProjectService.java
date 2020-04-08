@@ -1,9 +1,10 @@
 package com.khryniewicki.organizer.main_content.services;
 
-import com.khryniewicki.organizer.main_content.Utills.UtillClass;
-import com.khryniewicki.organizer.main_content.model.*;
-import com.khryniewicki.organizer.main_content.model.repositories.ProjectRepository;
 import com.khryniewicki.organizer.main_content.DTO.ProjectDTO;
+import com.khryniewicki.organizer.main_content.Utills.UtillClass;
+import com.khryniewicki.organizer.main_content.model.Project;
+import com.khryniewicki.organizer.main_content.model.User;
+import com.khryniewicki.organizer.main_content.model.repositories.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,7 @@ public class ProjectService {
 
     private ProjectDTO transformProjectToProjectDTO(Project project) {
         ProjectDTO projectDTO = new ProjectDTO();
+        projectDTO.setStarred(project.isStarred());
         projectDTO.setId(project.getId());
         projectDTO.setName(project.getName());
         projectDTO.setDescription(project.getDescription());
@@ -67,6 +69,7 @@ public class ProjectService {
         project.setDescription(projectDTO.getDescription());
         project.setAdmin(projectDTO.getAdmin());
         project.setAvatar(projectDTO.getAvatar());
+        project.setStarred(project.isStarred());
         return project;
     }
 
@@ -74,14 +77,14 @@ public class ProjectService {
         ArrayList<User> users = new ArrayList<>();
         users.add(UtillClass.getLoggedInUser());
         Project project = new Project(projectDTO.getName(), projectDTO.getDescription(), projectDTO.getAvatar(), users);
-        projektRepository.save(project);
+        save(project);
     }
 
     public void updateProject(ProjectDTO projectDTO) {
         Long projectId = projectDTO.getId();
         Project project = findProject(projectId);
         Project updatedProject = transformProjectDtoToProject(project, projectDTO);
-        projektRepository.save(updatedProject);
+        save(updatedProject);
 
     }
 
@@ -99,17 +102,20 @@ public class ProjectService {
             List<User> users = project.getUsers();
             users.add(userByEmail);
             project.setUsers(users);
-            projektRepository.save(project);
+            save(project);
         }
     }
 
     public Project addInitialProject(User user) {
         List<User> users = new ArrayList<>();
         users.add(user);
-        Project initialProject = new Project("Przykładowy projekt", "Opis projektu",user.getEmail(), "icons/015.png", users);
-
+        Project initialProject = new Project("Przykładowy projekt", "Opis projektu",user.getEmail(), "icons/015.png", users,false);
         projektRepository.save(initialProject);
-
         return initialProject;
     }
+
+    public void save(Project project){
+        projektRepository.save(project);
+    }
+
 }

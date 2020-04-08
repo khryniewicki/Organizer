@@ -22,4 +22,5 @@ public class ProjectDTO {
     @NotBlank
     private String avatar;
     private String admin;
+    private boolean isStarred;
 }

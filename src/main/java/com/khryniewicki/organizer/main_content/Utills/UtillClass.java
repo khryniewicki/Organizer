@@ -1,8 +1,11 @@
 package com.khryniewicki.organizer.main_content.Utills;
 
 import com.khryniewicki.organizer.main_content.model.User;
-import com.khryniewicki.organizer.main_content.services.ProjectService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -20,10 +23,12 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class UtillClass {
+
+
 
     public static User getLoggedInUser() {
         HttpSession session = getCurrentHttpRequest().getSession(false);
@@ -39,11 +44,14 @@ public class UtillClass {
         return null;
     }
 
-    public static List<String> getListOfIconTitles (){
+        public static List<String> getListOfIconTitles (){
         List<String> result=new ArrayList<>();
         InputStream in = null;
-        try (Stream<Path> walk = Files.walk(Paths.get("/home/konrad/IdeaProjects/github/organizer/src/main/resources/static/img/icons"))) {
 
+        try (Stream<Path> walk = Files.walk(Paths.get(new ClassPathResource(
+                "src/main/resources/static/img/icons",
+                UtillClass.class.getClassLoader()).getPath()))) {
+//            "src/main/resources/static/img/icons"
             result = walk.filter(Files::isRegularFile)
                     .map(x -> x.getFileName().toString())
                     .sorted()
@@ -54,5 +62,18 @@ public class UtillClass {
         return result;
     }
 
+    public static List<String> getListOfIconsTitlesWrittenManually(){
+        ArrayList<String> strings = new ArrayList<>();
 
+        for (int i = 1; i <100 ; i++) {
+            String tmp;
+            if (i>0 && i<10)
+            tmp="00"+i+".png";
+            else
+                tmp="0"+i+".png";
+            strings.add(tmp);
+        }
+
+        return strings;
+    }
 }

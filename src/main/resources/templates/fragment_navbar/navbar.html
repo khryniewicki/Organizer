@@ -12,34 +12,34 @@
 
 
 <div th:fragment="navbar(ActualUser)">
-    <nav class="navbar navbar-expand-lg navbar navbar-dark bg-dark justify-content-between shadowBox">
-        <div class="nav justify-content-start">
-            <a class="navbar-brand mx-0" >
+    <nav id="navbarMain" class="navbar navbar-expand-sm navbar navbar-dark bg-dark justify-content-between shadowBox unresponsive">
+            <a class="navbar-brand mx-0 permamentButtons" >
                 <img src="/img/scheduleIcon3.png"  class="imgIcon" width="30" height="30" alt="">
             </a>
-        <a class="navbar-brand nav-link text-secondary disabled mx-n2" >Organizer</a>
-
+        <a class="navbar-brand nav-link text-secondary disabled mx-n2 permamentButtons " >Organizer</a>
+        <a class="nav-item nav-link disabled mr-sm-2 text-secondary  permamentButtons" th:text="${ActualUser.email}"></a>
 
             <ul class="navbar-nav mr-auto" id="navbarNavAltMarkup">
-                <li class="nav-item">
-                    <a class="nav-item nav-link active" href="#">Główna <span class="sr-only">(current)</span></a>
+                <li class="nav-item item">
+                    <a class="nav-item nav-link active " href="#">Główna <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-item nav-link active" href="/projects">Projekty</a>
+                <li class="nav-item item">
+                    <a class="nav-item nav-link active " href="/projects">Projekty</a>
                 </li>
 
             </ul>
-        </div>
-        <div class="nav justify-content-end float-right">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-item nav-link disabled mr-sm-2 text-secondary" th:text="${ActualUser.email}"></a>
+            <ul class="navbar-nav ">
+                <li class="nav-item  float-left ">
                 </li>
-                <li class="nav-item">
-                    <a class="nav-item nav-link mr-sm-2 active" href="/logout">Wyloguj</a>
+                <li class="nav-item item float-right">
+                    <a class="nav-item nav-link mr-sm-2 active " href="/logout">Wyloguj</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="icon btn bg-dark text-light" onclick="myFunction()">
+                        <i class="fa fa-bars"></i>
+                    </a>
                 </li>
             </ul>
-        </div>
     </nav>
 </div>
 

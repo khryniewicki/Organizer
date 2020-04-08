@@ -16,7 +16,6 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
                 <form th:action="@{${#request.getRequestURI()}(id=${#request.getParameter('id')})}"
                       th:object="${oldProject}" method="post">
                     <div class="modal-body">

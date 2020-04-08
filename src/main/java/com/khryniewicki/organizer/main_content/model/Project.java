@@ -30,20 +30,21 @@ public class Project {
     @JsonIgnore
     private List<User> users;
     private String avatar;
+    private boolean isStarred=false;
 
     public Project(String name, String description,String avatar,List<User> users) {
         this.name=name;
         this.description=description;
-        this.admin= UtillClass.getLoggedInUser().getEmail();
         this.avatar= avatar;
         this.users=users;
     }
-    public Project(String name, String description,String admin, String avatar,List<User> users) {
+    public Project(String name, String description,String admin, String avatar,List<User> users,boolean isStarred) {
         this.name=name;
         this.description=description;
         this.admin= admin;
         this.avatar= avatar;
         this.users=users;
+        this.isStarred=isStarred;
     }
     public Project(List<User> users) {
         this.users = users;
@@ -57,6 +58,7 @@ public class Project {
                 ", description='" + description + '\'' +
                 ", admin='" + admin + '\'' +
                 ", avatar='" + avatar + '\'' +
+                ", isStarred=" + isStarred +
                 '}';
     }
 
