@@ -11,35 +11,43 @@
 <body>
 
 
-<div th:fragment="navbar(ActualUser)">
-    <nav id="navbarMain" class="navbar navbar-expand-sm navbar navbar-dark bg-dark justify-content-between shadowBox unresponsive">
-            <a class="navbar-brand mx-0 permamentButtons" >
-                <img src="/img/scheduleIcon3.png"  class="imgIcon" width="30" height="30" alt="">
-            </a>
-        <a class="navbar-brand nav-link text-secondary disabled mx-n2 permamentButtons " >Organizer</a>
-        <a class="nav-item nav-link disabled mr-sm-2 text-secondary  permamentButtons" th:text="${ActualUser.email}"></a>
+<div th:fragment="navbar(ActualUserEmail)">
+    <nav id="navbarMain"
+         class="navbar navbar-expand-sm navbar navbar-dark bg-dark justify-content-between shadowBox unresponsive">
+        <a class="navbar-brand mx-0 permamentButtons">
+            <img src="/img/scheduleIcon3.png" class="imgIcon" width="30" height="30" alt="">
+        </a>
+        <a class="navbar-brand nav-link text-secondary disabled mx-n2 permamentButtons ">Organizer</a>
+        <div th:switch="${ActualUserEmail}">
+            <a th:case="null"></a>
+            <div th:case="*">
+                <a class="nav-item nav-link disabled mr-sm-2 text-secondary  "
+                   th:text="${ActualUserEmail}"></a>
+            </div>
+        </div>
+        <ul class="navbar-nav mr-auto" id="navbarNavAltMarkup">
+            <li class="nav-item item">
+                <a class="nav-item nav-link active " href="#">Główna <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item item">
+                <a class="nav-item nav-link active " href="/projects">Projekty</a>
+            </li>
 
-            <ul class="navbar-nav mr-auto" id="navbarNavAltMarkup">
-                <li class="nav-item item">
-                    <a class="nav-item nav-link active " href="#">Główna <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item item">
-                    <a class="nav-item nav-link active " href="/projects">Projekty</a>
-                </li>
+        </ul>
+        <ul class="navbar-nav " >
+            <li class="nav-item  float-left ">
 
-            </ul>
-            <ul class="navbar-nav ">
-                <li class="nav-item  float-left ">
-                </li>
-                <li class="nav-item item float-right">
-                    <a class="nav-item nav-link mr-sm-2 active " href="/logout">Wyloguj</a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);" class="icon btn bg-dark text-light" onclick="myFunction()">
-                        <i class="fa fa-bars"></i>
-                    </a>
-                </li>
-            </ul>
+                    <a  class="nav-item nav-link mr-sm-2 active " th:href="${#strings.isEmpty(ActualUserEmail)} ? '/login':'/logout '"
+                       th:text="${#strings.isEmpty(ActualUserEmail)} ? 'Zaloguj się':'Wyloguj' "></a>
+            </li>
+            <li class="nav-item item float-right">
+            </li>
+            <li>
+                <a href="javascript:void(0);" class="icon btn bg-dark text-light" onclick="myFunction()">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </li>
+        </ul>
     </nav>
 </div>
 

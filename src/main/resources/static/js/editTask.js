@@ -4,4 +4,4 @@ $('#myEdit').modal({
 function openModal() {
     $('#myEdit').modal('show');
 }
-setTimeout(openModal, 2000);
+setTimeout(openModal, 1000);

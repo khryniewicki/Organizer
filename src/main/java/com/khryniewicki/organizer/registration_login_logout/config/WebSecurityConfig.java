@@ -46,7 +46,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-
         auth.authenticationProvider(encoderConfig.authProvider());
     }
 
@@ -54,7 +53,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/css/**", "/js/**", "/register", "/", "/login**","/login-error","/logout").permitAll()
+                .antMatchers("/css/**", "/js/**", "/register", "/", "/login**","/login-error","/logout","/home").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
