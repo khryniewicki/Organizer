@@ -23,11 +23,12 @@ buttonWithNotifations.addEventListener("click", () => {
 
     $.get("/receivetaskInformation/" + idUser,
         function onsuccess(MessageEntity) {
-            console.log(MessageEntity);
+          console.log(MessageEntity)
+            console.log(MessageEntity[0]);
 
             let dropdown_item = document.createElement('a');
-            dropdown_item.setAttribute('class', 'btn dropdown-item w-100 dropdown-item-Notifications');
-            dropdown_item.innerText = MessageEntity.message;
+            dropdown_item.setAttribute('class', 'btn dropdown-item w-100 dropdown-item-Notifications font-weight-bold');
+            dropdown_item.innerHTML = MessageEntity;
 
             let newMessagesList = document.getElementById('newMessages');
             newMessagesList.insertBefore(dropdown_item, newMessagesList.childNodes[0]);

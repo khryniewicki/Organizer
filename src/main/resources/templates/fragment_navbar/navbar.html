@@ -43,10 +43,10 @@
                                     data-toggle="dropdown" id="buttonWithNotifations"
                                     aria-haspopup="true" aria-expanded="false" title="Nowe informacje o projektach"> Komunikaty
                                 <span class="badge badge-light " id="badgeInfo"
-                                      th:text="${#lists.size(logsAboutProjects)}"></span>
+                                      th:text="'0'"></span>
 
                             </button>
-                            <div class="dropdown-menu  dropdown-menu-right " id="dropdown_arrow"
+                            <div class="dropdown-menu  dropdown-menu-right text-left" id="dropdown_arrow"
                                  aria-labelledby="buttonWithProjects">
                                 <div id="newMessages">
 

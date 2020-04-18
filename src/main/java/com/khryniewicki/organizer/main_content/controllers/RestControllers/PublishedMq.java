@@ -27,31 +27,31 @@ public class PublishedMq {
     private final RabbitTemplate rabbitTemplate;
     private final AmqpAdmin amqpAdmin;
     private final RabbitMqConfig rabbitMqConfig;
+
+
     @GetMapping("/sendtaskInformation/{userId}")
     public void saveMessageAndSendToAssignedUsers(@RequestParam(value = "taskId") String taskId, @PathVariable(value = "userId") String userId) {
         Long taskIdLong = Long.parseLong(taskId);
         Long userIdLong = Long.parseLong(userId);
+
         MessageDTO messageDTO = new MessageDTO(taskIdLong, userIdLong);
+        Message messageReadyToSend = messageServices.saveAndGetReadyMessage(messageDTO);
+        Set<Long> assignedUsersIdToProject = messageServices.getAssignedUsersToProject(messageDTO);
+        assignedUsersIdToProject.forEach(Id -> rabbitTemplate.convertAndSend("taskInformation." + Id, messageReadyToSend.getMessage()));
 
-//        Message messageReadyToSend = messageServices.saveAndGetReadyMessage(messageDTO);
+//        String queueName = "taskInformation." + userId;
 //
-//        Set<Long> assignedUsersIdToProject = messageServices.getAssignedUsersToProject(messageDTO);
 //
-//        assignedUsersIdToProject.forEach(Id -> rabbitTemplate.convertAndSend("taskInformation." + Id, messageReadyToSend));
-
-        String queueName = "taskInformation." + userId;
-
-
-//        System.out.println(userId);
-
-        rabbitTemplate.convertAndSend("organizer", queueName, messageDTO.toString());
+////        System.out.println(userId);
+//
+//        rabbitTemplate.convertAndSend("organizer", queueName, messageDTO.toString());
 
     }
 
     @GetMapping("/newInformationCounter/{userId}")
     public Integer getNewInformationCounter(@PathVariable(value = "userId") String userId) {
-        String queueName = "taskInformation." + userId;
 
+        String queueName = "taskInformation." + userId;
 
         Properties props = amqpAdmin.getQueueProperties(queueName);
 

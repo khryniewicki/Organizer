@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.util.Collections;
 
 @ControllerAdvice
 @Data
@@ -120,9 +119,8 @@ public class DashBoardController {
             model.addAttribute("taskList", taskServices.taskListByProjectId());
 
             model.addAttribute("userList", userService.getAllUsersApartActiveUser());
-            model.addAttribute("logsAboutProjects", Collections.EMPTY_LIST);
 
-//            model.addAttribute("logsAboutProjects",messageServices.getLastMessagesForActiveUser(appUser.getIdUser()));
+            model.addAttribute("logsAboutProjects",messageServices.getLast5MessagesForActiveUser(appUser.getIdUser()));
 
         }
 

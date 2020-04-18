@@ -91,7 +91,7 @@ public class ProjectsController {
         if (appUser != null) {
             model.addAttribute("avatarList", UtillClass.getListOfIconsTitlesWrittenManually());
             model.addAttribute("allAdminsInitialsList", projectService.getProjectAdminNameAndSurname());
-            model.addAttribute("logsAboutProjects", Collections.EMPTY_LIST);
+            model.addAttribute("logsAboutProjects",messageServices.getLast5MessagesForActiveUser(appUser.getIdUser()));
         }
     }
 }

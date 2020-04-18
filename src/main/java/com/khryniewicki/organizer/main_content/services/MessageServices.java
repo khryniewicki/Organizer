@@ -22,7 +22,7 @@ public class MessageServices {
     private final ProjectService projectService;
 
 
-    public List<Message> getLastMessagesForActiveUser(Long userId) {
+    public List<Message> getLast5MessagesForActiveUser(Long userId) {
 
         List<Long> allProjectIdsForUser = projectService.findAllProjectForUser(userId).stream()
                 .map(project -> project.getId())
@@ -32,6 +32,7 @@ public class MessageServices {
         return allMessages.stream()
                 .filter(message -> (allProjectIdsForUser.stream().anyMatch(projectId -> message.getProjectId() == projectId)))
                 .sorted(Comparator.comparing(Message::getMessageId).reversed())
+                .limit(5)
                 .collect(Collectors.toList());
     }
 
