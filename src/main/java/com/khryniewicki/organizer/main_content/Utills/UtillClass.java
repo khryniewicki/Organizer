@@ -20,19 +20,21 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class UtillClass {
 
 
-
     public static User getLoggedInUser() {
         HttpSession session = getCurrentHttpRequest().getSession(false);
         return (User) session.getAttribute("appUser");
+
     }
 
     public static HttpServletRequest getCurrentHttpRequest() {
@@ -44,8 +46,8 @@ public class UtillClass {
         return null;
     }
 
-        public static List<String> getListOfIconTitles (){
-        List<String> result=new ArrayList<>();
+    public static List<String> getListOfIconTitles() {
+        List<String> result = new ArrayList<>();
         InputStream in = null;
 
         try (Stream<Path> walk = Files.walk(Paths.get(new ClassPathResource(
@@ -62,15 +64,15 @@ public class UtillClass {
         return result;
     }
 
-    public static List<String> getListOfIconsTitlesWrittenManually(){
+    public static List<String> getListOfIconsTitlesWrittenManually() {
         ArrayList<String> strings = new ArrayList<>();
 
-        for (int i = 1; i <100 ; i++) {
+        for (int i = 1; i < 100; i++) {
             String tmp;
-            if (i>0 && i<10)
-            tmp="00"+i+".png";
+            if (i > 0 && i < 10)
+                tmp = "00" + i + ".png";
             else
-                tmp="0"+i+".png";
+                tmp = "0" + i + ".png";
             strings.add(tmp);
         }
 

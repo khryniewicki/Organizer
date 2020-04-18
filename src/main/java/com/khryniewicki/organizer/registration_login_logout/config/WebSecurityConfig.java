@@ -19,6 +19,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
@@ -52,8 +53,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+
                 .authorizeRequests()
-                .antMatchers("/css/**", "/js/**", "/register", "/", "/login**","/login-error","/logout","/home").permitAll()
+                .antMatchers("/css/**", "/js/**", "/register", "/", "/login**","/login-error","/logout","/home","/taskInformation").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -74,8 +76,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .sessionManagement().maximumSessions(1);
 
-//                .and().invalidSessionUrl("/login");
+
     }
+
+
+
 
     @Bean
     AuthenticationSuccessHandler successHandler() {

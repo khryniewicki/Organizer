@@ -26,7 +26,7 @@ public class Project {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "project")
     @JsonIgnore
     private List<Task> tasks;
-    @ManyToMany()
+    @ManyToMany(fetch=FetchType.EAGER)
     @JsonIgnore
     private List<User> users;
     private String avatar;

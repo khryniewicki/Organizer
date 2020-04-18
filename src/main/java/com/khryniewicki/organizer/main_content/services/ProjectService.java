@@ -32,13 +32,24 @@ public class ProjectService {
         return project1;
     }
 
+    public List<Project> findAllProjectForUser(Long userId) {
+        User activeUser = userService.findUserById(userId);
+        return filterProjectsForUser(activeUser);
+    }
+
     public List<Project> getAllProjectsForUser() {
         User activeUser = UtillClass.getLoggedInUser();
-        return projektRepository.findAll().stream()
+        return filterProjectsForUser(activeUser);
+    }
+
+    public List<Project> filterProjectsForUser(User activeUser) {
+        List<Project> allProjects = projektRepository.findAll();
+        return allProjects.stream()
                 .filter(project -> project.getUsers().stream().
                         anyMatch(userx -> userx.getIdUser() == activeUser.getIdUser()))
                 .collect(Collectors.toList());
     }
+
 
     public List<User> getProjectAdminNameAndSurname() {
         return getAllProjectsForUser().stream()
@@ -100,21 +111,23 @@ public class ProjectService {
         if (ProjectById.isPresent()) {
             Project project = ProjectById.get();
             List<User> users = project.getUsers();
-            users.add(userByEmail);
-            project.setUsers(users);
-            save(project);
+            if (!users.contains(userByEmail)) {
+                users.add(userByEmail);
+                project.setUsers(users);
+                save(project);
+            }
         }
     }
 
     public Project addInitialProject(User user) {
         List<User> users = new ArrayList<>();
         users.add(user);
-        Project initialProject = new Project("Przykładowy projekt", "Opis projektu",user.getEmail(), "icons/015.png", users,false);
+        Project initialProject = new Project("Przykładowy projekt", "Opis projektu", user.getEmail(), "icons/015.png", users, false);
         projektRepository.save(initialProject);
         return initialProject;
     }
 
-    public void save(Project project){
+    public void save(Project project) {
         projektRepository.save(project);
     }
 

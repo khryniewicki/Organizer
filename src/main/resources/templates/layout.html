@@ -16,24 +16,29 @@
 </head>
 <body>
 <div class="container-fluid">
+    <div id="userId" th:name="${ActualUser.idUser}"></div>
     <div id="navbar">
-        <div th:replace="fragment_navbar/navbar :: navbar(${ActualUser.email})">...</div>
+        <div th:replace="fragment_navbar/navbar :: navbar(${ActualUser.email},${logsAboutProjects})">...</div>
     </div>
     <div id="dashboard">
         <div th:replace="fragments_dashboard/dashBoardFragment :: dashBoard(${taskList},${progress_steps},${actualDashBoard},${ActualUser},${ActualUserInitialLetters},${userList})"></div>
 
-        <section layout:fragment="content"></section>
+        <section layout:fragment="content">
 
-<!--        <section layout:fragment="add_card"></section>-->
-<!--        <section layout:fragment="edit_card"></section>-->
-
+        </section>
     </div>
 </div>
 
 </body>
 <script src="webjars/jquery/3.4.1/jquery.min.js"></script>
+<script src="webjars/sockjs-client/1.1.1/sockjs.min.js"></script>
+<script src="webjars/stomp-websocket/2.3.3/stomp.min.js"></script>
 <script src="webjars/bootstrap/4.4.1/js/bootstrap.bundle.js"></script>
 <script src="js/navbar.js"></script>
+<script src="js/navbarNotification.js"></script>
+<script src="js/dragAndDrop.js"></script>
+<script src="js/editTask.js"></script>
+<script src="js/searchingScript.js"></script>
 <section layout:fragment="scripts">
     <p></p>
 </section>

@@ -1,0 +1,30 @@
+package com.khryniewicki.organizer.main_content.controllers.RestControllers;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequiredArgsConstructor
+public class ClientMq {
+
+
+    private final RabbitTemplate rabbitTemplate;
+
+    @GetMapping("/receivetaskInformation/{userId}")
+
+    public String get(@PathVariable String userId) {
+
+        Object message = rabbitTemplate.receiveAndConvert("taskInformation." + userId);
+        if (message == null)
+            return "Nie ma więcej wiadomości";
+        else{
+
+            System.out.println("received: " + message.toString());
+
+        return message.toString();
+    }
+}}
+

@@ -11,7 +11,7 @@
 <body>
 
 
-<div th:fragment="navbar(ActualUserEmail,logsAboutProjects)">
+<div th:fragment="navbar(ActualUserEmail)">
     <nav id="navbarMain"
          class="navbar navbar-expand-sm navbar navbar-dark bg-dark justify-content-between shadowBox unresponsive">
         <a class="navbar-brand mx-0 permamentButtons">
@@ -34,38 +34,14 @@
             </li>
 
         </ul>
-        <ul class="navbar-nav ">
-            <li>
+        <ul class="navbar-nav " >
 
+            <li class="nav-item  float-left ">
 
-                        <div class="dropdown col-lg-1 col-md-2 col-sm-3 ">
-                            <button class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split  "
-                                    data-toggle="dropdown" id="buttonWithNotifations"
-                                    aria-haspopup="true" aria-expanded="false" title="Nowe informacje o projektach"> Komunikaty
-                                <span class="badge badge-light " id="badgeInfo"
-                                      th:text="${#lists.size(logsAboutProjects)}"></span>
-
-                            </button>
-                            <div class="dropdown-menu  dropdown-menu-right " id="dropdown_arrow"
-                                 aria-labelledby="buttonWithProjects">
-                                <div id="newMessages">
-
-                                </div>
-                                <div class="dropdown-divider"></div>
-                                <div th:each="log:${logsAboutProjects}">
-                                    <a class="btn dropdown-item w-100 dropdown-item-Notifications" th:text="${log.message}"></a>
-                                </div>
-                            </div>
-                        </div>
-
-
-
+                <a  class="nav-item nav-link mr-sm-2 active " th:href="${#strings.isEmpty(ActualUserEmail)} ? '/login':'/logout '"
+                    th:text="${#strings.isEmpty(ActualUserEmail)} ? 'Zaloguj się':'Wyloguj' "></a>
             </li>
-            <li class="nav-item   ">
-
-                <a class="nav-item nav-link mr-sm-2 active "
-                   th:href="${#strings.isEmpty(ActualUserEmail)} ? '/login':'/logout '"
-                   th:text="${#strings.isEmpty(ActualUserEmail)} ? 'Zaloguj się':'Wyloguj' "></a>
+            <li class="nav-item item float-right">
             </li>
 
             <li>

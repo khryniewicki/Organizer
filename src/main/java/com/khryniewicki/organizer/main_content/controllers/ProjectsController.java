@@ -2,6 +2,7 @@ package com.khryniewicki.organizer.main_content.controllers;
 
 import com.khryniewicki.organizer.main_content.Utills.UtillClass;
 import com.khryniewicki.organizer.main_content.model.User;
+import com.khryniewicki.organizer.main_content.services.MessageServices;
 import com.khryniewicki.organizer.main_content.services.ProjectService;
 import com.khryniewicki.organizer.main_content.services.UserService;
 import com.khryniewicki.organizer.main_content.DTO.ProjectDTO;
@@ -21,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.Collections;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -29,6 +31,9 @@ public class ProjectsController {
 
     private final ProjectService projectService;
     private final UserService userService;
+    private final MessageServices messageServices;
+
+
     @GetMapping("/projects")
     public String showProjects(Model model, HttpServletRequest request) {
         return "fragments_projects/browserProject";
@@ -86,6 +91,7 @@ public class ProjectsController {
         if (appUser != null) {
             model.addAttribute("avatarList", UtillClass.getListOfIconsTitlesWrittenManually());
             model.addAttribute("allAdminsInitialsList", projectService.getProjectAdminNameAndSurname());
+            model.addAttribute("logsAboutProjects", Collections.EMPTY_LIST);
         }
     }
 }
