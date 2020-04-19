@@ -23,28 +23,24 @@ import java.util.Set;
 public class PublishedMq {
 
     private final MessageServices messageServices;
-
     private final RabbitTemplate rabbitTemplate;
     private final AmqpAdmin amqpAdmin;
-    private final RabbitMqConfig rabbitMqConfig;
 
 
     @GetMapping("/sendtaskInformation/{userId}")
-    public void saveMessageAndSendToAssignedUsers(@RequestParam(value = "taskId") String taskId, @PathVariable(value = "userId") String userId) {
+    public void saveMessageAndSendToAssignedUsers( @PathVariable(value = "userId") String userId,@RequestParam(value = "taskId") String taskId , @RequestParam(value = "update") String update) {
+
         Long taskIdLong = Long.parseLong(taskId);
         Long userIdLong = Long.parseLong(userId);
-
         MessageDTO messageDTO = new MessageDTO(taskIdLong, userIdLong);
-        Message messageReadyToSend = messageServices.saveAndGetReadyMessage(messageDTO);
+
+
+        Message messageReadyToSend = messageServices.saveAndGetReadyMessage(messageDTO,update);
+
         Set<Long> assignedUsersIdToProject = messageServices.getAssignedUsersToProject(messageDTO);
+
         assignedUsersIdToProject.forEach(Id -> rabbitTemplate.convertAndSend("taskInformation." + Id, messageReadyToSend.getMessage()));
 
-//        String queueName = "taskInformation." + userId;
-//
-//
-////        System.out.println(userId);
-//
-//        rabbitTemplate.convertAndSend("organizer", queueName, messageDTO.toString());
 
     }
 

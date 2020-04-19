@@ -19,10 +19,8 @@ public class ClientMq {
 
         Object message = rabbitTemplate.receiveAndConvert("taskInformation." + userId);
         if (message == null)
-            return "Nie ma więcej wiadomości";
+            return "Nie ma nowych wiadomości";
         else{
-
-            System.out.println("received: " + message.toString());
 
         return message.toString();
     }

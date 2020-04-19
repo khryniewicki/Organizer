@@ -1,4 +1,10 @@
-
+function findAllUsers(users) {
+    listWithUsers = [];
+    for (let i = 0; i < usersCounter; i++) {
+        listWithUsers.push(users[i].email);
+    }
+    return listWithUsers;
+}
 function autocomplete(inp, arr) {
     /*the autocomplete function takes two arguments,
     the text field element and an array of possible autocompleted values:*/

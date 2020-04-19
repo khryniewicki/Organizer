@@ -38,26 +38,28 @@
             <li>
 
 
-                        <div class="dropdown col-lg-1 col-md-2 col-sm-3 ">
-                            <button class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split  "
-                                    data-toggle="dropdown" id="buttonWithNotifations"
-                                    aria-haspopup="true" aria-expanded="false" title="Nowe informacje o projektach"> Komunikaty
-                                <span class="badge badge-light " id="badgeInfo"
-                                      th:text="'0'"></span>
+                <div class="dropdown col-lg-1 col-md-2 col-sm-3 ">
+                    <button class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split  "
+                            data-toggle="dropdown" id="buttonWithNotifations"
+                            aria-haspopup="true" aria-expanded="false" title="Nowe informacje o projektach"> Komunikaty
+                        <span class="badge badge-light " id="badgeInfo"
+                              th:text="'0'"></span>
 
-                            </button>
-                            <div class="dropdown-menu  dropdown-menu-right text-left" id="dropdown_arrow"
-                                 aria-labelledby="buttonWithProjects">
-                                <div id="newMessages">
+                    </button>
+                    <div class="dropdown-menu  dropdown-menu-right text-left" id="dropdown_arrow"
+                         aria-labelledby="buttonWithProjects">
+                        <div id="newMessages">
 
-                                </div>
-                                <div class="dropdown-divider"></div>
-                                <div th:each="log:${logsAboutProjects}">
-                                    <a class="btn dropdown-item w-100 dropdown-item-Notifications" th:text="${log.message}"></a>
-                                </div>
+                        </div>
+                        <div class="dropdown-divider"></div>
+                        <div id="oldMessages">
+                            <div th:each="log:${logsAboutProjects}">
+                                <a class="btn dropdown-item w-100 dropdown-item-Notifications"
+                                   th:text="${log.message}"></a>
                             </div>
                         </div>
-
+                    </div>
+                </div>
 
 
             </li>

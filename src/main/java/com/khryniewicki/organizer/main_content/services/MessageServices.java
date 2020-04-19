@@ -37,50 +37,55 @@ public class MessageServices {
     }
 
 
-    public Message saveAndGetReadyMessage(MessageDTO messageDTO) {
-        String innerMessageText = defineMessageText(ModyficationType.UPDATE);
-        Message message = createMessageEntity(messageDTO, innerMessageText);
+    public Message saveAndGetReadyMessage(MessageDTO messageDTO,String update) {
+        Message message = createMessageEntity(messageDTO, update);
         messageRepository.save(message);
 
         return message;
     }
 
-    public String defineMessageText(ModyficationType modyficationType) {
-        String aboutTask = "";
+    public String defineMessageText(ModyficationType modyficationType,String taskName, String projectName, String userEmail,String progress) {
+        String message = "";
         switch (modyficationType) {
             case UPDATE:
-                aboutTask = "' zadanie '";
+                message= createUpdateMessage(taskName, projectName, userEmail);
                 break;
             case UPDATE_PROGRESS:
-                aboutTask = "' status zadania '";
+                message= createUpdateProgressMessage(taskName, projectName, userEmail,progress);
                 break;
             default:
                 throw new IllegalArgumentException("Nie ma takiejmodyfikacji");
         }
-        return aboutTask;
+        return message;
 
     }
 
-    public Message createMessageEntity(MessageDTO messageDTO, String innerMessageText) {
+    public Message createMessageEntity(MessageDTO messageDTO, String update) {
+
+
         Long taskId = messageDTO.getTaskId();
         Long userId=messageDTO.getUserId();
 
         Task task = taskServices.findTask(taskId);
         String taskName = task.getName();
+        String progress=task.getProgress();
         Long projectId = task.getProject().getId();
         String projectName = task.getProject().getName();
         String userEmail = userService.findUserById(userId).getEmail();
 
-        String message = createStringMessage(innerMessageText, taskName, projectName, userEmail);
+        String innerMessageText = defineMessageText(ModyficationType.valueOf(update),taskName, projectName, userEmail,progress);
 
-        return new Message(taskId, projectId, message, userId);
+
+        return new Message(taskId, projectId, innerMessageText, userId);
 
     }
 
-    public String createStringMessage(String innerMessageText, String taskName, String projectName, String userEmail) {
-        return String.format("Użytkownik %s zmodyfikował w projekcie '%s' %s '%s'",userEmail,projectName,innerMessageText,taskName);
+    public String createUpdateMessage(String taskName, String projectName, String userEmail) {
+        return String.format("Użytkownik %s zmodyfikował w projekcie '%s' zadanie '%s'",userEmail,projectName,taskName);
     }
-
+    public String createUpdateProgressMessage(String taskName, String projectName, String userEmail,String progress) {
+        return String.format("Użytkownik %s zmienił w projekcie '%s' w zadaniu '%s' status na '%s'",userEmail,projectName,taskName,progress);
+    }
     public Set<Long> getAssignedUsersToProject(MessageDTO messageDTO) {
         Long taskId = messageDTO.getTaskId();
         Long projectId = taskServices.getProjectIdFromTask(taskId);

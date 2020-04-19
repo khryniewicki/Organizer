@@ -84,9 +84,8 @@ public class DashBoardController {
         }
 
         taskServices.updateTaskUsingDTO(taskDTO, id);
-        return "fragments_dashboard/editTask";
 
-//        return "redirect:/dashboard?id=" + taskDTO.getProject().getId();
+        return "redirect:/dashboard?id=" + taskDTO.getProject().getId();
 
     }
 
