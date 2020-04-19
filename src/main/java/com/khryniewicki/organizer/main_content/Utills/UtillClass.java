@@ -13,17 +13,20 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.security.CodeSource;
+import java.util.*;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 
 @Slf4j
 @Service
@@ -46,9 +49,9 @@ public class UtillClass {
         return null;
     }
 
-    public static List<String> getListOfIconTitles() {
+    public static List<String> getListOfIconTitles() throws IOException {
         List<String> result = new ArrayList<>();
-        InputStream in = null;
+
 
         try (Stream<Path> walk = Files.walk(Paths.get(new ClassPathResource(
                 "src/main/resources/static/img/icons",

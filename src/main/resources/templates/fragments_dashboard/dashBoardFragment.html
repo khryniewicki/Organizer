@@ -22,7 +22,7 @@
             <i class="fas fa-plus-square " data-toggle="modal"
                data-target="#myModal" th:title="Utwórz"></i></a>
 
-        <button type="button" class="btn btn-primary btn-circle mx-2 ">
+        <button type="button" class="btn btn-primary btn-circle mx-2 disabled">
             <i class="fas fa-search" data-toggle="tooltip" title="Wyszukaj"></i></button>
     </div>
 
@@ -111,10 +111,10 @@
                     </div>
                     <div class="container-fluid container-dashboard scroll-bar">
                         <div class="container-fluid container-innerDashboard">
-                            <div class="tablePROGRESS" th:each="step:${progress_steps}">
-                                <div class="d-inline table-responsive">
+                            <div class="tablePROGRESS" th:each="step:${progress_steps}" draggable="false">
+                                <div class="d-inline table-responsive" >
 
-                                    <div class="thead-light" th:text="${step.name}">
+                                    <div class="thead-light" th:text="${step.name}" >
                                     </div>
                                     <div th:id="${'container_'+step.name}" class="cardBox">
                                         <div th:each="task:${taskList}">

@@ -33,7 +33,6 @@ public class ProjectsController {
     private final UserService userService;
     private final MessageServices messageServices;
 
-
     @GetMapping("/projects")
     public String showProjects(Model model, HttpServletRequest request) {
         return "fragments_projects/browserProject";
@@ -47,7 +46,6 @@ public class ProjectsController {
 
     @PostMapping("/createProject")
     public String createProject(@ModelAttribute("newProject") @Valid ProjectDTO projectDTO, BindingResult bindingResult) {
-        System.out.println(projectDTO);
         if (bindingResult.hasErrors()) {
             bindingResult.rejectValue("avatar","error.newProject","Select avatar");
             return "fragments_projects/addProject";

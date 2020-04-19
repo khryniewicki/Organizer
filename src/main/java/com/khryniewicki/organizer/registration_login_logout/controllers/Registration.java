@@ -1,6 +1,5 @@
 package com.khryniewicki.organizer.registration_login_logout.controllers;
 
-import com.khryniewicki.organizer.main_content.controllers.RestControllers.RabbitMqConfig;
 import com.khryniewicki.organizer.main_content.model.User;
 import com.khryniewicki.organizer.main_content.services.UserService;
 import com.khryniewicki.organizer.registration_login_logout.DTO.UserDTO;

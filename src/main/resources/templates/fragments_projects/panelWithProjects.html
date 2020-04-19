@@ -106,7 +106,7 @@
                             </a>
 
                             <a th:href="@{/editproject(id=${project.id})}"
-                               th:classappend="${ActualUser.email==project.admin} ? '':'icon disabled cog'"><i
+                               th:classappend="${ActualUser.email==project.admin} ? '':'btn disabled '"><i
                                     class="fas fa-cogs icon " id="cogs" data-toggle="tooltip"
                                     th:title="Edytuj">
                             </i></a>

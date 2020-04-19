@@ -1,4 +1,4 @@
-package com.khryniewicki.organizer.main_content.controllers.RestControllers;
+package com.khryniewicki.organizer.main_content.config;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

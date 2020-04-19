@@ -87,7 +87,7 @@ public class ProjectService {
     public void createProject(ProjectDTO projectDTO) {
         ArrayList<User> users = new ArrayList<>();
         users.add(UtillClass.getLoggedInUser());
-        Project project = new Project(projectDTO.getName(), projectDTO.getDescription(), projectDTO.getAvatar(), users);
+        Project project = new Project(projectDTO.getName(), projectDTO.getDescription(), projectDTO.getAvatar(), users,UtillClass.getLoggedInUser().getEmail());
         save(project);
     }
 

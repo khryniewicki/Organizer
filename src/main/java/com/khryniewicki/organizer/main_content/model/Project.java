@@ -32,11 +32,12 @@ public class Project {
     private String avatar;
     private boolean isStarred=false;
 
-    public Project(String name, String description,String avatar,List<User> users) {
+    public Project(String name, String description,String avatar,List<User> users,String admin) {
         this.name=name;
         this.description=description;
         this.avatar= avatar;
         this.users=users;
+        this.admin=admin;
     }
     public Project(String name, String description,String admin, String avatar,List<User> users,boolean isStarred) {
         this.name=name;
