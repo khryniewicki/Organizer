@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -52,17 +53,11 @@ public class UtillClass {
     public static List<String> getListOfIconTitles() throws IOException {
         List<String> result = new ArrayList<>();
 
+        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
 
-        try (Stream<Path> walk = Files.walk(Paths.get(new ClassPathResource(
-                "src/main/resources/static/img/icons",
-                UtillClass.class.getClassLoader()).getPath()))) {
-//            "src/main/resources/static/img/icons"
-            result = walk.filter(Files::isRegularFile)
-                    .map(x -> x.getFileName().toString())
-                    .sorted()
-                    .collect(Collectors.toList());
-        } catch (IOException e) {
-            e.printStackTrace();
+        Resource[] resources = resolver.getResources("classpath*:/**/icons/**/*.png");
+        for (Resource resource : resources) {
+            result.add(resource.getFilename());
         }
         return result;
     }

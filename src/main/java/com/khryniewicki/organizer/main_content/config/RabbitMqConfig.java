@@ -22,15 +22,11 @@ public class RabbitMqConfig {
     }
 
     @Bean
-    public Queue autoDeleteQueue1()    {
-        return new Queue("taskOrganizer.*");
+    public DirectExchange newDirectExchange(){
+        return new DirectExchange("organizer");
     }
-    @Bean
-    public Binding binding1a(Queue autoDeleteQueue1) {
-        return BindingBuilder.bind(autoDeleteQueue1)
-                .to(directExchange)
-                .with(autoDeleteQueue1.getActualName());
-    }
+
+
     @Bean
     public ConnectionFactory connectionFactory() {
         return new CachingConnectionFactory("localhost");

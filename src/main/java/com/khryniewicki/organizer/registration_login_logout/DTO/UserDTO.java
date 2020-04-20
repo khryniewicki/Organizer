@@ -18,11 +18,13 @@ public class UserDTO {
     @NotBlank
     @NotNull
     @Size( max=30)
+    @Pattern(regexp="[a-zA-Z]+")
     private String firstName;
 
     @NotBlank
     @NotNull
     @Size( max=30)
+    @Pattern(regexp="[a-zA-Z]+")
     private String secondName;
 
     @NotBlank

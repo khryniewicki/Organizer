@@ -87,7 +87,7 @@ public class ProjectsController {
         if (session != null) appUser = (User) session.getAttribute("appUser");
 
         if (appUser != null) {
-            model.addAttribute("avatarList", UtillClass.getListOfIconsTitlesWrittenManually());
+            model.addAttribute("avatarList", UtillClass.getListOfIconTitles());
             model.addAttribute("allAdminsInitialsList", projectService.getProjectAdminNameAndSurname());
             model.addAttribute("logsAboutProjects",messageServices.getLast5MessagesForActiveUser(appUser.getIdUser()));
         }

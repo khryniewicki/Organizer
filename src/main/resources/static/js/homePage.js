@@ -1,19 +1,12 @@
-// $('.carousel').carousel({
-//     interval: 1000
-// });
-
-
 function openModal() {
-// $('.carousel').carousel({ pause: "hover"}   );
-$('#myModalHomePage').modal('show');
-currentSlide();
+    $('#myModalHomePage').modal('show');
+    currentSlide();
 }
 
 function currentSlide(n) {
     $('.carousel1').carousel('pause');
 
     $('.carousel2').carousel(n);
-
 }
 
 $('#myModalHomePage').on('hidden.bs.modal', function () {

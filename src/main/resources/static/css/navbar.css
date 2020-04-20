@@ -15,7 +15,7 @@
     display: none;
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
     .item {
         display: none;
     }
@@ -26,7 +26,7 @@
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 700px) {
     .shadowBox.responsive {
         position: relative;
     }
@@ -53,5 +53,29 @@
     .dropdown-menu-right {
         right: 100px !important;
     }
+}
 
+@media (max-width: 700px){
+    .navbar-nav {
+        flex-direction: column!important;
+    }
+}
+
+
+
+@media screen and (max-width: 700px) {
+    .container-innerNotification {
+        width: 1000px;
+        height: auto;
+        display: block;
+    }
+
+    .container-Notification {
+        overflow-x: visible !important;
+        overflow-y: hidden;
+        white-space: normal;
+    }
+    #dropdown_arrow{
+        float: left;
+    }
 }

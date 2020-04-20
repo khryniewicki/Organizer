@@ -18,16 +18,13 @@
             <img src="/img/scheduleIcon3.png" class="imgIcon" width="30" height="30" alt="">
         </a>
         <a class="navbar-brand nav-link text-secondary disabled mx-n2 permamentButtons ">Organizer</a>
-        <div th:switch="${ActualUserEmail}">
-            <a th:case="null"></a>
-            <div th:case="*">
-                <a class="nav-item nav-link disabled mr-sm-2 text-secondary  " id="navbarActiveUserEmail"
-                   th:text="${ActualUserEmail}"></a>
-            </div>
-        </div>
+
+        <a class="nav-item nav-link disabled mr-sm-2 text-secondary  " id="navbarActiveUserEmail"
+           th:text="${ActualUserEmail}"></a>
+
         <ul class="navbar-nav mr-auto" id="navbarNavAltMarkup">
             <li class="nav-item item">
-                <a class="nav-item nav-link active " href="#">Główna <span class="sr-only">(current)</span></a>
+                <a class="nav-item nav-link active " href="/home">Główna <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item item">
                 <a class="nav-item nav-link active " href="/projects">Projekty</a>
@@ -35,39 +32,36 @@
 
         </ul>
         <ul class="navbar-nav ">
-            <li>
-
-
-                <div class="dropdown col-lg-1 col-md-2 col-sm-3 ">
-                    <button class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split  "
+            <li class="nav-item item">
+                <div id="NotificationButton" class="dropdown col-lg-1 col-md-2 col-sm-3 unresponsive">
+                    <button class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split "
                             data-toggle="dropdown" id="buttonWithNotifations"
                             aria-haspopup="true" aria-expanded="false" title="Nowe informacje o projektach"> Komunikaty
                         <span class="badge badge-light " id="badgeInfo"
                               th:text="'0'"></span>
 
                     </button>
-                    <div class="dropdown-menu  dropdown-menu-right text-left" id="dropdown_arrow"
-                         aria-labelledby="buttonWithProjects">
-                        <div id="newMessages">
+                    <div class="container-fluid container-Notification scroll-bar">
+                        <div class="container-fluid container-innerNotification">
+                            <div class="dropdown-menu  dropdown-menu-right text-left" id="dropdown_arrow"
+                                 aria-labelledby="buttonWithNotifations">
+                                <div id="newMessages" >
 
-                        </div>
-                        <div class="dropdown-divider"></div>
-                        <div id="oldMessages">
-                            <div th:each="log:${logsAboutProjects}">
-                                <a class="btn dropdown-item w-100 dropdown-item-Notifications"
-                                   th:text="${log.message}"></a>
+                                </div>
+                                <div class="dropdown-divider"></div>
+                                <div id="oldMessages">
+                                    <div th:each="log:${logsAboutProjects}">
+                                        <a class="btn dropdown-item w-100 dropdown-item-Notifications"
+                                           th:text="${log.message}"></a>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
             </li>
-            <li class="nav-item   ">
-
-                <a class="nav-item nav-link mr-sm-2 active "
-                   th:href="${#strings.isEmpty(ActualUserEmail)} ? '/login':'/logout '"
-                   th:text="${#strings.isEmpty(ActualUserEmail)} ? 'Zaloguj się':'Wyloguj' "></a>
+            <li id="logoutButton" class="nav-item item unresponsive">
+                <a class="nav-item nav-link  active " th:href="'/logout '" th:text="'Wyloguj' "></a>
             </li>
 
             <li>

@@ -23,3 +23,7 @@
     word-break: break-word;
 }
 #dropdown_arrow{float: right;text-align: center}
+
+.dropdown-toggle::after{
+    float: right;
+}

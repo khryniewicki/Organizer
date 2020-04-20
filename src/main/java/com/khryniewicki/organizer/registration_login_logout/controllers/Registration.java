@@ -1,6 +1,7 @@
 package com.khryniewicki.organizer.registration_login_logout.controllers;
 
 import com.khryniewicki.organizer.main_content.model.User;
+import com.khryniewicki.organizer.main_content.services.RabbitService;
 import com.khryniewicki.organizer.main_content.services.UserService;
 import com.khryniewicki.organizer.registration_login_logout.DTO.UserDTO;
 import com.khryniewicki.organizer.registration_login_logout.services.LoggingUserService;
@@ -23,7 +24,7 @@ import java.io.IOException;
 public class Registration {
     private final UserService userService;
     private final LoggingUserService loggingUserService;
-
+    private final RabbitService rabbitService;
 
     @GetMapping("/register")
     public String register(Model model) {
@@ -55,6 +56,8 @@ public class Registration {
             result.rejectValue("email", "message.regError");
         }
         model.addAttribute("registrationSuccess",true);
+        String userId = registered.getIdUser().toString();
+        rabbitService.createQueue(userId);
 
         return "login/loginPage";
     }
