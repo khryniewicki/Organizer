@@ -28,14 +28,9 @@ body {
 }
 
 .item1{
-  background-image: url("/img/railway.jpg");
+  background-image: url("/static/img/railway.jpg");
   background-size: cover;
 }
-
-/*.modalContent{*/
-/*  width: 100vh!important;*/
-/*  height: 80vh!important;;*/
-/*}*/
 
 .item{
   background-size: cover;
@@ -55,4 +50,22 @@ body {
   width: 100%;
   height: 100%;
 }
+.container-cards{
+  overflow: auto;
+}
 
+@media screen and (max-width: 1000px) {
+  .container-innerCards {
+    width: 930px;
+    height: auto;
+  }
+
+  .container-cards {
+    display: inline-block !important;
+    height: 400px;
+    overflow-x: visible !important;
+    overflow-y: hidden;
+    width: calc(100% - 20px);
+    white-space: normal;
+  }
+}
