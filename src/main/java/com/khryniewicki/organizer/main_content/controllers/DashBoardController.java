@@ -40,7 +40,7 @@ public class DashBoardController {
         model.addAttribute("usersAssignedToProject", userService.getAllUsersAssignedToProject(projectId));
         model.addAttribute("usersAssignedToProjectApartActiveUser", userService.getAllUsersAssignedToProjectApartActiveUser(projectId));
 
-        return "main/dashBoard";
+        return "fragments_dashboard/dashBoard";
     }
 
     @GetMapping("/createTask")

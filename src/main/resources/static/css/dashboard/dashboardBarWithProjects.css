@@ -22,8 +22,9 @@
     padding-right: 0!important;
     word-break: break-word;
 }
-#dropdown_arrow{float: right;text-align: center}
 
-.dropdown-toggle::after{
+/*#dropdown_arrow{float: right;text-align: center}*/
+
+.dropdownButton .dropdown-toggle::after{
     float: right;
 }

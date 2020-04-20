@@ -51,7 +51,12 @@
     }
 
     .dropdown-menu-right {
-        right: 100px !important;
+        left:0!important;
+        right: auto;
+    }
+
+    .navbar-nav .dropdown-men{
+        position: absolute!important;
     }
 }
 
@@ -68,6 +73,8 @@
         width: 1000px;
         height: auto;
         display: block;
+        float: left;
+
     }
 
     .container-Notification {

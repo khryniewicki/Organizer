@@ -28,7 +28,7 @@ body {
 }
 
 .item1{
-  background-image: url("/static/img/railway.jpg");
+  background-image: url("/img/railway.jpg");
   background-size: cover;
 }
 
