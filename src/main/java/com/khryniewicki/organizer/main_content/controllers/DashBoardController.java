@@ -26,6 +26,7 @@ public class DashBoardController {
     private final SprintService sprintService;
     private final HrefService hrefService;
     private final UserService userService;
+    private final MessageServices messageServices;
 
     @GetMapping("/dashboard")
     public String showDashBoard(@RequestParam("id") Long projectId, Model model, HttpServletRequest request) {
@@ -37,9 +38,9 @@ public class DashBoardController {
         model.addAttribute("taskList", taskServices.taskListByProjectId(projectId));
         model.addAttribute("actualDashBoard", projectService.findProject(projectId));
         model.addAttribute("usersAssignedToProject", userService.getAllUsersAssignedToProject(projectId));
-        model.addAttribute("usersAssignedToProjectApartActiveUser",userService.getAllUsersAssignedToProjectApartActiveUser(projectId));
+        model.addAttribute("usersAssignedToProjectApartActiveUser", userService.getAllUsersAssignedToProjectApartActiveUser(projectId));
 
-        return "main/dashBoard";
+        return "fragments_dashboard/dashBoard";
     }
 
     @GetMapping("/createTask")
@@ -48,10 +49,9 @@ public class DashBoardController {
         model.addAttribute("taskList", taskServices.taskListByProjectId(projectId));
         model.addAttribute("actualDashBoard", projectService.findProject(projectId));
         model.addAttribute("usersAssignedToProject", userService.getAllUsersAssignedToProject(projectId));
-        model.addAttribute("usersAssignedToProjectApartActiveUser",userService.getAllUsersAssignedToProjectApartActiveUser(projectId));
+        model.addAttribute("usersAssignedToProjectApartActiveUser", userService.getAllUsersAssignedToProjectApartActiveUser(projectId));
         return "fragments_dashboard/createTask";
     }
-
 
 
     @PostMapping("/createTask")
@@ -65,7 +65,6 @@ public class DashBoardController {
     }
 
 
-
     @GetMapping("/edittask")
     public String editCard(@RequestParam("id") Long id, Model model) {
         TaskDTO taskDTO = taskServices.getTaskDtoFromTask(id);
@@ -74,14 +73,20 @@ public class DashBoardController {
         model.addAttribute("taskList", taskServices.taskListByProjectId(projectId));
         model.addAttribute("actualDashBoard", projectService.findProject(projectId));
         model.addAttribute("usersAssignedToProject", userService.getAllUsersAssignedToProject(projectId));
-        model.addAttribute("usersAssignedToProjectApartActiveUser",userService.getAllUsersAssignedToProjectApartActiveUser(projectId));
+        model.addAttribute("usersAssignedToProjectApartActiveUser", userService.getAllUsersAssignedToProjectApartActiveUser(projectId));
         return "fragments_dashboard/editTask";
     }
 
     @PostMapping("/edittask")
-    public String editCard(@ModelAttribute("oldTask") TaskDTO taskDTO, @RequestParam("id") Long id) {
+    public String editCard(@ModelAttribute("oldTask") TaskDTO taskDTO, @RequestParam("id") Long id, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "fragments_dashboard/editTask";
+        }
+
         taskServices.updateTaskUsingDTO(taskDTO, id);
+
         return "redirect:/dashboard?id=" + taskDTO.getProject().getId();
+
     }
 
     @GetMapping("/deletetask")
@@ -113,6 +118,8 @@ public class DashBoardController {
             model.addAttribute("taskList", taskServices.taskListByProjectId());
 
             model.addAttribute("userList", userService.getAllUsersApartActiveUser());
+
+            model.addAttribute("logsAboutProjects",messageServices.getLast5MessagesForActiveUser(appUser.getIdUser()));
 
         }
 

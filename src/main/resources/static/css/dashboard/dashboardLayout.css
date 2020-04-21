@@ -9,8 +9,6 @@ body, html {
 }
 
 .container-fluid {
-    min-height: 100vh;
-
     width: 100%;
     height: inherit;
     padding: 0 !important;
@@ -29,8 +27,15 @@ body, html {
     float: left;
 }
 
+.containerScrollable {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    white-space: nowrap;
+    display: block;
+}
+
 #project_menu {
-    min-width: 160px;
+    min-width: 210px;
     position: relative;
     height: inherit;
     min-height: 100vh;
@@ -42,12 +47,27 @@ body, html {
 
 #main {
     position: relative;
-    min-height: 100vh;
+    min-height: auto;
     height: auto;
-    min-width: 60%;
-    width: 83%;
+    width: calc(100% - 260px);
+    max-width: 80%;
     margin: 0 !important;
     float: left;
     padding-left: 1.8% !important;
+}
 
+@media screen and (max-width: 990px){
+        #main {
+            width: calc(100% - 50px);
+            max-width: 95%;
+        }
+        #project_menu{
+            position: relative;
+            top: 0;
+            min-width: 50%;
+            width: calc(100% - 50px);
+            min-height: 83px;
+            height: 83px;
+            margin-bottom: 5px;
+        }
 }

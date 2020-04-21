@@ -10,7 +10,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class Login {
 
 
-    @GetMapping({"/","/login"})
+    @GetMapping({"/login"})
     public String projects(Model model) {
         return "login/loginPage";
     }

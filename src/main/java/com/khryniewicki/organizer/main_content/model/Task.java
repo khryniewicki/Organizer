@@ -38,6 +38,10 @@ public class Task {
     @JsonIgnore
     private User user;
 
+    public Task(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         return "Task{" +

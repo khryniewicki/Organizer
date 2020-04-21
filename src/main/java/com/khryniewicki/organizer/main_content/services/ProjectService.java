@@ -1,9 +1,10 @@
 package com.khryniewicki.organizer.main_content.services;
 
-import com.khryniewicki.organizer.main_content.Utills.UtillClass;
-import com.khryniewicki.organizer.main_content.model.*;
-import com.khryniewicki.organizer.main_content.model.repositories.ProjectRepository;
 import com.khryniewicki.organizer.main_content.DTO.ProjectDTO;
+import com.khryniewicki.organizer.main_content.Utills.UtillClass;
+import com.khryniewicki.organizer.main_content.model.Project;
+import com.khryniewicki.organizer.main_content.model.User;
+import com.khryniewicki.organizer.main_content.model.repositories.ProjectRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,13 +32,24 @@ public class ProjectService {
         return project1;
     }
 
+    public List<Project> findAllProjectForUser(Long userId) {
+        User activeUser = userService.findUserById(userId);
+        return filterProjectsForUser(activeUser);
+    }
+
     public List<Project> getAllProjectsForUser() {
         User activeUser = UtillClass.getLoggedInUser();
-        return projektRepository.findAll().stream()
+        return filterProjectsForUser(activeUser);
+    }
+
+    public List<Project> filterProjectsForUser(User activeUser) {
+        List<Project> allProjects = projektRepository.findAll();
+        return allProjects.stream()
                 .filter(project -> project.getUsers().stream().
                         anyMatch(userx -> userx.getIdUser() == activeUser.getIdUser()))
                 .collect(Collectors.toList());
     }
+
 
     public List<User> getProjectAdminNameAndSurname() {
         return getAllProjectsForUser().stream()
@@ -54,6 +66,7 @@ public class ProjectService {
 
     private ProjectDTO transformProjectToProjectDTO(Project project) {
         ProjectDTO projectDTO = new ProjectDTO();
+        projectDTO.setStarred(project.isStarred());
         projectDTO.setId(project.getId());
         projectDTO.setName(project.getName());
         projectDTO.setDescription(project.getDescription());
@@ -67,21 +80,22 @@ public class ProjectService {
         project.setDescription(projectDTO.getDescription());
         project.setAdmin(projectDTO.getAdmin());
         project.setAvatar(projectDTO.getAvatar());
+        project.setStarred(project.isStarred());
         return project;
     }
 
     public void createProject(ProjectDTO projectDTO) {
         ArrayList<User> users = new ArrayList<>();
         users.add(UtillClass.getLoggedInUser());
-        Project project = new Project(projectDTO.getName(), projectDTO.getDescription(), projectDTO.getAvatar(), users);
-        projektRepository.save(project);
+        Project project = new Project(projectDTO.getName(), projectDTO.getDescription(), projectDTO.getAvatar(), users,UtillClass.getLoggedInUser().getEmail());
+        save(project);
     }
 
     public void updateProject(ProjectDTO projectDTO) {
         Long projectId = projectDTO.getId();
         Project project = findProject(projectId);
         Project updatedProject = transformProjectDtoToProject(project, projectDTO);
-        projektRepository.save(updatedProject);
+        save(updatedProject);
 
     }
 
@@ -97,19 +111,24 @@ public class ProjectService {
         if (ProjectById.isPresent()) {
             Project project = ProjectById.get();
             List<User> users = project.getUsers();
-            users.add(userByEmail);
-            project.setUsers(users);
-            projektRepository.save(project);
+            if (!users.contains(userByEmail)) {
+                users.add(userByEmail);
+                project.setUsers(users);
+                save(project);
+            }
         }
     }
 
     public Project addInitialProject(User user) {
         List<User> users = new ArrayList<>();
         users.add(user);
-        Project initialProject = new Project("Przykładowy projekt", "Opis projektu",user.getEmail(), "icons/015.png", users);
-
+        Project initialProject = new Project("Przykładowy projekt", "Opis projektu", user.getEmail(), "icons/015.png", users, false);
         projektRepository.save(initialProject);
-
         return initialProject;
     }
+
+    public void save(Project project) {
+        projektRepository.save(project);
+    }
+
 }

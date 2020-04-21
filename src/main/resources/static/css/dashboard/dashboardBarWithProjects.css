@@ -17,9 +17,14 @@
 }
 
 #buttonWithProjects{
-    min-width: 150px ;
-    width: 100%;
     text-align: left;
+    width: calc(100% - 5px) !important;
     padding-right: 0!important;
+    word-break: break-word;
 }
-#dropdown_arrow{float: right;text-align: center}
+
+/*#dropdown_arrow{float: right;text-align: center}*/
+
+.dropdownButton .dropdown-toggle::after{
+    float: right;
+}

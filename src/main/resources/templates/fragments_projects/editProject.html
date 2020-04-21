@@ -16,7 +16,6 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
                 <form th:action="@{${#request.getRequestURI()}(id=${#request.getParameter('id')})}"
                       th:object="${oldProject}" method="post">
                     <div class="modal-body">
@@ -98,5 +97,5 @@
 </th:block>
 
 <th:block layout:fragment="scripts">
-    <script src="js/editProject.js"></script>
+    <script src="/js/projectBrowser/editProject.js"></script>
 </th:block>

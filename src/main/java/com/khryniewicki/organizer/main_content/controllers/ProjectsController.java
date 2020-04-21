@@ -2,11 +2,14 @@ package com.khryniewicki.organizer.main_content.controllers;
 
 import com.khryniewicki.organizer.main_content.Utills.UtillClass;
 import com.khryniewicki.organizer.main_content.model.User;
+import com.khryniewicki.organizer.main_content.services.MessageServices;
 import com.khryniewicki.organizer.main_content.services.ProjectService;
 import com.khryniewicki.organizer.main_content.services.UserService;
 import com.khryniewicki.organizer.main_content.DTO.ProjectDTO;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.IOException;
+import java.util.Collections;
+
 @Slf4j
 @RequiredArgsConstructor
 @Controller
@@ -25,6 +31,8 @@ public class ProjectsController {
 
     private final ProjectService projectService;
     private final UserService userService;
+    private final MessageServices messageServices;
+
     @GetMapping("/projects")
     public String showProjects(Model model, HttpServletRequest request) {
         return "fragments_projects/browserProject";
@@ -38,9 +46,7 @@ public class ProjectsController {
 
     @PostMapping("/createProject")
     public String createProject(@ModelAttribute("newProject") @Valid ProjectDTO projectDTO, BindingResult bindingResult) {
-        System.out.println(projectDTO);
         if (bindingResult.hasErrors()) {
-            bindingResult.rejectValue("avatar","error.newProject","Select avatar");
             return "fragments_projects/addProject";
         }
         projectService.createProject(projectDTO);
@@ -59,7 +65,6 @@ public class ProjectsController {
     @PostMapping("/editproject")
     public String editProject(Model model, @ModelAttribute("oldProject") ProjectDTO projectDTO,BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            bindingResult.rejectValue("avatar","error.newProject","Select avatar");
             return "fragments_projects/addProject";
         }
         projectService.updateProject(projectDTO);
@@ -74,7 +79,7 @@ public class ProjectsController {
     }
 
     @ModelAttribute
-    public void AddAttributes(Model model, HttpServletRequest request) {
+    public void AddAttributes(Model model, HttpServletRequest request) throws IOException {
         HttpSession session = request.getSession(false);
         User appUser = null;
         if (session != null) appUser = (User) session.getAttribute("appUser");
@@ -82,6 +87,7 @@ public class ProjectsController {
         if (appUser != null) {
             model.addAttribute("avatarList", UtillClass.getListOfIconTitles());
             model.addAttribute("allAdminsInitialsList", projectService.getProjectAdminNameAndSurname());
+            model.addAttribute("logsAboutProjects",messageServices.getLast5MessagesForActiveUser(appUser.getIdUser()));
         }
     }
 }

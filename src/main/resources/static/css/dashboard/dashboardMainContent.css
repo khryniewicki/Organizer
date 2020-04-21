@@ -1,25 +1,44 @@
-#tablePROGRESS {
+.tablePROGRESS {
     background-color: #E4E4E4;
-    width: 30vh;
-    min-width: 12vh;
+    min-width: 135px;
+    width: calc(20% - 5px);
+    max-width: 30vh;
     padding: 2px;
     margin: 2px 2px 0 2px !important;
     float: left;
-
+}
+.container-dashboard{
+    overflow: auto;
 }
 
+@media screen and (max-width: 800px) {
+    .container-innerDashboard{
+        width: 1000px;
+        height: auto;
+    }
+    .container-dashboard{
+        display: inline-block!important;
+        height: 400px;
+        overflow-x: visible!important;
+        overflow-y: hidden;
+        width: calc(100% - 20px);
+        white-space: normal;
+    }
+    .tablePROGRESS{
+        display: inline-block!important;
+    }
+}
 #dashBoardRef{
-
     color: #95999c;
 }
-#board {
+
+.board {
     display: inline;
 }
 
 .cardBox {
     padding: 1px;
     margin-bottom: 1px;
-
 }
 
 .card-body{
@@ -37,10 +56,9 @@
 #icons{
     position: relative!important;
     bottom: 3px!important;
-
 }
 .card {
-    min-width: 12vh;
+    /*min-width: 100px;*/
     min-height: 80px;
     height: auto;
     max-height: 120px;
@@ -49,22 +67,10 @@
     padding: 1px;
 }
 
-tr {
-    margin: 0 0 0 0;
-}
-
-td {
-    margin: 2px 0 2px 0;
-}
-
-table {
-    margin: 0 0 0 0 !important;
-}
 
 .empty_card {
     position: relative;
     background-color: #F2F2F2;
-
     background-image: linear-gradient(to right, darkgray 20%, #F4F4F4 80%);
     background-position: top;
     background-size: 10px 1px;
@@ -79,6 +85,18 @@ table {
     padding: 1px;
 }
 
+
+tr {
+    margin: 0 0 0 0;
+}
+
+td {
+    margin: 2px 0 2px 0;
+}
+
+table {
+    margin: 0 0 0 0 !important;
+}
 #showWindowAddingCard {
     height: 500px;
     width: 500px;
@@ -153,6 +171,10 @@ input[type=submit] {
     width: 80vh;
 }
 
+@media screen and (max-width: 990px){
+    .modaledit {width: 100%;}
+}
+
 .ButtonWithInitialsIcon{
     border-radius: 50%;
     height: 22px!important;
@@ -178,4 +200,11 @@ input[type=submit] {
 {
     color: red;
 }
-
+.formAutoControl{
+    width: 300px;
+}
+@media  screen and (max-width: 576px){
+    .formAutoControl{
+        width: 230px!important;
+    }
+}

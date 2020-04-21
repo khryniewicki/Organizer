@@ -13,13 +13,13 @@ import javax.validation.constraints.Size;
 @Data
 public class ProjectDTO {
     private Long id;
-    @NotNull
-    @Size(min=2, max=50)
+    @NotNull(message = "Nazwa projektu nie może być pusta")
+    @Size(min=2, max=25,message = "Nazwa projektu nie może mieć więcej niż 25 znaków ")
     private String name;
-    @Size(max=50)
+    @Size(max=25,message = "Opis projektu nie może mieć więcej niż 25 znaków ")
     private String description;
-    @NotNull
-    @NotBlank
+    @NotBlank(message = "Musisz wybrać avatar")
     private String avatar;
     private String admin;
+    private boolean isStarred;
 }
