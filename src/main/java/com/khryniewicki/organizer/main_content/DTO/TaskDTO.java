@@ -11,10 +11,10 @@ public class TaskDTO {
 
     private Long idTask;
 
-    @NotNull
-    @Size(min=2, max=50)
+    @NotNull(message = "Nazwa zadania nie może być pusta")
+    @Size(min=2, max=50,message = "Nazwa zadania nie może mieć więcej niż 50 znaków")
     private String name;
-    @Size( max=250)
+    @Size( max=250,message = "Opis zadania nie może mieć więcej niż 250 znaków")
     private String description;
     private Sprint sprint;
     private Project project;

@@ -59,14 +59,14 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
 
     protected String determineTargetUrl(HttpServletRequest request, Authentication authentication) {
 
-        boolean isEmployee = false;
+        boolean isUŻYTKOWNIK = false;
         boolean isAdmin = false;
         Collection<? extends GrantedAuthority> authorities
                 = authentication.getAuthorities();
 
         for (GrantedAuthority grantedAuthority : authorities) {
-            if (grantedAuthority.getAuthority().equals("ROLE_EMPLOYEE")) {
-                isEmployee = true;
+            if (grantedAuthority.getAuthority().equals("ROLE_UŻYTKOWNIK")) {
+                isUŻYTKOWNIK = true;
                 break;
             } else if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
                 isAdmin = true;

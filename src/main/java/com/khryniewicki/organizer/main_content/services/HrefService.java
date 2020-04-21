@@ -26,10 +26,14 @@ public class HrefService {
     }
 
     public Long getLast() {
-        Optional<Href> byUsername = hrefRepository.findByUsername(UtillClass.getLoggedInUser().getEmail());
-        if (byUsername.isPresent())
-            return byUsername.get().getIdProject();
-        else return new Href().getIdProject();
+        String EmailBelongsToLoggedUser = UtillClass.getLoggedInUser().getEmail();
+        if (!EmailBelongsToLoggedUser.equals(null)) {
+            Optional<Href> byUsername = hrefRepository.findByUsername(EmailBelongsToLoggedUser);
+            if (byUsername.isPresent())
+                return byUsername.get().getIdProject();
+            else return new Href().getIdProject();
+        }
+        throw new NullPointerException("Użytkownik nie jest zalogowany");
     }
 
     public Project getLastProject() {

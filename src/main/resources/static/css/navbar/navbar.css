@@ -85,5 +85,16 @@
     #dropdown_arrow{
         float: left;
     }
+
+    #NotificationButton{
+        padding: 0!important;
+    }
+    #buttonWithNotifations{
+        padding-left: 0!important;
+    }
+}
+
+#NotificationButton{
+    margin-top: 3px;
 }
 

@@ -47,7 +47,6 @@ public class ProjectsController {
     @PostMapping("/createProject")
     public String createProject(@ModelAttribute("newProject") @Valid ProjectDTO projectDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            bindingResult.rejectValue("avatar","error.newProject","Select avatar");
             return "fragments_projects/addProject";
         }
         projectService.createProject(projectDTO);
@@ -66,7 +65,6 @@ public class ProjectsController {
     @PostMapping("/editproject")
     public String editProject(Model model, @ModelAttribute("oldProject") ProjectDTO projectDTO,BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
-            bindingResult.rejectValue("avatar","error.newProject","Select avatar");
             return "fragments_projects/addProject";
         }
         projectService.updateProject(projectDTO);
