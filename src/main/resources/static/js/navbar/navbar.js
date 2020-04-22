@@ -20,10 +20,8 @@ function myFunction() {
 }
 $(document).mouseup(function(e){
     var container = $(".container-Notification");
-
     if(!container.is(e.target) && container.has(e.target).length === 0){
         container.hide();
-
     }
 });
 

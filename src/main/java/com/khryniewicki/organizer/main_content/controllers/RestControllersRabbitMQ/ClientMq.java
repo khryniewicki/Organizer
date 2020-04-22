@@ -1,4 +1,4 @@
-package com.khryniewicki.organizer.main_content.controllers.RestControllers;
+package com.khryniewicki.organizer.main_content.controllers.RestControllersRabbitMQ;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -20,9 +20,9 @@ public class ClientMq {
         Object message = rabbitTemplate.receiveAndConvert("taskInformation." + userId);
         if (message == null)
             return "Nie ma nowych wiadomości";
-        else{
-
-        return message.toString();
+        else {
+            return message.toString();
+        }
     }
-}}
+}
 

@@ -9,24 +9,32 @@
 }
 .container-dashboard{
     overflow: auto;
+    height: calc(100vh - 200px);
+
+}
+@media screen and (max-height: 820px) {
+    .container-dashboard {
+        height: calc(100vh - 300px)!important;
+    }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
     .container-innerDashboard{
         width: 1000px;
         height: auto;
     }
     .container-dashboard{
         display: inline-block!important;
-        height: 400px;
-        overflow-x: visible!important;
-        overflow-y: hidden;
+        height: calc(100vh - 250px);
+        overflow-x: scroll;
+        overflow-y: scroll;
         width: calc(100% - 20px);
         white-space: normal;
     }
     .tablePROGRESS{
         display: inline-block!important;
     }
+
 }
 #dashBoardRef{
     color: #95999c;
@@ -207,4 +215,7 @@ input[type=submit] {
     .formAutoControl{
         width: 230px!important;
     }
+}
+#user{
+    width: 100% !important;
 }

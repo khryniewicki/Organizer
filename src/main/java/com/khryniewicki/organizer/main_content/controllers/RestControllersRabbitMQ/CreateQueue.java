@@ -1,9 +1,7 @@
-package com.khryniewicki.organizer.main_content.controllers.RestControllers;
+package com.khryniewicki.organizer.main_content.controllers.RestControllersRabbitMQ;
 
-import com.khryniewicki.organizer.main_content.config.RabbitMqConfig;
 import com.khryniewicki.organizer.main_content.services.RabbitService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.amqp.core.*;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-public class createQueue {
+public class CreateQueue {
 
     private final RabbitService rabbitService;
 

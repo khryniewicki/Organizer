@@ -1,4 +1,4 @@
-package com.khryniewicki.organizer.main_content.controllers;
+package com.khryniewicki.organizer.main_content.controllers.Controllers;
 
 import com.khryniewicki.organizer.main_content.Utills.UtillClass;
 import com.khryniewicki.organizer.main_content.model.User;

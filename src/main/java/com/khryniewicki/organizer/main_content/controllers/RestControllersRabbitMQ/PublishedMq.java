@@ -1,15 +1,11 @@
-package com.khryniewicki.organizer.main_content.controllers.RestControllers;
+package com.khryniewicki.organizer.main_content.controllers.RestControllersRabbitMQ;
 
 import com.khryniewicki.organizer.main_content.DTO.MessageDTO;
 import com.khryniewicki.organizer.main_content.model.Message;
 import com.khryniewicki.organizer.main_content.services.MessageServices;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.core.*;
-import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;

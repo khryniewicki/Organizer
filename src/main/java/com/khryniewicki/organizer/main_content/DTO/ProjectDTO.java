@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
 public class ProjectDTO {
     private Long id;
     @NotNull(message = "Nazwa projektu nie może być pusta")
-    @Size(min=2, max=25,message = "Nazwa projektu nie może mieć więcej niż 25 znaków ")
+    @Size(min=2, max=20,message = "Nazwa projektu nie może mieć więcej niż 20 znaków ")
     private String name;
     @Size(max=25,message = "Opis projektu nie może mieć więcej niż 25 znaków ")
     private String description;

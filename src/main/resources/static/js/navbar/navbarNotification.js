@@ -28,28 +28,32 @@ buttonWithNotifations.addEventListener("click", () => {
 
         $.get("/receivetaskInformation/" + idUser,
             function onsuccess(MessageString) {
-                let newMessagesList = document.getElementById('newMessages');
-                let dropdown_item = document.createElement('a');
+                if (MessageString !== "Nie ma nowych wiadomości") {
+                    let newMessagesList = document.getElementById('newMessages');
+                    let dropdown_item = document.createElement('a');
 
-                dropdown_item.setAttribute('class', 'btn dropdown-item w-100 dropdown-item-Notifications font-weight-bold');
-                dropdown_item.innerHTML = MessageString;
+                    dropdown_item.setAttribute('class', 'btn dropdown-item w-100 dropdown-item-Notifications font-weight-bold');
+                    dropdown_item.innerHTML = MessageString;
 
-                deleteLastNodeFromNewMessages();
+                    deleteLastNodeFromNewMessages();
 
-                deleteLastNodeFromOldMessages();
-                deleteLastNodeFromOldMessages();
+                    deleteLastNodeFromOldMessages();
+                    deleteLastNodeFromOldMessages();
 
 
-                newMessagesList.insertBefore(dropdown_item, newMessagesList.childNodes[0]);
+                    newMessagesList.insertBefore(dropdown_item, newMessagesList.childNodes[0]);
+                }
             })
     }
 })
+
 function deleteLastNodeFromOldMessages() {
     let oldMessagesList = document.getElementById('oldMessages');
 
     if (oldMessagesList.childNodes.length > 0) {
         oldMessagesList.lastChild.remove()
-    };
+    }
+    ;
 }
 
 function deleteLastNodeFromNewMessages() {

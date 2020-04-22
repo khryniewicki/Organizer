@@ -10,7 +10,7 @@ body, html {
 
 .container-fluid {
     width: 100%;
-    height: inherit;
+    height: auto;
     padding: 0 !important;
     margin: 0 auto;
 
@@ -35,7 +35,7 @@ body, html {
 }
 
 #project_menu {
-    min-width: 210px;
+    min-width: 250px;
     position: relative;
     height: inherit;
     min-height: 100vh;
@@ -47,19 +47,21 @@ body, html {
 
 #main {
     position: relative;
-    min-height: auto;
-    height: auto;
-    width: calc(100% - 260px);
+    min-height: 100vh;
+    height: inherit;
+    width: calc(100% - 300px);
     max-width: 80%;
     margin: 0 !important;
     float: left;
     padding-left: 1.8% !important;
 }
 
-@media screen and (max-width: 990px){
+@media screen and (max-width: 1000px){
         #main {
             width: calc(100% - 50px);
             max-width: 95%;
+            min-height: calc(100vh - 78px);
+            height: calc(100vh - 78px);
         }
         #project_menu{
             position: relative;
@@ -70,4 +72,5 @@ body, html {
             height: 83px;
             margin-bottom: 5px;
         }
+
 }
