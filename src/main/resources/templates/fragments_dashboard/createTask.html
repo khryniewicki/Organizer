@@ -57,13 +57,15 @@
                             <div th:if="${#fields.hasErrors('name')}" class="errorRED" th:errors="*{name}">Popraw nazwę podsumowania </div>
 
                         </div>
-
                         <div class='form-group'><label for='description'> Opis</label>
-                            <input id='description' class='form-control' type='text'
-                                   th:field="${newTask.description}">
-                            <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="errorRED">Popraw nazwę opisu </div>
+                            <textarea id='description' class='form-control' type='text'
+                                      th:field="${newTask.description}" rows="5"></textarea>
+                            <div th:if="${#fields.hasErrors('description')}" th:errors="*{description}"
+                                 class="errorRED">Popraw nazwę opisu
+                            </div>
 
                         </div>
+
 
                         <div class='form-group'><label for='Priority'> Priorytet</label><span class="required">*</span>
                             <select id='Priority' th:field="${newTask.priority}">

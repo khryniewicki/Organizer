@@ -1,5 +1,6 @@
 package com.khryniewicki.organizer.main_content.services;
 
+import com.khryniewicki.organizer.main_content.model.Project;
 import com.khryniewicki.organizer.main_content.model.Task;
 import com.khryniewicki.organizer.main_content.model.repositories.TaskRepository;
 import com.khryniewicki.organizer.main_content.DTO.TaskDTO;
@@ -17,7 +18,6 @@ public class TaskServices {
     private final TaskRepository taskRepository;
     private final ProgressServices progressServices;
     private final ProjectService projectService;
-    private final HrefService hrefService;
 
     public void saveTask(Task task) {
         taskRepository.save(task);
@@ -75,10 +75,10 @@ public class TaskServices {
         return taskRepository.findAllBySprint(sprintService.findById(id)).orElseThrow(() -> new IllegalArgumentException("brak zadan"));
     }
 
-    public List<Task> taskListByProjectId() {
-        Long last = hrefService.getLast();
-        if (last != null) {
-            Optional<List<Task>> AllTasksByProjectName = taskRepository.findAllByProjectId(last);
+    public List<Task> taskListByProjectId(Project project) {
+
+        if (project != null) {
+            Optional<List<Task>> AllTasksByProjectName = taskRepository.findAllByProjectId(project.getId());
             return AllTasksByProjectName.orElse(new ArrayList<Task>());
         } else return new ArrayList<Task>();
     }

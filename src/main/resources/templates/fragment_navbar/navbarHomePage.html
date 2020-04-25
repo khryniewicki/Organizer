@@ -24,10 +24,7 @@
                th:text="${ActualUserEmail}"></a>
         </div>
         <ul class="navbar-nav mr-auto" id="navbarNavAltMarkup">
-            <li class="nav-item item mx-n1">
-                <a class="nav-item nav-link active " href="/home">Główna <span class="sr-only">(current)</span></a>
-            </li>
-            <div th:switch="${ActualUserEmail}">
+               <div th:switch="${ActualUserEmail}">
                 <a th:case="null"></a>
                 <div th:case="*">
                     <li class="nav-item item">

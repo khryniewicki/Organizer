@@ -72,6 +72,7 @@ public class UserService {
 
 
     private Long getActiveUserId() {
+
         return UtillClass.getLoggedInUser().getIdUser();
     }
 

@@ -37,8 +37,10 @@ public class UtillClass {
 
     public static User getLoggedInUser() {
         HttpSession session = getCurrentHttpRequest().getSession(false);
+        if (session!=null)
         return (User) session.getAttribute("appUser");
-
+        else
+            return new User();
     }
 
     public static HttpServletRequest getCurrentHttpRequest() {
