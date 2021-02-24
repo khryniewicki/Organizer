@@ -1,3 +1,5 @@
+### Organizer [PL]
+
 Organizer to aplikacja do zarządzania projektami, dzięki której w łatwy sposób można sporządzić harmonogram prac oraz śledzić postępy. Aplikacja jest wzorowana na oprogramowaniu Jira.
 W aplikacji zastosowano m.in. Javę, Springa, Hibernate'a, SQL, Thymeleaf'a,RabbitMQ oraz JavaScript.
 Organizer posiada funckjonalności:
@@ -6,9 +8,13 @@ Organizer posiada funckjonalności:
 - delegowania zadań, ustawiania priorytetów zadań
 - zmianę postępów zadań
 
-Sprawdź : organizer.khryniewicki.com.pl
+Sprawdź: 
+\
+https://organizer.khryniewicki.pl
 
-______________________________________________________________________________________________________________________________________________________________________________
+----
+
+### Organizer [ENG]
 
 Organizer is a project management application that allows you to easily create a work schedule and track progress. The application is based on the Jira software.
 The application uses, among others Java, Spring, Hibernate, SQL,RabbitMQ Thymeleaf and JavaScript.
@@ -18,4 +24,6 @@ Organizer has many functionalities, such as:
 - delegating tasks, setting task priorities
 - changing task progress
 
-Check: organizer.khryniewicki.com.pl
+Check:
+\
+https://organizer.khryniewicki.pl
