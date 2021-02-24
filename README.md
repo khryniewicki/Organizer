@@ -3,10 +3,10 @@
 Organizer to aplikacja do zarządzania projektami, dzięki której w łatwy sposób można sporządzić harmonogram prac oraz śledzić postępy. Aplikacja jest wzorowana na oprogramowaniu Jira.
 W aplikacji zastosowano m.in. Javę, Springa, Hibernate'a, SQL, Thymeleaf'a,RabbitMQ oraz JavaScript.
 Organizer posiada funckjonalności:
-- rejestracji i logowania użytkownika
-- dodawania/modyfikacji projektów  oraz sprintów
-- delegowania zadań, ustawiania priorytetów zadań
-- zmianę postępów zadań
+- [x] rejestracji i logowania użytkownika
+- [x] dodawania/modyfikacji projektów  oraz sprintów
+- [x] delegowania zadań, ustawiania priorytetów zadań
+- [x] zmianę postępów zadań
 
 Sprawdź: 
 \
@@ -19,10 +19,10 @@ https://organizer.khryniewicki.pl
 Organizer is a project management application that allows you to easily create a work schedule and track progress. The application is based on the Jira software.
 The application uses, among others Java, Spring, Hibernate, SQL,RabbitMQ Thymeleaf and JavaScript.
 Organizer has many functionalities, such as:
-- user registration and login
-- adding / modifying projects and sprints
-- delegating tasks, setting task priorities
-- changing task progress
+- [x] user registration and login
+- [x] adding / modifying projects and sprints
+- [x] delegating tasks, setting task priorities
+- [x] changing task progress
 
 Check:
 \
