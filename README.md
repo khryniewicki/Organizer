@@ -10,7 +10,7 @@ Organizer posiada funckjonalności:
 
 Sprawdź: 
 \
-https://organizer.khryniewicki.pl
+`<link>` : https://organizer.khryniewicki.pl
 
 ----
 
@@ -26,4 +26,4 @@ Organizer has many functionalities, such as:
 
 Check:
 \
-https://organizer.khryniewicki.pl
+`<link>` : https://organizer.khryniewicki.pl
